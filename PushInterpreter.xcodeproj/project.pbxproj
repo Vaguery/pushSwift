@@ -1,0 +1,414 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A961B505193F9EE9004289EF /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A961B504193F9EE9004289EF /* main.swift */; };
+		A961B507193F9EE9004289EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A961B506193F9EE9004289EF /* AppDelegate.swift */; };
+		A961B509193F9EE9004289EF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A961B508193F9EE9004289EF /* Images.xcassets */; };
+		A961B50C193F9EEA004289EF /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A961B50A193F9EEA004289EF /* MainMenu.xib */; };
+		A961B518193F9EEA004289EF /* PushInterpreterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A961B517193F9EEA004289EF /* PushInterpreterTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A961B512193F9EEA004289EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A961B4F7193F9EE9004289EF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A961B4FE193F9EE9004289EF;
+			remoteInfo = PushInterpreter;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		A961B4FF193F9EE9004289EF /* PushInterpreter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PushInterpreter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A961B503193F9EE9004289EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A961B504193F9EE9004289EF /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		A961B506193F9EE9004289EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A961B508193F9EE9004289EF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A961B50B193F9EEA004289EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		A961B511193F9EEA004289EF /* PushInterpreterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PushInterpreterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A961B516193F9EEA004289EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A961B517193F9EEA004289EF /* PushInterpreterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushInterpreterTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A961B4FC193F9EE9004289EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A961B50E193F9EEA004289EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A961B4F6193F9EE9004289EF = {
+			isa = PBXGroup;
+			children = (
+				A961B501193F9EE9004289EF /* PushInterpreter */,
+				A961B514193F9EEA004289EF /* PushInterpreterTests */,
+				A961B500193F9EE9004289EF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A961B500193F9EE9004289EF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A961B4FF193F9EE9004289EF /* PushInterpreter.app */,
+				A961B511193F9EEA004289EF /* PushInterpreterTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A961B501193F9EE9004289EF /* PushInterpreter */ = {
+			isa = PBXGroup;
+			children = (
+				A961B506193F9EE9004289EF /* AppDelegate.swift */,
+				A961B508193F9EE9004289EF /* Images.xcassets */,
+				A961B50A193F9EEA004289EF /* MainMenu.xib */,
+				A961B502193F9EE9004289EF /* Supporting Files */,
+			);
+			path = PushInterpreter;
+			sourceTree = "<group>";
+		};
+		A961B502193F9EE9004289EF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A961B503193F9EE9004289EF /* Info.plist */,
+				A961B504193F9EE9004289EF /* main.swift */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A961B514193F9EEA004289EF /* PushInterpreterTests */ = {
+			isa = PBXGroup;
+			children = (
+				A961B517193F9EEA004289EF /* PushInterpreterTests.swift */,
+				A961B515193F9EEA004289EF /* Supporting Files */,
+			);
+			path = PushInterpreterTests;
+			sourceTree = "<group>";
+		};
+		A961B515193F9EEA004289EF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A961B516193F9EEA004289EF /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A961B4FE193F9EE9004289EF /* PushInterpreter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A961B51B193F9EEA004289EF /* Build configuration list for PBXNativeTarget "PushInterpreter" */;
+			buildPhases = (
+				A961B4FB193F9EE9004289EF /* Sources */,
+				A961B4FC193F9EE9004289EF /* Frameworks */,
+				A961B4FD193F9EE9004289EF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PushInterpreter;
+			productName = PushInterpreter;
+			productReference = A961B4FF193F9EE9004289EF /* PushInterpreter.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A961B510193F9EEA004289EF /* PushInterpreterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A961B51E193F9EEA004289EF /* Build configuration list for PBXNativeTarget "PushInterpreterTests" */;
+			buildPhases = (
+				A961B50D193F9EEA004289EF /* Sources */,
+				A961B50E193F9EEA004289EF /* Frameworks */,
+				A961B50F193F9EEA004289EF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A961B513193F9EEA004289EF /* PBXTargetDependency */,
+			);
+			name = PushInterpreterTests;
+			productName = PushInterpreterTests;
+			productReference = A961B511193F9EEA004289EF /* PushInterpreterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A961B4F7193F9EE9004289EF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = "Bill Tozier";
+				TargetAttributes = {
+					A961B4FE193F9EE9004289EF = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					A961B510193F9EEA004289EF = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = A961B4FE193F9EE9004289EF;
+					};
+				};
+			};
+			buildConfigurationList = A961B4FA193F9EE9004289EF /* Build configuration list for PBXProject "PushInterpreter" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A961B4F6193F9EE9004289EF;
+			productRefGroup = A961B500193F9EE9004289EF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A961B4FE193F9EE9004289EF /* PushInterpreter */,
+				A961B510193F9EEA004289EF /* PushInterpreterTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A961B4FD193F9EE9004289EF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A961B509193F9EE9004289EF /* Images.xcassets in Resources */,
+				A961B50C193F9EEA004289EF /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A961B50F193F9EEA004289EF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A961B4FB193F9EE9004289EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A961B507193F9EE9004289EF /* AppDelegate.swift in Sources */,
+				A961B505193F9EE9004289EF /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A961B50D193F9EEA004289EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A961B518193F9EEA004289EF /* PushInterpreterTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A961B513193F9EEA004289EF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A961B4FE193F9EE9004289EF /* PushInterpreter */;
+			targetProxy = A961B512193F9EEA004289EF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		A961B50A193F9EEA004289EF /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A961B50B193F9EEA004289EF /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A961B519193F9EEA004289EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				METAL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A961B51A193F9EEA004289EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				METAL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		A961B51C193F9EEA004289EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = PushInterpreter/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A961B51D193F9EEA004289EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = PushInterpreter/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		A961B51F193F9EEA004289EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PushInterpreter.app/Contents/MacOS/PushInterpreter";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PushInterpreterTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				METAL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Debug;
+		};
+		A961B520193F9EEA004289EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PushInterpreter.app/Contents/MacOS/PushInterpreter";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PushInterpreterTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				METAL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A961B4FA193F9EE9004289EF /* Build configuration list for PBXProject "PushInterpreter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A961B519193F9EEA004289EF /* Debug */,
+				A961B51A193F9EEA004289EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A961B51B193F9EEA004289EF /* Build configuration list for PBXNativeTarget "PushInterpreter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A961B51C193F9EEA004289EF /* Debug */,
+				A961B51D193F9EEA004289EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		A961B51E193F9EEA004289EF /* Build configuration list for PBXNativeTarget "PushInterpreterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A961B51F193F9EEA004289EF /* Debug */,
+				A961B520193F9EEA004289EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A961B4F7193F9EE9004289EF /* Project object */;
+}
