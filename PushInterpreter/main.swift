@@ -10,8 +10,12 @@ import Cocoa
 
 NSApplicationMain(C_ARGC, C_ARGV)
 
+// PushProgramPoints
 
-// stacks
+
+
+
+// Stacks
 
 class PushStack<T> {
     
@@ -31,5 +35,24 @@ class PushStack<T> {
     
     func length() -> Int {
         return items.count
+    }
+    
+    func swap() {
+        if items.count > 1 {
+            let old_top = self.pop()
+            let old_second = self.pop()
+            self.push(old_top!)
+            self.push(old_second!)
+        }
+    }
+    
+    func dup() {
+        items.unshare()
+        if items.count > 0 {
+            let top_one = self.pop()
+            let new_one = top_one!
+            self.push(top_one!)
+            self.push(new_one)              // feels as though this might cause trouble if working byRef
+        }
     }
 }

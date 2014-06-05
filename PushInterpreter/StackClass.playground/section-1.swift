@@ -1,6 +1,7 @@
 // Playground - noun: a place where people can play
 
 import Foundation
+import Cocoa
 
 let y = 2 + 2
 
@@ -38,7 +39,3 @@ var i2:Int? = intArray.pop()
 var i1:Int? = intArray.pop()
 
 var i0:Int? = intArray.pop()
-
-intArray
-
-var iWhat:Int? = intArray.pop()
