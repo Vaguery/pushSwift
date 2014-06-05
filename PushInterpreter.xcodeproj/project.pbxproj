@@ -34,6 +34,7 @@
 		A961B511193F9EEA004289EF /* PushInterpreterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PushInterpreterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A961B516193F9EEA004289EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A961B517193F9EEA004289EF /* PushInterpreterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushInterpreterTests.swift; sourceTree = "<group>"; };
+		A993AE9B194081C1001F0C0A /* StackClass.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = StackClass.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +80,7 @@
 				A961B508193F9EE9004289EF /* Images.xcassets */,
 				A961B50A193F9EEA004289EF /* MainMenu.xib */,
 				A961B502193F9EE9004289EF /* Supporting Files */,
+				A993AE9B194081C1001F0C0A /* StackClass.playground */,
 			);
 			path = PushInterpreter;
 			sourceTree = "<group>";
@@ -399,6 +401,7 @@
 				A961B51D193F9EEA004289EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A961B51E193F9EEA004289EF /* Build configuration list for PBXNativeTarget "PushInterpreterTests" */ = {
 			isa = XCConfigurationList;
@@ -407,6 +410,7 @@
 				A961B520193F9EEA004289EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

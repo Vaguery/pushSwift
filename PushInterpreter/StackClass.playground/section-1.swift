@@ -1,17 +1,8 @@
-//
-//  main.swift
-//  PushInterpreter
-//
-//  Created by Bill Tozier on 6/4/14.
-//  Copyright (c) 2014 Bill Tozier. All rights reserved.
-//
+// Playground - noun: a place where people can play
 
-import Cocoa
+import Foundation
 
-NSApplicationMain(C_ARGC, C_ARGV)
-
-
-// stacks
+let y = 2 + 2
 
 class PushStack<T> {
     
@@ -33,3 +24,21 @@ class PushStack<T> {
         return items.count
     }
 }
+
+var intArray = PushStack<Int>()
+intArray.push(3)
+intArray.push(22)
+intArray.push(111)
+
+intArray.items
+
+
+var i2:Int? = intArray.pop()
+
+var i1:Int? = intArray.pop()
+
+var i0:Int? = intArray.pop()
+
+intArray
+
+var iWhat:Int? = intArray.pop()
