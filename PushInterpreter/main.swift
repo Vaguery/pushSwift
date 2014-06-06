@@ -50,7 +50,8 @@ class PushStack<T> {
             let top_one = self.pop()
             let new_one = top_one!
             self.push(top_one!)
-            self.push(new_one)              // feels as though this might cause trouble if working byRef
+            self.push(new_one)
+            // this will cause trouble for complex items
         }
     }
 }
