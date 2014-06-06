@@ -1,46 +1,43 @@
 // Playground - noun: a place where people can play
 
-import Foundation
 import Cocoa
+import XCTest
 
-let y = 2 + 2
+// PushProgramPoints
 
-class PushStack<T> {
-    
-    var items = T[]()
-    
-    func push(item: T) {
-        items.append(item)
-    }
-    
-    func pop() -> T? {
-        if items.count == 0 {
-            return nil
-        } else {
-            return items.removeLast()
-        }
-    }
-    
-    func length() -> Int {
-        return items.count
-    }
+2+2
+
+// DeepCopyable
+
+@objc protocol DeepCopyable {
+    class func deep_copy() -> Self
 }
 
-var intArray = PushStack<Int>()
-intArray.push(3)
-intArray.push(22)
-intArray.push(111)
 
-intArray.items
+class NonconformingClass {
+}
 
 
-var i2:Int? = intArray.pop()
-
-var i1:Int? = intArray.pop()
-
-var i0:Int? = intArray.pop()
+class ImmediatelyConformingClass: DeepCopyable {
+    class func deep_copy() -> ImmediatelyConformingClass { return ImmediatelyConformingClass() }
+}
 
 
-//@objc protocol DeepCopyable {
-//    class func deep_copy() -> T
+class EventuallyConformingClass {
+}
+
+
+//struct ConformingStruct:DeepCopyable {
+//    mutating func deep_copy() -> ConformingStruct { return ConformingStruct() }
 //}
+
+
+extension EventuallyConformingClass: DeepCopyable {
+    class func deep_copy() -> EventuallyConformingClass { return EventuallyConformingClass() }
+}
+
+
+NonconformingClass() as? DeepCopyable
+ImmediatelyConformingClass() as? DeepCopyable
+EventuallyConformingClass() as? DeepCopyable
+

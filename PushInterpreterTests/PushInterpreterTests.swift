@@ -11,6 +11,7 @@ import PushInterpreter
 
 class StackTests: XCTestCase {
     
+    /////////////////////////////////
     // initialization
 
     func testNewPushStackHasNoItems() {
@@ -20,13 +21,15 @@ class StackTests: XCTestCase {
     
     func testDeepCopyableProtocol() {
         class Foo {}
-        XCTAssertFalse(Foo() as? DeepCopyable, "This class should not be DeepCopyable")
+        XCTAssertNil(Foo() as? DeepCopyable, "This class should not be DeepCopyable")
+        
         class Bar: DeepCopyable {
-            class func deep_copy() { }
+            class func deep_copy() -> Bar { return Bar() }
         }
-//        XCTAssertTrue(Bar() as? DeepCopyable, "This class should be DeepCopyable") // crashes compiler?
+        XCTAssertNotNil(Bar() as? DeepCopyable,"This class should be DeepCopyable")
     }
     
+    /////////////////////////
     // push
     
     func testPushStackPushing() {

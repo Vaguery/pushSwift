@@ -16,7 +16,7 @@ NSApplicationMain(C_ARGC, C_ARGV)
 // DeepCopyable
 
 @objc protocol DeepCopyable {
-    class func deep_copy()
+    class func deep_copy() -> Self
 }
 
 
