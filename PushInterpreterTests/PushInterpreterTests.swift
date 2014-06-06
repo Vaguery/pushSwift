@@ -19,16 +19,6 @@ class StackTests: XCTestCase {
         XCTAssertTrue(myIntStack.items.count == 0, "New PushStack should be empty")
     }
     
-    func testDeepCopyableProtocol() {
-        class Foo {}
-        XCTAssertNil(Foo() as? DeepCopyable, "This class should not be DeepCopyable")
-        
-        class Bar: DeepCopyable {
-            class func deep_copy() -> Bar { return Bar() }
-        }
-        XCTAssertNotNil(Bar() as? DeepCopyable,"This class should be DeepCopyable")
-    }
-    
     /////////////////////////
     // push
     
