@@ -13,6 +13,11 @@ NSApplicationMain(C_ARGC, C_ARGV)
 // PushProgramPoints
 
 
+// DeepCopyable
+
+@objc protocol DeepCopyable {
+    class func deep_copy()
+}
 
 
 // Stacks

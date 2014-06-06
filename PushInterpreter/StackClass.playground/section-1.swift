@@ -39,3 +39,8 @@ var i2:Int? = intArray.pop()
 var i1:Int? = intArray.pop()
 
 var i0:Int? = intArray.pop()
+
+
+//@objc protocol DeepCopyable {
+//    class func deep_copy() -> T
+//}

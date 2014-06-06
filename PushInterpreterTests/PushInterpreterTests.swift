@@ -11,24 +11,31 @@ import PushInterpreter
 
 class StackTests: XCTestCase {
     
-    override func setUp() {
-        super.setUp()
+    // initialization
+
+    func testNewPushStackHasNoItems() {
+        var myIntStack = PushStack<Int>()
+        XCTAssertTrue(myIntStack.items.count == 0, "New PushStack should be empty")
     }
     
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+    func testDeepCopyableProtocol() {
+        class Foo {}
+        XCTAssertFalse(Foo() as? DeepCopyable, "This class should not be DeepCopyable")
+        class Bar: DeepCopyable {
+            class func deep_copy() { }
+        }
+//        XCTAssertTrue(Bar() as? DeepCopyable, "This class should be DeepCopyable") // crashes compiler?
     }
     
     // push
     
-    func testPushing() {
+    func testPushStackPushing() {
         var myIntStack = PushStack<Int>()
         myIntStack.push(3)
         XCTAssertTrue(myIntStack.length() == 1, "Integer was not pushed")
     }
     
-    func testMultiplePushing() {
+    func testPushStackrepeatedPushing() {
         var myIntStack = PushStack<Int>()
         myIntStack.push(3)
         myIntStack.push(2)
@@ -38,7 +45,7 @@ class StackTests: XCTestCase {
     
     // pop
     
-    func testPopping() {
+    func testPushStackPoppingRetrievesTopItem() {
         var myIntStack = PushStack<Int>()
         myIntStack.push(11)
         XCTAssertTrue(myIntStack.pop() == 11, "Topmost item on stack was not returned")
