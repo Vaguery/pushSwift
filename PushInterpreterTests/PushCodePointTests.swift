@@ -26,4 +26,8 @@ class PushCodePointTests: XCTestCase {
         let doublePoint = PushCodePoint<Double>(value: -771.221)
         XCTAssertTrue(doublePoint.value == -771.221, "Code point has wrong value")
     }
+    
+    
+    // PushInstruction class
+    
 }
