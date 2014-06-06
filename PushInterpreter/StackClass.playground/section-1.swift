@@ -41,3 +41,19 @@ NonconformingClass() as? DeepCopyable
 ImmediatelyConformingClass() as? DeepCopyable
 EventuallyConformingClass() as? DeepCopyable
 
+
+// Parsing scripts
+
+class PushParser {
+    
+    var tokens:String[] = []
+    
+    func parseScript(script:String) {
+        self.tokens = script.componentsSeparatedByString(" ")
+    }
+}
+
+var myParser = PushParser()
+myParser.parseScript("foo bar")
+myParser.tokens
+
