@@ -13,10 +13,10 @@ class PushParserTests: XCTestCase {
 
     func testParserSplitsScriptOnWhitespace() {
         var myInterpreter = PushInterpreter()
-        myInterpreter.parse( "foo bar" )
-        XCTAssertTrue(myInterpreter.execStack.items.count == 2, "All tokens were not saved")
-        XCTAssertTrue(myInterpreter.execStack.items[0].value == "foo", "Script parsing missed a token")
-        XCTAssertTrue(myInterpreter.execStack.items[1].value == "bar", "Script parsing missed a token")
+        let parsedPoints = myInterpreter.parse( "F T" )
+        XCTAssertTrue(parsedPoints.contents.count == 2, "All tokens were not saved")
+//        XCTAssertTrue(parsedPoints.contents[0].value == true, "Script parsing missed a token")
+//        XCTAssertTrue(parsedPoints.contents[1].value == false, "Script parsing missed a token")
     }
     
 //    func testParserSkipsMultipleWhitespace() {

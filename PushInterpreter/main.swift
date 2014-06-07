@@ -14,51 +14,87 @@ NSApplicationMain(C_ARGC, C_ARGV)
 // PushCodePoints (simplified)
 
 
+@objc protocol DeepCopyable {
+    func deep_copy() -> Self
+}
+
 class PushPoint {
 }
 
 class LiteralPoint:PushPoint {
 }
 
-class IntPoint:LiteralPoint {
-    var value:Int? = 0
-    init(i:Int?) {
+
+class IntPoint:LiteralPoint, DeepCopyable {
+    var value:Int = 0
+    init(i:Int) {
         value = i
     }
+    func deep_copy() -> IntPoint {
+        return IntPoint(i: value)
+    }
 }
 
-class BoolPoint:LiteralPoint {
-    var value:Bool? = nil
-    init(b:Bool?) {
+
+class BoolPoint:LiteralPoint, DeepCopyable {
+    var value:Bool = false
+    init(b:Bool) {
         value = b
     }
+    func deep_copy() -> BoolPoint {
+        return BoolPoint(b: value)
+    }
 }
 
-class FloatPoint:LiteralPoint {
-    var value:Double? = nil
-    init(d:Double?) {
+
+class FloatPoint:LiteralPoint, DeepCopyable {
+    var value:Double = 0.0
+    init(d:Double) {
         value = d
     }
+    func deep_copy() -> FloatPoint {
+        return FloatPoint(d: value)
+    }
 }
 
-class InstructionPoint:LiteralPoint {
-    var value:String? = nil
-    init(s:String?) {
+
+class InstructionPoint:LiteralPoint, DeepCopyable {
+    var value:String = ""
+    init(s:String) {
         value = s
     }
-}
-
-class NamePoint:LiteralPoint {
-    var value:String? = nil
-    init(n:String?) {
-        value = n
+    func deep_copy() -> InstructionPoint {
+        return InstructionPoint(s: value)
     }
 }
 
-class BlockPoint:PushPoint {
-    var contents:PushPoint[] = []
-    init(block:PushPoint[]) {
-        contents = block
+
+class NamePoint:LiteralPoint, DeepCopyable {
+    var value:String = ""
+    init(n:String) {
+        value = n
+    }
+    func deep_copy() -> NamePoint {
+        return NamePoint(n: value)
+    }
+}
+
+
+class BlockPoint:PushPoint,DeepCopyable {
+    var contents:DeepCopyable[] = []
+    
+    init(points: DeepCopyable[]) {
+        for item in points {
+            contents += item.deep_copy()
+        }
+    }
+    
+    func deep_copy() -> BlockPoint {
+        var copy:DeepCopyable[] = []
+        if contents.count > 0 {
+            copy = contents.map( {item in item.deep_copy()} )
+        }
+        return BlockPoint(points: copy)
     }
 }
 
@@ -116,14 +152,14 @@ class PushInterpreter {
     var intStack:  PushStack<IntPoint>   = PushStack<IntPoint>()
     var boolStack: PushStack<BoolPoint>  = PushStack<BoolPoint>()
     var floatStack:PushStack<FloatPoint> = PushStack<FloatPoint>()
-    var codeStack: PushStack<CodePoint>  = PushStack<CodePoint>()
-    var execStack: PushStack<CodePoint>  = PushStack<CodePoint>()
+    var codeStack: PushStack<PushPoint>  = PushStack<PushPoint>()
+    var execStack: PushStack<PushPoint>  = PushStack<PushPoint>()
 
     
-    func parse(script:String) -> PushPoint[] {
+    func parse(script:String) -> BlockPoint {
         
         var tokens:String[] = []
-        var points:PushPoint[] = []
+        var points = BlockPoint(points:[])
         
         tokens = script.componentsSeparatedByCharactersInSet(
             NSCharacterSet.whitespaceAndNewlineCharacterSet()
@@ -131,17 +167,15 @@ class PushInterpreter {
                 {(s1:String) -> Bool in return s1 != ""}
         )
         
-        
         for token in tokens {
-            points.append(programPointFromToken(token))
-            
+            points.contents.append(programPointFromToken(token))
         }
         
         return points
     }
     
     
-    func programPointFromToken(token:String) -> PushPoint {
+    func programPointFromToken(token:String) -> DeepCopyable {
         switch token {
             case "T":
                 return BoolPoint(b: true)
