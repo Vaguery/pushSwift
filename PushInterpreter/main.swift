@@ -18,8 +18,10 @@ NSApplicationMain(C_ARGC, C_ARGV)
     func deep_copy() -> Self
 }
 
-class PushPoint {
+
+class PushPoint {  // Abstract
 }
+
 
 class LiteralPoint:PushPoint {
 }
@@ -80,19 +82,20 @@ class NamePoint:LiteralPoint, DeepCopyable {
 }
 
 
+
 class BlockPoint:PushPoint,DeepCopyable {
-    var contents:DeepCopyable[] = []
+    var value:DeepCopyable[] = []
     
     init(points: DeepCopyable[]) {
         for item in points {
-            contents += item.deep_copy()
+            value += item.deep_copy()
         }
     }
     
     func deep_copy() -> BlockPoint {
         var copy:DeepCopyable[] = []
-        if contents.count > 0 {
-            copy = contents.map( {item in item.deep_copy()} )
+        if value.count > 0 {
+            copy = value.map( {item in item.deep_copy()} )
         }
         return BlockPoint(points: copy)
     }
@@ -168,7 +171,7 @@ class PushInterpreter {
         )
         
         for token in tokens {
-            points.contents.append(programPointFromToken(token))
+            points.value.append(programPointFromToken(token))
         }
         
         return points

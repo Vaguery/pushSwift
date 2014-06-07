@@ -44,21 +44,21 @@ class ProgramPointTests: XCTestCase {
         let myBool = BoolPoint(b:false)
         
         let myBlock = BlockPoint(points: [myInt,myBool])
-        XCTAssertTrue(myBlock.contents.count == 2, "BlockPoint is missing elements")
-        XCTAssertTrue(myBlock.contents[0] as? IntPoint, "BlockPoints should only contain PushPoints")
-        XCTAssertTrue(myBlock.contents[1] as? BoolPoint, "BlockPoints should only contain PushPoints")
+        XCTAssertTrue(myBlock.value.count == 2, "BlockPoint is missing elements")
+        XCTAssertTrue(myBlock.value[0] as? IntPoint, "BlockPoints should only contain PushPoints")
+        XCTAssertTrue(myBlock.value[1] as? BoolPoint, "BlockPoints should only contain PushPoints")
     }
     
     func testBlockPointsWorkWithEmptyArrays() {
         let myBlock = BlockPoint(points:[])
-        XCTAssertTrue(myBlock.contents.count == 0, "BlockPoint should have no elements")
+        XCTAssertTrue(myBlock.value.count == 0, "BlockPoint should have no elements")
     }
     
     func testBlockPointCreatedByValueNotByReference() {
         let myInt = IntPoint(i:13)
         let myBool = BoolPoint(b:false)
         let myBlock = BlockPoint(points: [myInt,myBool])
-        XCTAssertFalse(myBlock.contents[0] === myInt, "BlockPoints should contain COPIES of items passed in")
+        XCTAssertFalse(myBlock.value[0] === myInt, "BlockPoints should contain COPIES of items passed in")
     }
     
     
