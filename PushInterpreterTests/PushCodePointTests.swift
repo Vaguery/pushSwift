@@ -28,7 +28,7 @@ class ProgramPointTests: XCTestCase {
         let myPoint = BoolPoint(b:false)
         XCTAssertTrue(myPoint.value == false, "Program Point has wrong value")
     }
-    
+     
     func testInstructionPointsAreIntializedRight() {
         let myPoint = InstructionPoint(s: "bool_and")
         XCTAssertTrue(myPoint.value == "bool_and", "Program Point has wrong value")
