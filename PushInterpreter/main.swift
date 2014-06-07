@@ -10,9 +10,61 @@ import Cocoa
 
 NSApplicationMain(C_ARGC, C_ARGV)
 
-// PushProgramPoints
+//////////////////////////////
+// PushCodePoints (simplified)
 
 
+class PushPoint {
+}
+
+class LiteralPoint:PushPoint {
+}
+
+class IntPoint:LiteralPoint {
+    var value:Int? = 0
+    init(i:Int?) {
+        value = i
+    }
+}
+
+class BoolPoint:LiteralPoint {
+    var value:Bool? = nil
+    init(b:Bool?) {
+        value = b
+    }
+}
+
+class FloatPoint:LiteralPoint {
+    var value:Double? = nil
+    init(d:Double?) {
+        value = d
+    }
+}
+
+class InstructionPoint:LiteralPoint {
+    var value:String? = nil
+    init(s:String?) {
+        value = s
+    }
+}
+
+class NamePoint:LiteralPoint {
+    var value:String? = nil
+    init(n:String?) {
+        value = n
+    }
+}
+
+class BlockPoint:PushPoint {
+    var contents:PushPoint[] = []
+    init(block:PushPoint[]) {
+        contents = block
+    }
+}
+
+
+
+/////////
 // Stacks
 
 class PushStack<T> {
@@ -52,6 +104,51 @@ class PushStack<T> {
             self.push(top_one!)
             self.push(new_one)
             // this will cause trouble for complex items
+        }
+    }
+}
+
+//////////////////
+// PushInterpreter
+
+class PushInterpreter {
+    
+    var intStack:  PushStack<IntPoint>   = PushStack<IntPoint>()
+    var boolStack: PushStack<BoolPoint>  = PushStack<BoolPoint>()
+    var floatStack:PushStack<FloatPoint> = PushStack<FloatPoint>()
+    var codeStack: PushStack<CodePoint>  = PushStack<CodePoint>()
+    var execStack: PushStack<CodePoint>  = PushStack<CodePoint>()
+
+    
+    func parse(script:String) -> PushPoint[] {
+        
+        var tokens:String[] = []
+        var points:PushPoint[] = []
+        
+        tokens = script.componentsSeparatedByCharactersInSet(
+            NSCharacterSet.whitespaceAndNewlineCharacterSet()
+            ).filter(
+                {(s1:String) -> Bool in return s1 != ""}
+        )
+        
+        
+        for token in tokens {
+            points.append(programPointFromToken(token))
+            
+        }
+        
+        return points
+    }
+    
+    
+    func programPointFromToken(token:String) -> PushPoint {
+        switch token {
+            case "T":
+                return BoolPoint(b: true)
+            case "F":
+                return BoolPoint(b:false)
+            default:
+                return NamePoint(n: token)
         }
     }
 }

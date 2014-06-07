@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A947D5BF1941EE0E0009118D /* pushParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A947D5BE1941EE0E0009118D /* pushParser.swift */; };
 		A947D5C11941EE610009118D /* PushParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A947D5C01941EE610009118D /* PushParserTests.swift */; };
 		A947D5C3194245F30009118D /* PushCodePointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A947D5C2194245F30009118D /* PushCodePointTests.swift */; };
 		A961B505193F9EE9004289EF /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A961B504193F9EE9004289EF /* main.swift */; };
@@ -15,6 +14,7 @@
 		A961B509193F9EE9004289EF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A961B508193F9EE9004289EF /* Images.xcassets */; };
 		A961B50C193F9EEA004289EF /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A961B50A193F9EEA004289EF /* MainMenu.xib */; };
 		A961B518193F9EEA004289EF /* PushInterpreterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A961B517193F9EEA004289EF /* PushInterpreterTests.swift */; };
+		A9CAE67B19432BC0006E5A9B /* InterpreterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CAE67A19432BC0006E5A9B /* InterpreterTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,7 +28,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A947D5BE1941EE0E0009118D /* pushParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pushParser.swift; sourceTree = "<group>"; };
 		A947D5C01941EE610009118D /* PushParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushParserTests.swift; sourceTree = "<group>"; };
 		A947D5C2194245F30009118D /* PushCodePointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushCodePointTests.swift; sourceTree = "<group>"; };
 		A961B4FF193F9EE9004289EF /* PushInterpreter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PushInterpreter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -41,6 +40,7 @@
 		A961B516193F9EEA004289EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A961B517193F9EEA004289EF /* PushInterpreterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushInterpreterTests.swift; sourceTree = "<group>"; };
 		A993AE9B194081C1001F0C0A /* StackClass.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = StackClass.playground; sourceTree = "<group>"; };
+		A9CAE67A19432BC0006E5A9B /* InterpreterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterpreterTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +96,6 @@
 			children = (
 				A961B503193F9EE9004289EF /* Info.plist */,
 				A961B504193F9EE9004289EF /* main.swift */,
-				A947D5BE1941EE0E0009118D /* pushParser.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -104,6 +103,7 @@
 		A961B514193F9EEA004289EF /* PushInterpreterTests */ = {
 			isa = PBXGroup;
 			children = (
+				A9CAE67A19432BC0006E5A9B /* InterpreterTests.swift */,
 				A947D5C2194245F30009118D /* PushCodePointTests.swift */,
 				A947D5C01941EE610009118D /* PushParserTests.swift */,
 				A961B517193F9EEA004289EF /* PushInterpreterTests.swift */,
@@ -219,7 +219,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A947D5BF1941EE0E0009118D /* pushParser.swift in Sources */,
 				A961B507193F9EE9004289EF /* AppDelegate.swift in Sources */,
 				A961B505193F9EE9004289EF /* main.swift in Sources */,
 			);
@@ -229,6 +228,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9CAE67B19432BC0006E5A9B /* InterpreterTests.swift in Sources */,
 				A947D5C11941EE610009118D /* PushParserTests.swift in Sources */,
 				A961B518193F9EEA004289EF /* PushInterpreterTests.swift in Sources */,
 				A947D5C3194245F30009118D /* PushCodePointTests.swift in Sources */,

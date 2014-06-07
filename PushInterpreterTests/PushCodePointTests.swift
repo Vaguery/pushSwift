@@ -10,24 +10,25 @@ import XCTest
 import PushInterpreter
 
 
-class PushCodePointTests: XCTestCase {
+class ProgramPointTests: XCTestCase {
 
-    func testIntCodePointInitializedRight() {
-        let intPoint = PushCodePoint<Int>(value: 44)
-        XCTAssertTrue(intPoint.value == 44, "Code point has wrong value")
+    func testIntPointsAreInitializedRight() {
+        let myPoint = IntPoint(i:13)
+        XCTAssertTrue(myPoint.value == 13, "Program Point has wrong value")
     }
     
-    func testBoolCodePointInitializedRight() {
-        let boolPoint = PushCodePoint<Bool>(value: false)
-        XCTAssertTrue(boolPoint.value == false, "Code point has wrong value")
+    func testFloatPointsAreInitializedRight() {
+        let myPoint = FloatPoint(d:13.1415)
+        XCTAssertTrue(myPoint.value == 13.1415, "Program Point has wrong value")
     }
     
-    func testDoubleCodePointInitializedRight() {
-        let doublePoint = PushCodePoint<Double>(value: -771.221)
-        XCTAssertTrue(doublePoint.value == -771.221, "Code point has wrong value")
+    func testBoolPointsAreInitializedRight() {
+        let myPoint = BoolPoint(b:false)
+        XCTAssertTrue(myPoint.value == false, "Program Point has wrong value")
     }
-    
-    
-    // PushInstruction class
-    
+
+    func testCodePointsAreInitializedRight() {
+        let myPoint = CodePoint(s:"7 9 + )")
+        XCTAssertTrue(myPoint.value == "7 9 + )", "Program Point has wrong value")
+    }
 }
