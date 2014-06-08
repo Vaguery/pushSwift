@@ -14,7 +14,7 @@ NSApplicationMain(C_ARGC, C_ARGV)
 // PushCodePoints (simplified)
 
 
-@objc protocol DeepCopyable {
+protocol DeepCopyable {
     func deep_copy() -> Self
 }
 
@@ -27,7 +27,7 @@ class LiteralPoint:PushPoint {
 }
 
 
-class IntPoint:LiteralPoint, DeepCopyable {
+class IntPoint:LiteralPoint {
     var value:Int = 0
     init(i:Int) {
         value = i
@@ -36,9 +36,10 @@ class IntPoint:LiteralPoint, DeepCopyable {
         return IntPoint(i: value)
     }
 }
+extension IntPoint: DeepCopyable {}
 
 
-class BoolPoint:LiteralPoint, DeepCopyable {
+class BoolPoint:LiteralPoint {
     var value:Bool = false
     init(b:Bool) {
         value = b
@@ -47,9 +48,11 @@ class BoolPoint:LiteralPoint, DeepCopyable {
         return BoolPoint(b: value)
     }
 }
+extension BoolPoint: DeepCopyable {}
 
 
-class FloatPoint:LiteralPoint, DeepCopyable {
+
+class FloatPoint:LiteralPoint {
     var value:Double = 0.0
     init(d:Double) {
         value = d
@@ -58,9 +61,11 @@ class FloatPoint:LiteralPoint, DeepCopyable {
         return FloatPoint(d: value)
     }
 }
+extension FloatPoint: DeepCopyable {}
 
 
-class InstructionPoint:LiteralPoint, DeepCopyable {
+
+class InstructionPoint:LiteralPoint {
     var value:String = ""
     init(s:String) {
         value = s
@@ -69,9 +74,10 @@ class InstructionPoint:LiteralPoint, DeepCopyable {
         return InstructionPoint(s: value)
     }
 }
+extension InstructionPoint: DeepCopyable {}
 
 
-class NamePoint:LiteralPoint, DeepCopyable {
+class NamePoint:LiteralPoint {
     var value:String = ""
     init(n:String) {
         value = n
@@ -80,10 +86,12 @@ class NamePoint:LiteralPoint, DeepCopyable {
         return NamePoint(n: value)
     }
 }
+extension NamePoint: DeepCopyable {}
 
 
 
-class BlockPoint:PushPoint,DeepCopyable {
+
+class BlockPoint:PushPoint {
     var value:DeepCopyable[] = []
     
     init(points: DeepCopyable[]) {
@@ -100,6 +108,8 @@ class BlockPoint:PushPoint,DeepCopyable {
         return BlockPoint(points: copy)
     }
 }
+extension BlockPoint: DeepCopyable {}
+
 
 
 

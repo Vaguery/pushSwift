@@ -86,6 +86,3 @@ let x = SubclassedThing()
 let y = SubclassedThing().deep_copy()
 
 
-// exploring string matching
-
-
