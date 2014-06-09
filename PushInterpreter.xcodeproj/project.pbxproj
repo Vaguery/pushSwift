@@ -40,10 +40,10 @@
 		A961B511193F9EEA004289EF /* PushInterpreterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PushInterpreterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A961B516193F9EEA004289EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A961B517193F9EEA004289EF /* PushInterpreterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushInterpreterTests.swift; sourceTree = "<group>"; };
-		A9857ED9194518BA000C3D8C /* ridiculous.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = ridiculous.playground; path = ../../ridiculous.playground; sourceTree = "<group>"; };
 		A989247D1943D4AD000C11D6 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
 		A993AE9B194081C1001F0C0A /* StackClass.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = StackClass.playground; sourceTree = "<group>"; };
 		A9CAE67A19432BC0006E5A9B /* InterpreterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterpreterTests.swift; sourceTree = "<group>"; };
+		A9E525E819455405004E2F87 /* ridiculous.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = ridiculous.playground; path = ../ridiculous.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +67,7 @@
 		A961B4F6193F9EE9004289EF = {
 			isa = PBXGroup;
 			children = (
+				A9E525E819455405004E2F87 /* ridiculous.playground */,
 				A989247D1943D4AD000C11D6 /* README.markdown */,
 				A961B501193F9EE9004289EF /* PushInterpreter */,
 				A961B514193F9EEA004289EF /* PushInterpreterTests */,
@@ -90,8 +91,6 @@
 				A961B508193F9EE9004289EF /* Images.xcassets */,
 				A961B50A193F9EEA004289EF /* MainMenu.xib */,
 				A961B502193F9EE9004289EF /* Supporting Files */,
-				A9857ED9194518BA000C3D8C /* ridiculous.playground */,
-				A993AE9B194081C1001F0C0A /* StackClass.playground */,
 			);
 			path = PushInterpreter;
 			sourceTree = "<group>";
@@ -99,6 +98,7 @@
 		A961B502193F9EE9004289EF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A993AE9B194081C1001F0C0A /* StackClass.playground */,
 				A961B503193F9EE9004289EF /* Info.plist */,
 				A961B504193F9EE9004289EF /* main.swift */,
 			);
