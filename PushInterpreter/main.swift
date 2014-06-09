@@ -49,7 +49,7 @@ class PushPoint {
         case .Name(let name):
             return String(name)
         case .Block(let subtree):
-            return "block"
+            return PushPoint[](subtree)
         default:
             return "nope"
         }

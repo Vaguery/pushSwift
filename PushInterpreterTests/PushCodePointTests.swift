@@ -40,35 +40,39 @@ class ProgramPointTests: XCTestCase {
     }
 
 //    // BlockPoints are complicated....
-//    
-//    func testBlockPointsAreInitializedWithTheRightValues() {
-//        let myInt = IntPoint(i:13)
-//        let myBool = BoolPoint(b:false)
-//        
-//        let myBlock = BlockPoint(points: [myInt,myBool])
-//        XCTAssertTrue(myBlock.value.count == 2, "BlockPoint is missing elements")
-//        XCTAssertTrue(myBlock.value[0] as? IntPoint, "BlockPoints should only contain PushPoints")
-//        XCTAssertTrue(myBlock.value[1] as? BoolPoint, "BlockPoints should only contain PushPoints")
-//    }
-//    
-//    func testBlockPointsWorkWithEmptyArrays() {
-//        let myBlock = BlockPoint(points:[])
-//        XCTAssertTrue(myBlock.value.count == 0, "BlockPoint should have no elements")
-//    }
-//    
-//    func testBlockPointCreatedByValueNotByReference() {
-//        let myInt = IntPoint(i:13)
-//        let myBlock = BlockPoint(points: [myInt])
-//        XCTAssertFalse(myBlock.value[0] === myInt, "BlockPoints should contain COPIES of items passed in")
-//    }
-//    
-//    func testBlockPointDeepCopyOnCreation() {
-//        let myInt = IntPoint(i:13)
-//        var myBlock1 = BlockPoint(points: [myInt])
-//        var myBlock2 = BlockPoint(points: [myBlock1])
-//        XCTAssertFalse(myBlock1 === myBlock2.value[0], "Items should not be identical")
-//    }
-//    
+    
+    func testBlockPointsAreInitializedWithTheRightValues() {
+        let myInt  = PushPoint(int:13)
+        let myBool = PushPoint(bool:false)
+        
+        let myBlock = PushPoint(block: [myInt,myBool])
+        let subTree = myBlock.raw() as PushPoint[]
+        XCTAssertTrue(subTree.count == 2, "BlockPoint is missing elements")
+        XCTAssertTrue(subTree[0].raw() as Int == 13, "BlockPoints should only contain PushPoints")
+        XCTAssertTrue(subTree[1].raw() as Bool == false, "BlockPoints should only contain PushPoints")
+    }
+
+    func testBlockPointsWorkWithEmptyArrays() {
+        let myBlock = PushPoint(block:[])
+        let backOutAgain = myBlock.raw() as PushPoint[]
+        XCTAssertTrue(backOutAgain.count == 0, "BlockPoint should have no elements")
+    }
+    
+    func testBlockPointCreatedByValueNotByReference() {
+        let myInt = PushPoint(int:13)
+        let myBlock = PushPoint(block: [myInt])
+        let subtree = myBlock.raw() as PushPoint[]
+        XCTAssertFalse(subtree === myInt, "BlockPoints should contain COPIES of items passed in")
+    }
+    
+    func testBlockPointDeepCopyOnCreation() {
+        let myInt = PushPoint(int:13)
+        var myBlock1 = PushPoint(block: [myInt])
+        var myBlock2 = PushPoint(block: [myBlock1])
+        let unwrap1 = myBlock2.raw() as PushPoint[]
+        XCTAssertFalse(myBlock1 === unwrap1, "Items should not be identical")
+    }
+    
 //    func testNestedBlockPointsAreStillAccessible() {
 //        let myInt = IntPoint(i:13)
 //        let myBool = BoolPoint(b:false)
