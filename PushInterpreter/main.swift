@@ -10,82 +10,69 @@ import Cocoa
 
 NSApplicationMain(C_ARGC, C_ARGV)
 
-//////////////////////////////
-// PushCodePoints (simplified)
+/////////////////////////////////////////
+// Code points in parsed Push language...
 
-enum PushType {
-    case Noop
+enum PushPoint {
+    
     case Integer(Int)
     case Boolean(Bool)
     case Float(Double)
     case Instruction(String)
     case Name(String)
     case Block(PushPoint[])
-}
-
-
-class PushPoint {
     
-    var value:PushType
-    
-    init(){self.value = PushType.Noop}
-    init(bool:Bool){self.value = PushType.Boolean(bool)}
-    init(int:Int){self.value=PushType.Integer(int)}
-    init(float:Double){self.value=PushType.Float(float)}
-    init(instruction:String){self.value=PushType.Instruction(instruction)}
-    init(name:String){self.value=PushType.Instruction(name)}
-    init(block:PushPoint[]){self.value=PushType.Block(block)}
-    
-    func raw() -> Any {
-        switch self.value {
-        case .Integer(let number):
-            return Int(number)
-        case .Float(let number):
-            return Double(number)
-        case .Boolean(let truth):
-            return Bool(truth)
-        case .Instruction(let token):
-            return String(token)
-        case .Name(let name):
-            return String(name)
-        case .Block(let subtree):
-            return PushPoint[](subtree)
-        default:
-            return "nope"
+    var value: Any {
+    switch self {
+        case let Integer(int):
+            return int
+        case let Boolean(bool):
+            return bool
+        case let Float(float):
+            return float
+        case let Instruction(string):
+            return string
+        case let Name(string):
+            return string
+        case let Block(array):
+            return array
         }
     }
     
-    func to_tree() -> String {
-        var tree = ""
-        switch self.value {
-        case .Integer(let number):
-            tree += " \(number)"
-        case .Float(let number):
-            tree += " \(number)"
-        case .Boolean(let truth):
-            tree += " \(truth)"
-        case .Instruction(let token):
-            tree += " \(token)"
-        case .Name(let name):
-            tree += " \(name)"
-        case .Block(let subtree):
-            tree += " ("
-            for node in subtree {
-                tree += node.to_tree()
-            }
-            tree += " )"
+    func subtree() -> PushPoint[] {
+        switch self {
+        case .Block(let array):
+            return array
         default:
-            tree += " something"
+            return PushPoint[]()
         }
-        return tree
     }
+    
+    func isInteger() -> Bool {
+        switch self {
+        case .Integer(_):
+            return true
+        default:
+            return false
+        }
+    }
+    
+    func isBoolean() -> Bool {
+        switch self {
+        case .Boolean(_):
+            return true
+        default:
+            return false
+        }
+    }
+
+    
+    
 }
 
 
-
-
-/////////
-// Stacks
+//////////////
+// Push Stacks
 
 class PushStack {
     
@@ -143,7 +130,6 @@ class PushInterpreter {
     
     func parse(script:String) -> PushPoint[] {
         var tokens = String[]()
-        var parsedPoints = PushPoint[]()
         
         tokens = script.componentsSeparatedByCharactersInSet(
             NSCharacterSet.whitespaceAndNewlineCharacterSet()
@@ -151,22 +137,19 @@ class PushInterpreter {
                 {(s1:String) -> Bool in return s1 != ""}
         )
         
-        for token in tokens {
-            parsedPoints.append(programPointFromToken(token))
-        }
+        return tokens.map( {self.programPointFromToken($0) } )
         
-        return parsedPoints
     }
     
     
     func programPointFromToken(token:String) -> PushPoint {
         switch token {
             case "T":
-                return PushPoint(bool: true)
+                return PushPoint.Boolean(true)
             case "F":
-                return PushPoint(bool:false)
+                return PushPoint.Boolean(false)
             default:
-                return PushPoint(name: token)
+                return PushPoint.Name(token)
         }
     }
 }

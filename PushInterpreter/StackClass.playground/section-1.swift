@@ -84,5 +84,3 @@ class SubclassedThing:CoreClassThing,DeepCopyable {
 
 let x = SubclassedThing()
 let y = SubclassedThing().deep_copy()
-
-

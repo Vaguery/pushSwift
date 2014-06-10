@@ -7,7 +7,6 @@ import Cocoa
 
 enum PushPoint {
     
-    case Noop
     case Integer(Int)
     case Boolean(Bool)
     case Float(Double)
@@ -15,48 +14,30 @@ enum PushPoint {
     case Name(String)
     case Block(PushPoint[])
     
-    var value: Any? {
+    var value: Any {
     switch self {
-    case let Integer(int):
-        return int
-    case let Boolean(bool):
-        return bool
-    case let Float(float):
-        return float
-    case let Instruction(string):
-        return string
-    case let Name(string):
-        return string
-    case let Block(array):
-        return array
-    case Noop:
-        return nil
+        case let Integer(int):
+            return int
+        case let Boolean(bool):
+            return bool
+        case let Float(float):
+            return float
+        case let Instruction(string):
+            return string
+        case let Name(string):
+            return string
+        case let Block(array):
+            return array
         }
     }
     
-    func to_tree() -> String {
-        var tree = ""
+    func getBlock() -> PushPoint[] {
         switch self {
-        case .Integer(let number):
-            tree += " \(number)"
-        case .Float(let number):
-            tree += " \(number)"
-        case .Boolean(let truth):
-            tree += " \(truth)"
-        case .Instruction(let token):
-            tree += " \(token)"
-        case .Name(let name):
-            tree += " \(name)"
-        case .Block(let subtree):
-            tree += " ("
-            for node in subtree {
-                tree += node.to_tree()
-            }
-            tree += " )"
-        default:
-            tree += " something"
+            case let Block(array):
+                return array
+            default:
+                return PushPoint[]()
         }
-        return tree
     }
 }
 
@@ -71,3 +52,5 @@ e.to_tree()
 
 a.value as Int
 b.value as Bool
+e.value as Array<PushPoint>
+
