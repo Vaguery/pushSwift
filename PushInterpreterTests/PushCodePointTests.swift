@@ -58,30 +58,6 @@ class ProgramPointTests: XCTestCase {
         XCTAssertTrue(backOutAgain.count == 0, "BlockPoint should have no elements")
     }
     
-//    func testBlockPointCreatedByValueNotByReference() {
-//        let myInt = PushPoint.Integer(13)
-//        let myBlock = PushPoint.Block([myInt])
-//        let subtree = myBlock.value as PushPoint[]
-//        let recoveredIntPoint = subtree[0] as PushPoint
-//        let myInt_ID = reflect(myInt as PushPoint).objectIdentifier
-//        let new_ID = reflect(recoveredIntPoint as PushPoint).objectIdentifier
-//        XCTAssertFalse(myInt_ID == new_ID, "\(new_ID) != \(myInt_ID) BlockPoints should contain COPIES of items passed in")
-//    }
-    
-    
-//    func testTofigureOutWhereRefsGo() {
-//        let x:String = "foo"
-//        let pushedX:PushPoint = PushPoint.Name(x)
-//        
-//        let x_ref:UInt = ObjectIdentifier(x).uintValue()
-//        let pushedX_ref:UInt = ObjectIdentifier(pushedX).uintValue()
-//        XCTAssertNotNil(x_ref, "Where's that ref?")
-//        XCTAssertNotNil(pushedX_ref, "Where's that ref?")
-//    }
-    
-//    func testBlockPointDeepCopyOnCreation() {
-//    }
-    
     
     func testBlockSubtreeExtractor() {
         let myBlock = PushPoint.Block(

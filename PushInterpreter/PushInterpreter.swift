@@ -15,12 +15,19 @@ class PushInterpreter {
     
     var listOfPushInstructions = ["noop"]
     
+    var script:String
+    var steps = 0
+    
     var intStack   : PushStack = PushStack()
     var boolStack  : PushStack = PushStack()
     var floatStack : PushStack = PushStack()
     var nameStack  : PushStack = PushStack()
     var codeStack  : PushStack = PushStack()
     var execStack  : PushStack = PushStack()
+    
+    
+    init() { self.script = "" }
+    init(script:String) { self.script = script }
     
     
     func parse(script:String) -> PushPoint[] {

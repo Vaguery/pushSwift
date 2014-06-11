@@ -93,26 +93,4 @@ class PushParserTests: XCTestCase {
     }
 
 
-    
-//    // making sure it's recognizing core types
-//    
-//    func testParserCatchesBooleans() {
-//        var myParser = PushInterpreter()
-//        let parsedPoints = myParser.parse("F F F T T F")
-//        XCTAssertTrue(parsedPoints.count == 6, "Wrong number of tokens captured")
-//        for item in parsedPoints {
-//            XCTAssertTrue(item.isBoolean(), "Not parsed correctly")
-//        }
-//    }
-//    
-//    
-//    
-//    func testParserCatchesIntegers() {
-//        var myParser = PushInterpreter()
-//        let parsedPoints = myParser.parse("12 -12 0 -0 999999 -0009991")
-//        XCTAssertTrue(parsedPoints.count == 6, "Wrong number of tokens captured")
-//        for item in parsedPoints {
-//            XCTAssertTrue(item.isInteger(), "Not parsed correctly")
-//        }
-//    }
 }

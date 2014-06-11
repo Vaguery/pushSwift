@@ -64,63 +64,62 @@ class StackTests: XCTestCase {
         let poppedInt2:PushPoint? = myStack.pop()
         XCTAssertTrue(poppedInt2 == nil, "An item was retrieved")
     }
-//
-//    // swap
-//    
-//    func testSwapDoesNothingIfStackLacksTwoItems() {
-//        var myIntStack = PushStack<IntPoint>()
-//        myIntStack.push(IntPoint(i:111))
-//        myIntStack.swap()
-//        XCTAssertTrue(myIntStack.length() == 1, "Should not have changed")
-//        XCTAssertTrue(myIntStack.items[0].value == 111, "Should not have changed")
-//    }
-//
-//    func testSwapRearrangesItems() {
-//        var myIntStack = PushStack<IntPoint>()
-//        myIntStack.push(IntPoint(i:111))
-//        myIntStack.push(IntPoint(i:22))
-//        myIntStack.push(IntPoint(i:3))
-//        myIntStack.swap()
-//        XCTAssertTrue(myIntStack.items[2].value == 22, "Should swap top two items")
-//        XCTAssertTrue(myIntStack.items[1].value == 3, "Should swap top two items")
-//        XCTAssertTrue(myIntStack.items[0].value == 111, "Should not affect lower items in stack")
-//    }
-//    
-//    // dup
-//    
-//    func testDupDoesNothingIfStackIsEmpty() {
-//        var myIntStack = PushStack<IntPoint>()
-//        myIntStack.dup()
-//        XCTAssertTrue(myIntStack.length() == 0, "Should not have changed")
-//    }
-//
-//    func testDupCreatesAnewItemRatherThanCopyingReferencesForSimpleItems() {
-//        var myIntStack = PushStack<IntPoint>()
-//        myIntStack.push(IntPoint(i:3))
-//        myIntStack.push(IntPoint(i:5))
-//        // ok now dup that
-//        myIntStack.dup()
-//        let top_one = myIntStack.pop()
-//        let second_one = myIntStack.pop()
-//        XCTAssertTrue(top_one!.value == second_one!.value, "PushStack#dup should clone items")
-//    }
 
+//    // swap
     
-//    func testDupCreatesAnewItemRatherThanCopyingReferencesForReferenceObjects() {
-//        let arrayPoint1 = PushCodePoint<Int[]>(value: [1,2,3,4])
-//        let arrayPoint2 = PushCodePoint<Int[]>(value: [9,8,7,6])
-//        var myArrayStack = PushStack<PushCodePoint<Int[]>>()
-//        myArrayStack.push(arrayPoint1)
-//        myArrayStack.push(arrayPoint2)
-//        // ok now dup that
-//        myArrayStack.dup()
-//        let top_one = myArrayStack.pop()
-//        let second_one = myArrayStack.pop()
-//        // TODO
-////        XCTAssertTrue(top_one == second_one, "PushStack#dup should create identical items")
-////        XCTAssertFalse(top_one === second_one, "PushStack#dup should create new items")
-//    }
-//    
+    func testSwapDoesNothingIfStackLacksTwoItems() {
+        var myStack = PushStack()
+        myStack.push(PushPoint.Integer(123))
+        myStack.swap()
+        XCTAssertTrue(myStack.length() == 1, "Stack length should not have changed")
+        XCTAssertTrue(myStack.items[0].value as Int == 123, "Stack items should not have changed")
+    }
+
+    func testSwapRearrangesItems() {
+        var myIntStack = PushStack()
+        myIntStack.push(PushPoint.Integer(111))
+        myIntStack.push(PushPoint.Integer(22))
+        myIntStack.push(PushPoint.Integer(3))
+        myIntStack.swap()
+        XCTAssertTrue(myIntStack.items[2].value as Int == 22, "Should have swapped top two items")
+        XCTAssertTrue(myIntStack.items[1].value as Int == 3, "Should have swapped top two items")
+        XCTAssertTrue(myIntStack.items[0].value as Int == 111, "Should not have affected lower items in stack")
+    }
+
+//    // dup
+    
+    func testDupDoesNothingIfStackIsEmpty() {
+        var myIntStack = PushStack()
+        myIntStack.dup()
+        XCTAssertTrue(myIntStack.length() == 0, "Should not have changed")
+    }
+
+    func testDupCreatesAnewItem() {
+        var myIntStack = PushStack()
+        myIntStack.push(PushPoint.Integer(3))
+        myIntStack.push(PushPoint.Integer(5))
+        // ok now dup that
+        myIntStack.dup()
+        XCTAssertTrue(myIntStack.items[1].value as Int == myIntStack.items[2].value as Int, "PushStack#dup should have made an identical items")
+    }
+
+    func testDupAvoidsReferenceDuplicationForBlocks() {
+        let i1 = PushPoint.Integer(1)
+        let i2 = PushPoint.Integer(2)
+        let i3 = PushPoint.Integer(9999)
+        
+        let b1 = PushPoint.Block([i1,i2])
+        let s = PushStack()
+        s.push(b1)
+        s.dup()
+        var tree1 = b1.value as PushPoint[]
+        tree1[1] = i3
+        
+        let tree2 = s.items[1].value as PushPoint[]
+        XCTAssertTrue(tree1[1].value as Int == 9999, "original block should have changed")
+        XCTAssertTrue(tree2[1].value as Int == 2, "duplicated block should not have changed")
+        XCTAssertFalse(tree1[1].value as Int == tree2[1].value as Int, "Items should be different")
+    }
 }
 
 

@@ -20,6 +20,7 @@ enum PushPoint {
     case Name(String)
     case Block(PushPoint[])
     
+    
     var value: Any {
     switch self {
     case let Integer(int):
@@ -37,6 +38,7 @@ enum PushPoint {
         }
     }
     
+    
     func subtree() -> PushPoint[] {
         switch self {
         case .Block(let array):
@@ -45,6 +47,7 @@ enum PushPoint {
             return PushPoint[]()
         }
     }
+    
     
     func isInteger() -> Bool {
         switch self {
@@ -55,6 +58,7 @@ enum PushPoint {
         }
     }
     
+    
     func isBoolean() -> Bool {
         switch self {
         case .Boolean(_):
@@ -63,6 +67,7 @@ enum PushPoint {
             return false
         }
     }
+    
     
     func isFloat() -> Bool {
         switch self {
@@ -73,6 +78,7 @@ enum PushPoint {
         }
     }
     
+    
     func isName() -> Bool {
         switch self {
         case .Name(_):
@@ -82,4 +88,33 @@ enum PushPoint {
         }
     }
     
+    
+    func isInstruction() -> Bool {
+        switch self {
+        case .Instruction(_):
+            return true
+        default:
+            return false
+        }
+    }
+
+    
+    
+    func clone() -> PushPoint {
+        switch self {
+        case let Integer(int):
+            return PushPoint.Integer(int)
+        case let Boolean(bool):
+            return PushPoint.Boolean(bool)
+        case let Float(float):
+            return PushPoint.Float(float)
+        case let Instruction(string):
+            return PushPoint.Instruction(string)
+        case let Name(string):
+            return PushPoint.Name(string)
+        case let Block(array):
+            let new_points = array.map({i in i.clone()})
+            return PushPoint.Block(new_points)
+        }
+    }
 }

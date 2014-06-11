@@ -43,11 +43,8 @@ class PushStack {
     func dup() {
         items.unshare()
         if items.count > 0 {
-            let top_one = self.pop()
-            let new_one = top_one!
-            self.push(top_one!)
-            self.push(new_one)
-            // this will cause trouble for complex items
+            let duped = self.items[items.count - 1]
+            self.push(duped.clone())
         }
     }
 }
