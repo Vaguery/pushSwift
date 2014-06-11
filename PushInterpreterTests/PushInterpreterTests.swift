@@ -14,27 +14,28 @@ class StackTests: XCTestCase {
     /////////////////////////////////
     // initialization
 
-//    func testNewPushStackHasNoItems() {
-//        var myIntStack = PushStack<IntPoint>()
-//        XCTAssertTrue(myIntStack.items.count == 0, "New PushStack should be empty")
-//    }
+    func testNewPushStackHasNoItems() {
+        var myStack = PushStack()
+        XCTAssertTrue(myStack.items.count == 0, "New PushStack should be empty")
+    }
+    
 //    /////////////////////////
 //    // push
-//    
-//    func testPushStackPushing() {
-//        var myIntStack = PushStack<IntPoint>()
-//        myIntStack.push(IntPoint(i:33))
-//        XCTAssertTrue(myIntStack.length() == 1, "Integer was not pushed")
-//    }
-//
-//    func testPushStackrepeatedPushing() {
-//        var myIntStack = PushStack<IntPoint>()
-//        myIntStack.push(IntPoint(i:3))
-//        myIntStack.push(IntPoint(i:2))
-//        myIntStack.push(IntPoint(i:1))
-//        XCTAssertTrue(myIntStack.length() == 3, "Not enough items on the stack")
-//    }
-//
+    
+    func testPushStackPushing() {
+        var myStack = PushStack()
+        myStack.push(PushPoint.Integer(33))
+        XCTAssertTrue(myStack.length() == 1, "Integer was not pushed")
+    }
+
+    func testPushStackrepeatedPushing() {
+        var myStack = PushStack()
+        myStack.push(PushPoint.Integer(3))
+        myStack.push(PushPoint.Integer(2))
+        myStack.push(PushPoint.Integer(1))
+        XCTAssertTrue(myStack.length() == 3, "Not enough items on the stack")
+    }
+
 //    // pop
 //    
 //    func testPushStackPoppingRetrievesTopItem() {

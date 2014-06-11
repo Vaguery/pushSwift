@@ -41,14 +41,78 @@ class PushParserTests: XCTestCase {
         XCTAssertTrue(parsedPoints.count == 8, "Wrong number of tokens captured")
     }
     
-    // making sure it's recognizing core types
+    // can we match Integers?
     
-    func testParserCatchesBooleans() {
-        var myParser = PushInterpreter()
-        let parsedPoints = myParser.parse("F F F T T F")
-        XCTAssertTrue(parsedPoints.count == 6, "Wrong number of tokens captured")
-        for item in parsedPoints {
-            XCTAssertTrue(item.isBoolean(), "Not parsed correctly")
+    func testMatcherRecognizesIntegerTokens() {
+        var myInterpreter = PushInterpreter()
+        let tokens = ["771", "0", "-99", "+8888"]
+        for t in tokens {
+            var myPoint:PushPoint = myInterpreter.programPointFromToken(t)
+            XCTAssertTrue(myPoint.value as Int == t.toInt()!, "did not work on \(t)")
         }
     }
+    
+    func testMatcherSkipsBadIntegerTokens() {
+        var myInterpreter = PushInterpreter()
+        let tokens = ["771a", "0a", "-9.9.9", "++8888", "9 9 9"]
+        for t in tokens {
+            var myPoint:PushPoint = myInterpreter.programPointFromToken(t)
+            XCTAssertFalse(myPoint.isInteger(), "did not work on \(t)")
+        }
+    }
+    
+    // can we match Floats?
+    
+    func testMatcherRecognizesFloatTokens() {
+        var myInterpreter = PushInterpreter()
+        let tokens = ["771.1", "0.0", "-.99", "+.8888", "4.2e4", "-.1e8"]
+        for t in tokens {
+            var myPoint:PushPoint = myInterpreter.programPointFromToken(t)
+            let f:Double = myPoint.value as Double
+            let correct_number = t.bridgeToObjectiveC().floatValue
+            XCTAssertNotNil(f as? Double, "Should have returned a PushPoint.Float")
+            XCTAssertTrue(f == correct_number, "Float literal somehow changed while being parsed")
+        }
+    }
+    
+    func testMatcherCreatesNamesFromUnrecognizedTokens() {
+        var myInterpreter = PushInterpreter()
+        let tokens = ["771a", "0a", "-9.9.9", "++8888", "9 9 9", "foo&&!"]
+        for t in tokens {
+            var myPoint:PushPoint = myInterpreter.programPointFromToken(t)
+            XCTAssertTrue(myPoint.isName(), "should not have recognized token \(t)")
+        }
+    }
+    
+    func testMatcherCreatesInstructionsFromRecognizedTokens() {
+        var myInterpreter = PushInterpreter()
+        for instruction in myInterpreter.listOfPushInstructions {
+            var myPoint = myInterpreter.programPointFromToken(instruction)
+            XCTAssertTrue(contains(myInterpreter.listOfPushInstructions, myPoint.value as String), "Failed to recognize \(instruction) as an instruction name")
+        }
+    }
+
+
+    
+//    // making sure it's recognizing core types
+//    
+//    func testParserCatchesBooleans() {
+//        var myParser = PushInterpreter()
+//        let parsedPoints = myParser.parse("F F F T T F")
+//        XCTAssertTrue(parsedPoints.count == 6, "Wrong number of tokens captured")
+//        for item in parsedPoints {
+//            XCTAssertTrue(item.isBoolean(), "Not parsed correctly")
+//        }
+//    }
+//    
+//    
+//    
+//    func testParserCatchesIntegers() {
+//        var myParser = PushInterpreter()
+//        let parsedPoints = myParser.parse("12 -12 0 -0 999999 -0009991")
+//        XCTAssertTrue(parsedPoints.count == 6, "Wrong number of tokens captured")
+//        for item in parsedPoints {
+//            XCTAssertTrue(item.isInteger(), "Not parsed correctly")
+//        }
+//    }
 }

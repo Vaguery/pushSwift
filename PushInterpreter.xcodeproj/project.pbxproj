@@ -15,6 +15,10 @@
 		A961B50C193F9EEA004289EF /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A961B50A193F9EEA004289EF /* MainMenu.xib */; };
 		A961B518193F9EEA004289EF /* PushInterpreterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A961B517193F9EEA004289EF /* PushInterpreterTests.swift */; };
 		A989247E1943D4AD000C11D6 /* README.markdown in Sources */ = {isa = PBXBuildFile; fileRef = A989247D1943D4AD000C11D6 /* README.markdown */; };
+		A9A838DA1947E35D004414E3 /* PushPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A838D91947E35C004414E3 /* PushPoint.swift */; };
+		A9A838DC1947E3A5004414E3 /* PushInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A838DB1947E3A5004414E3 /* PushInterpreter.swift */; };
+		A9A838DE1947E4C1004414E3 /* PushStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A838DD1947E4C1004414E3 /* PushStack.swift */; };
+		A9A838E01947E54E004414E3 /* PushInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A838DF1947E54E004414E3 /* PushInstructions.swift */; };
 		A9CAE67B19432BC0006E5A9B /* InterpreterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CAE67A19432BC0006E5A9B /* InterpreterTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,7 +33,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A942C1D81946CA83004A2C69 /* Wrestling.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Wrestling.playground; path = ../../Wrestling.playground; sourceTree = "<group>"; };
+		A942C1D81946CA83004A2C69 /* Wrestling.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Wrestling.playground; path = ../Wrestling.playground; sourceTree = "<group>"; };
 		A947D5C01941EE610009118D /* PushParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushParserTests.swift; sourceTree = "<group>"; };
 		A947D5C2194245F30009118D /* PushCodePointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushCodePointTests.swift; sourceTree = "<group>"; };
 		A961B4FF193F9EE9004289EF /* PushInterpreter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PushInterpreter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +48,10 @@
 		A989247D1943D4AD000C11D6 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
 		A993AE9B194081C1001F0C0A /* StackClass.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = StackClass.playground; path = PushInterpreter/StackClass.playground; sourceTree = "<group>"; };
 		A9988A1C19468EE300EA42F8 /* RegularExpressions.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = RegularExpressions.playground; path = PushInterpreter/RegularExpressions.playground; sourceTree = "<group>"; };
+		A9A838D91947E35C004414E3 /* PushPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushPoint.swift; sourceTree = "<group>"; };
+		A9A838DB1947E3A5004414E3 /* PushInterpreter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushInterpreter.swift; sourceTree = "<group>"; };
+		A9A838DD1947E4C1004414E3 /* PushStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushStack.swift; sourceTree = "<group>"; };
+		A9A838DF1947E54E004414E3 /* PushInstructions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushInstructions.swift; sourceTree = "<group>"; };
 		A9CAE67A19432BC0006E5A9B /* InterpreterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterpreterTests.swift; sourceTree = "<group>"; };
 		A9E525E91945557D004E2F87 /* Enumerations.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Enumerations.playground; path = PushInterpreter/Enumerations.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -70,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				A9988A1C19468EE300EA42F8 /* RegularExpressions.playground */,
+				A942C1D81946CA83004A2C69 /* Wrestling.playground */,
 				A9E525E91945557D004E2F87 /* Enumerations.playground */,
 				A993AE9B194081C1001F0C0A /* StackClass.playground */,
 				A989247D1943D4AD000C11D6 /* README.markdown */,
@@ -104,7 +113,10 @@
 			children = (
 				A961B503193F9EE9004289EF /* Info.plist */,
 				A961B504193F9EE9004289EF /* main.swift */,
-				A942C1D81946CA83004A2C69 /* Wrestling.playground */,
+				A9A838DD1947E4C1004414E3 /* PushStack.swift */,
+				A9A838D91947E35C004414E3 /* PushPoint.swift */,
+				A9A838DF1947E54E004414E3 /* PushInstructions.swift */,
+				A9A838DB1947E3A5004414E3 /* PushInterpreter.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -230,7 +242,11 @@
 			files = (
 				A989247E1943D4AD000C11D6 /* README.markdown in Sources */,
 				A961B507193F9EE9004289EF /* AppDelegate.swift in Sources */,
+				A9A838DC1947E3A5004414E3 /* PushInterpreter.swift in Sources */,
+				A9A838DE1947E4C1004414E3 /* PushStack.swift in Sources */,
+				A9A838DA1947E35D004414E3 /* PushPoint.swift in Sources */,
 				A961B505193F9EE9004289EF /* main.swift in Sources */,
+				A9A838E01947E54E004414E3 /* PushInstructions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
