@@ -38,5 +38,6 @@ class InterpreterTests: XCTestCase {
         XCTAssertTrue(myPI.steps == 0, "Should have a reset counter")
     }
     
+    // Reset
     
 }

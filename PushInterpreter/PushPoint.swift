@@ -11,7 +11,7 @@ import Foundation
 /////////////////////////////////////////
 // Code points in parsed Push language...
 
-enum PushPoint {
+enum PushPoint:Printable {
     
     case Integer(Int)
     case Boolean(Bool)
@@ -35,16 +35,6 @@ enum PushPoint {
         return string
     case let Block(array):
         return array
-        }
-    }
-    
-    
-    func subtree() -> PushPoint[] {
-        switch self {
-        case .Block(let array):
-            return array
-        default:
-            return PushPoint[]()
         }
     }
     
@@ -98,7 +88,45 @@ enum PushPoint {
         }
     }
 
+    func isBlock() -> Bool {
+        switch self {
+        case .Block(_):
+            return true
+        default:
+            return false
+        }
+    }
     
+    
+    func subtree() -> PushPoint[]? {
+        switch self {
+        case .Block(let array):
+            return array
+        default:
+            return nil
+        }
+    }
+    
+    
+    var description:String {
+        switch self {
+        case let Integer(int):
+            return "\(int)"
+        case let Boolean(bool):
+            let abbr = bool ? "T" : "F"
+            return "\(abbr)"
+        case let Float(float):
+            return "\(float)"
+        case let Instruction(string):
+            return ":\(string)"
+        case let Name(string):
+            return "\"\(string)\""
+        case let Block(array):
+            return array.reduce("( ") {$0 + "\($1.description) "} + ")"
+        }
+    }
+
+
     
     func clone() -> PushPoint {
         switch self {

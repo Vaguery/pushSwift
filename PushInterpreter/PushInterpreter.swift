@@ -13,9 +13,11 @@ import Foundation
 
 class PushInterpreter {
     
-    var listOfPushInstructions = ["noop"]
+    let allPushInstructions = ["noop"]
+    var activePushInstructions = ["noop"]
     
     var script:String
+    var program = PushPoint.Block([])
     var steps = 0
     
     var intStack   : PushStack = PushStack()
@@ -31,20 +33,16 @@ class PushInterpreter {
     
     
     func parse(script:String) -> PushPoint[] {
-        var tokens = String[]()
-        
-        tokens = script.componentsSeparatedByCharactersInSet(
-            NSCharacterSet.whitespaceAndNewlineCharacterSet()
-            ).filter(
-                {(s1:String) -> Bool in return s1 != ""}
-        )
-        
-        return tokens.map( {self.programPointFromToken($0) } )
+        var tokens = script.componentsSeparatedByCharactersInSet(
+                NSCharacterSet.whitespaceAndNewlineCharacterSet()).filter(
+                    {(s1:String) -> Bool in return s1 != ""}
+                )
+        return pointsFromTokenArray(&tokens)
     }
     
     
     func thisLooksLikeAnInstruction(s:String) -> Bool {
-        return contains(listOfPushInstructions,s)
+        return contains(activePushInstructions,s)
     }
     
     
@@ -71,6 +69,43 @@ class PushInterpreter {
     }
     
     
+    func pointsFromTokenArray(inout tokens:String[]) -> PushPoint[] {
+        var root_block:PushPoint[] = []
+        while tokens.count > 0 {
+            let this = tokens.removeAtIndex(0)
+            switch this {
+                case "(":
+                    let subtree = grabBlockFromTokenArray(&tokens)
+                    root_block += PushPoint.Block(subtree)
+                case ")":
+                    continue // do nothing
+                default:
+                root_block += programPointFromToken(this)
+            }
+        }
+        return root_block
+    }
+    
+    
+    func grabBlockFromTokenArray(inout tokens:String[]) -> PushPoint[] {
+        var block:PushPoint[] = []
+        
+        while tokens.count > 0 {
+            let this = tokens.removeAtIndex(0)
+            switch this {
+                case "(":
+                    let subtree = grabBlockFromTokenArray(&tokens)
+                    block += PushPoint.Block(subtree)
+                case ")":
+                    return block // done here
+                default:
+                    block += programPointFromToken(this)
+            }
+        }
+        return block
+    }
+    
+    
     func programPointFromToken(token:String) -> PushPoint {
         
         // the easy ones first
@@ -84,7 +119,7 @@ class PushInterpreter {
             return PushPoint.Boolean(true)
         case "F":
             return PushPoint.Boolean(false)
-        default:
+        default:    // and that leaves the regular expression ones
             if thisLooksLikeAnInteger(token) {
                 return PushPoint.Integer(token.toInt()!)
             } else if thisLooksLikeAdouble(token) {
@@ -97,7 +132,7 @@ class PushInterpreter {
     
     
     func setup(script:String) {
-        
+        program = PushPoint.Block(parse(script))
     }
 }
 

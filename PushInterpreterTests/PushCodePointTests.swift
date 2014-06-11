@@ -63,7 +63,7 @@ class ProgramPointTests: XCTestCase {
         let myBlock = PushPoint.Block(
             [PushPoint.Integer(4),
              PushPoint.Instruction("noop")])
-        let s = myBlock.subtree()
+        let s = myBlock.subtree()!
         XCTAssertTrue(s[0].value as Int == 4, "nope")
     }
     
@@ -72,13 +72,69 @@ class ProgramPointTests: XCTestCase {
         let myBool = PushPoint.Boolean(false)
         var myBlock1 = PushPoint.Block([myInt])
         var myBlock2 = PushPoint.Block([myBool, myBlock1])
-        let intAgain = myBlock2.subtree()[1].subtree()[0].value as Int
+        let intAgain = myBlock2.subtree()![1].subtree()![0].value as Int
         XCTAssertTrue(intAgain == 13, "I should be able to read values inside a BlockPoint")
     }
     
     // they should conform to the Printable protocol
-    // TODO
     
+    func testIntegersPrint() {
+        var printed = PushPoint.Integer(13).description
+        XCTAssertTrue(printed == "13", "Unexpected PushPoint description: \(printed)")
+        
+        printed = PushPoint.Integer(-13).description
+        XCTAssertTrue(printed == "-13", "Unexpected PushPoint description: \(printed)")
+        
+        printed = PushPoint.Integer(-0).description
+        XCTAssertTrue(printed == "0", "Unexpected PushPoint description: \(printed)")
+    }
+    
+    func testFloatsPrint() {
+        var printed = PushPoint.Float(13.13).description
+        XCTAssertTrue(printed == "13.13", "Unexpected PushPoint description: \(printed)")
+        
+        printed = PushPoint.Float(-13.13).description
+        XCTAssertTrue(printed == "-13.13", "Unexpected PushPoint description: \(printed)")
+
+        printed = PushPoint.Float(-000.001).description
+        XCTAssertTrue(printed == "-0.001", "Unexpected PushPoint description: \(printed)")
+    }
+    
+    func testBoolsPrint() {
+        var printed = PushPoint.Boolean(false).description
+        XCTAssertTrue(printed == "F", "Unexpected PushPoint description: \(printed)")
+        
+        printed = PushPoint.Boolean(true).description
+        XCTAssertTrue(printed == "T", "Unexpected PushPoint description: \(printed)")
+    }
+    
+    func testNamesPrint() {
+        var printed = PushPoint.Name("foo").description
+        XCTAssertTrue(printed == "\"foo\"", "Unexpected PushPoint description: \(printed)")
+        
+        printed = PushPoint.Name("8 a01;").description
+        XCTAssertTrue(printed == "\"8 a01;\"", "Unexpected PushPoint description: \(printed)")
+    }
+
+    func testInstructionsPrint() {
+        var printed = PushPoint.Instruction("foo").description
+        XCTAssertTrue(printed == ":foo", "Unexpected PushPoint description: \(printed)")
+        
+        printed = PushPoint.Instruction("int.add").description
+        XCTAssertTrue(printed == ":int.add", "Unexpected PushPoint description: \(printed)")
+    }
+
+    func testBlocksPrint() {
+        var tree = PushPoint.Block(PushInterpreter().parse(""))
+        var printed = tree.description
+        XCTAssertTrue(printed == "( )", "Unexpected PushPoint description: \(printed)")
+        
+        tree = PushPoint.Block(PushInterpreter().parse("1 2 3 ( 4 5 ) ( 6 7 )"))
+        printed = tree.description
+        XCTAssertTrue(printed == "( 1 2 3 ( 4 5 ) ( 6 7 ) )", "Unexpected PushPoint description: \(printed)")
+    }
+
+
     // they should conform to the Equatable protocol
     // TODO
     

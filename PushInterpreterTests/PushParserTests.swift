@@ -38,7 +38,7 @@ class PushParserTests: XCTestCase {
     func testParserCatchesTokensExpectedToBeInPushScripts() {
         var myParser = PushInterpreter()
         let parsedPoints = myParser.parse( "3 -22.3 F bool.and int.dup ) bool.not emit.x" )
-        XCTAssertTrue(parsedPoints.count == 8, "Wrong number of tokens captured")
+        XCTAssertTrue(parsedPoints.count == 7, "Wrong number of tokens captured")
     }
     
     // can we match Integers?
@@ -86,11 +86,61 @@ class PushParserTests: XCTestCase {
     
     func testMatcherCreatesInstructionsFromRecognizedTokens() {
         var myInterpreter = PushInterpreter()
-        for instruction in myInterpreter.listOfPushInstructions {
+        for instruction in myInterpreter.activePushInstructions {
             var myPoint = myInterpreter.programPointFromToken(instruction)
-            XCTAssertTrue(contains(myInterpreter.listOfPushInstructions, myPoint.value as String), "Failed to recognize \(instruction) as an instruction name")
+            XCTAssertTrue(contains(myInterpreter.activePushInstructions, myPoint.value as String), "Failed to recognize \(instruction) as an instruction name")
         }
     }
+    
+    func testBlockCaptureWorksInSimpleCases() {
+        var myInterpreter = PushInterpreter()
+        var tokenList = ["1", "2", "3"]
+        let pts = myInterpreter.pointsFromTokenArray(&tokenList)
+        XCTAssertTrue(pts.count == 3, "Missed some tokens")
+        let nums = pts.map({pt in pt.value as Int})
+        XCTAssert(nums == [1,2,3],"Parser captured values incorrectly")
+    }
+    
+    func testBlockCaptureWorksForEmptyBlocks() {
+        var myInterpreter = PushInterpreter()
+        var tokenList = ["(", ")"]
+        let pts = myInterpreter.pointsFromTokenArray(&tokenList)
+        XCTAssertTrue(pts.count == 1, "Missed some tokens")
+        XCTAssertTrue(pts[0].isBlock(), "parser did not build \(tokenList)")
+        XCTAssert(pts[0].subtree()!.count == 0, "Parser did not build block")
+        
+        XCTAssertTrue(pts.description == "[( )]", "Got \(pts.description) instead")
+    }
+    
+    func testBlockCaptureSkipsExtraCloseParens() {
+        var myInterpreter = PushInterpreter()
+        var tokenList = ["1", ")", "(", ")", ")"]
+        let pts = myInterpreter.pointsFromTokenArray(&tokenList)
+        XCTAssertTrue(pts.count == 2, "Didn't create the right number of tokens")
+        XCTAssertTrue(pts[0].isInteger(), "parser did not build \(tokenList)")
+        XCTAssertTrue(pts[1].isBlock(), "parser did not build \(tokenList)")
+        
+        XCTAssertTrue(pts.description == "[1, ( )]", "Got \(pts.description) instead")
+    }
 
+    func testBlockAutoClosesMissingCloseParens() {
+        var myInterpreter = PushInterpreter()
+        var tokenList = ["(", "(", "(", "1", ")"]
+        let pts = myInterpreter.pointsFromTokenArray(&tokenList)
+        XCTAssertTrue(pts.count == 1, "Parser didn't create the right number of tokens")
+        XCTAssertTrue(pts[0].isBlock(), "parser did not build \(tokenList)")
+        XCTAssertTrue(pts[0].subtree()!.count == 1, "Parser didn't nest tree correctly")
+        let num = pts[0].subtree()![0].subtree()![0].subtree()![0]
+        XCTAssertTrue(num.isInteger(), "Parser didn't capture values correctly")
+        
+        XCTAssertTrue(pts.description == "[( ( ( 1 ) ) )]", "Got \(pts.description) instead")
 
+    }
+    
+    func testBlockCaptureGetsBranches() {
+        var myInterpreter = PushInterpreter()
+        var tokenList = ["(", "1", ")", "(", "2", ")","(", "3", ")"]
+        let pts = myInterpreter.pointsFromTokenArray(&tokenList)
+        XCTAssertTrue(pts.description == "[( 1 ), ( 2 ), ( 3 )]", "Got \(pts.description) instead")
+    }
 }
