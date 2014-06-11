@@ -111,12 +111,12 @@
 		A961B502193F9EE9004289EF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				A961B503193F9EE9004289EF /* Info.plist */,
-				A961B504193F9EE9004289EF /* main.swift */,
 				A9A838DD1947E4C1004414E3 /* PushStack.swift */,
 				A9A838D91947E35C004414E3 /* PushPoint.swift */,
 				A9A838DF1947E54E004414E3 /* PushInstructions.swift */,
 				A9A838DB1947E3A5004414E3 /* PushInterpreter.swift */,
+				A961B504193F9EE9004289EF /* main.swift */,
+				A961B503193F9EE9004289EF /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

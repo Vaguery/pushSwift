@@ -36,33 +36,34 @@ class StackTests: XCTestCase {
         XCTAssertTrue(myStack.length() == 3, "Not enough items on the stack")
     }
 
-//    // pop
-//    
-//    func testPushStackPoppingRetrievesTopItem() {
-//        var myIntStack = PushStack<IntPoint>()
-//        myIntStack.push(IntPoint(i: 11))
-//        XCTAssertTrue(myIntStack.pop()!.value == 11, "Topmost item on stack was not returned")
-//    }
-//
-//    func testPoppingRemovesItem() {
-//        var myIntStack = PushStack<IntPoint>()
-//        myIntStack.push(IntPoint(i: 111))
-//        myIntStack.push(IntPoint(i: 22))
-//        myIntStack.push(IntPoint(i: 3))
-//        let poppedInt = myIntStack.pop()!
-//        XCTAssertTrue(myIntStack.length() == 2, "Topmost item was not removed")
-//        XCTAssertTrue(myIntStack.items[1].value == 22, "Second item should be on top")
-//    }
-//    
-//    func testPoppingReturnsNoValueWhenStackIsEmpty() {
-//        var myIntStack = PushStack<IntPoint>()
-//        myIntStack.push(IntPoint(i: 111))
-//        let poppedInt1:IntPoint? = myIntStack.pop()
-//        XCTAssertTrue(poppedInt1!.value == 111, "Last item was not removed")
-//        XCTAssertTrue(myIntStack.length() == 0, "Stack should be empty")
-//        let poppedInt2:IntPoint? = myIntStack.pop()
-//        XCTAssertTrue(poppedInt2 == nil, "An item was retrieved")
-//    }
+    // pop
+    
+    func testPushStackPoppingRetrievesTopItem() {
+        var myStack = PushStack()
+        myStack.push(PushPoint.Integer(11))
+        let item:PushPoint = myStack.pop()!
+        XCTAssertTrue(item.value as Int == 11, "Topmost item on stack was not returned")
+    }
+
+    func testPoppingActuallyRemovesThePoppedItem() {
+        var myStack = PushStack()
+        myStack.push(PushPoint.Integer(3))
+        myStack.push(PushPoint.Integer(2))
+        myStack.push(PushPoint.Integer(1))
+        let poppedInt:PushPoint = myStack.pop()!
+        XCTAssertTrue(myStack.length() == 2, "Topmost item was not removed")
+        XCTAssertTrue(myStack.items[1].value as Int == 2, "Second item should be on top")
+    }
+    
+    func testPoppingReturnsNoValueWhenStackIsEmpty() {
+        var myStack = PushStack()
+        myStack.push(PushPoint.Integer(111))
+        let popped:PushPoint = myStack.pop()!
+        XCTAssertTrue(popped.value as Int == 111, "Values of PushPoints don't match")
+        XCTAssertTrue(myStack.length() == 0, "Stack should be empty")
+        let poppedInt2:PushPoint? = myStack.pop()
+        XCTAssertTrue(poppedInt2 == nil, "An item was retrieved")
+    }
 //
 //    // swap
 //    
