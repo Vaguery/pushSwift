@@ -45,6 +45,7 @@
 		A961B511193F9EEA004289EF /* PushInterpreterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PushInterpreterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A961B516193F9EEA004289EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A961B517193F9EEA004289EF /* PushInterpreterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushInterpreterTests.swift; sourceTree = "<group>"; };
+		A969257D19488A9C000F056E /* BlockCapture.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = BlockCapture.playground; path = "PushInterpreter/playgrounds-and-sketches/BlockCapture.playground"; sourceTree = "<group>"; };
 		A989247D1943D4AD000C11D6 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
 		A993AE9B194081C1001F0C0A /* StackClass.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = StackClass.playground; path = PushInterpreter/StackClass.playground; sourceTree = "<group>"; };
 		A9988A1C19468EE300EA42F8 /* RegularExpressions.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = RegularExpressions.playground; path = PushInterpreter/RegularExpressions.playground; sourceTree = "<group>"; };
@@ -81,6 +82,7 @@
 				A942C1D81946CA83004A2C69 /* Wrestling.playground */,
 				A9E525E91945557D004E2F87 /* Enumerations.playground */,
 				A993AE9B194081C1001F0C0A /* StackClass.playground */,
+				A969257D19488A9C000F056E /* BlockCapture.playground */,
 				A989247D1943D4AD000C11D6 /* README.markdown */,
 				A961B501193F9EE9004289EF /* PushInterpreter */,
 				A961B514193F9EEA004289EF /* PushInterpreterTests */,
