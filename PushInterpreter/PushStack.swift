@@ -11,12 +11,16 @@ import Foundation
 //////////////
 // Push Stacks
 
-class PushStack {
+class PushStack:Printable {
     
     var items:PushPoint[] = []
     
     func push(item: PushPoint) {
         items.append(item)
+    }
+    
+    var description:String {
+        return items.reduce("[") {$0 + " \($1.description)"} + " ]"
     }
     
     func pop() -> PushPoint? {
@@ -38,6 +42,10 @@ class PushStack {
             self.push(old_top!)
             self.push(old_second!)
         }
+    }
+    
+    func clear() {
+        items = PushPoint[]()
     }
     
     func dup() {

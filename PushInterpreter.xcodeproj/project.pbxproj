@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A9418FA51948FFE700C5E731 /* RunningScriptsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9418FA41948FFE700C5E731 /* RunningScriptsTests.swift */; };
 		A947D5C11941EE610009118D /* PushParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A947D5C01941EE610009118D /* PushParserTests.swift */; };
 		A947D5C3194245F30009118D /* PushCodePointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A947D5C2194245F30009118D /* PushCodePointTests.swift */; };
 		A961B505193F9EE9004289EF /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A961B504193F9EE9004289EF /* main.swift */; };
@@ -33,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A9418FA41948FFE700C5E731 /* RunningScriptsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunningScriptsTests.swift; sourceTree = "<group>"; };
 		A942C1D81946CA83004A2C69 /* Wrestling.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Wrestling.playground; path = ../Wrestling.playground; sourceTree = "<group>"; };
 		A947D5C01941EE610009118D /* PushParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushParserTests.swift; sourceTree = "<group>"; };
 		A947D5C2194245F30009118D /* PushCodePointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushCodePointTests.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 		A961B514193F9EEA004289EF /* PushInterpreterTests */ = {
 			isa = PBXGroup;
 			children = (
+				A9418FA41948FFE700C5E731 /* RunningScriptsTests.swift */,
 				A9CAE67A19432BC0006E5A9B /* InterpreterTests.swift */,
 				A947D5C2194245F30009118D /* PushCodePointTests.swift */,
 				A947D5C01941EE610009118D /* PushParserTests.swift */,
@@ -258,6 +261,7 @@
 			files = (
 				A9CAE67B19432BC0006E5A9B /* InterpreterTests.swift in Sources */,
 				A947D5C11941EE610009118D /* PushParserTests.swift in Sources */,
+				A9418FA51948FFE700C5E731 /* RunningScriptsTests.swift in Sources */,
 				A961B518193F9EEA004289EF /* PushInterpreterTests.swift in Sources */,
 				A947D5C3194245F30009118D /* PushCodePointTests.swift in Sources */,
 			);

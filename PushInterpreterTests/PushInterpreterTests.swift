@@ -120,6 +120,13 @@ class StackTests: XCTestCase {
         XCTAssertTrue(tree2[1].value as Int == 2, "duplicated block should not have changed")
         XCTAssertFalse(tree1[1].value as Int == tree2[1].value as Int, "Items should be different")
     }
+    
+    
+    func testDescription() {
+        var s = PushStack()
+        for i in 1...8 { s.push(PushPoint.Integer(i))}
+        XCTAssertTrue(s.description == "[ 1 2 3 4 5 6 7 8 ]", "Did not expect \(s.description)")
+    }
 }
 
 

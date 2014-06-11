@@ -17,7 +17,7 @@ class PushInterpreter {
     var activePushInstructions = ["noop"]
     
     var script:String
-    var program = PushPoint.Block([])
+    var program:PushPoint
     var steps = 0
     
     var intStack   : PushStack = PushStack()
@@ -28,8 +28,15 @@ class PushInterpreter {
     var execStack  : PushStack = PushStack()
     
     
-    init() { self.script = "" }
-    init(script:String) { self.script = script }
+    init() {
+        self.script = ""
+        self.program = PushPoint.Block(PushPoint[]())
+    }
+    init(script:String) {
+        self.script = script
+        self.program = PushPoint.Block(PushPoint[]())
+        self.program = PushPoint.Block(self.parse(script))
+    }
     
     
     func parse(script:String) -> PushPoint[] {
@@ -131,8 +138,61 @@ class PushInterpreter {
     }
     
     
-    func setup(script:String) {
-        program = PushPoint.Block(parse(script))
+    func clear_stacks() {
+        intStack.clear()
+        boolStack.clear()
+        nameStack.clear()
+        codeStack.clear()
+        floatStack.clear()
+        execStack.clear()
+    }
+    
+    func stage(new_script:String) {
+        self.script = new_script
+        self.program = PushPoint.Block(self.parse(self.script))
+    }
+    
+    
+    func reset() {
+        clear_stacks()
+        stage(self.script)
+        execStack.push(program)
+    }
+
+    
+    func resetWithScript(new_script:String) {
+        clear_stacks()
+        stage(new_script)
+        execStack.push(program)
+    }
+    
+    
+    func step() {
+        let next_point:PushPoint? = execStack.pop()
+        if let point = next_point {
+            switch point {
+            case .Integer(_):
+                intStack.push(point)
+            case .Float(_):
+                floatStack.push(point)
+            case .Boolean(_):
+                boolStack.push(point)
+            case .Name(_):
+                nameStack.push(point)
+            case .Block(let subtree):
+                for item in subtree.reverse() {execStack.push(item)}
+            case .Instruction(let command):
+                break // for now
+            }
+        }
+    }
+    
+    
+    func run() {
+        self.reset()
+        while execStack.length() > 0 {
+            self.step()
+        }
     }
 }
 
