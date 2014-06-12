@@ -13,12 +13,11 @@ import Foundation
 
 class PushInterpreter {
     
-    let allPushInstructions = ["noop", "int_add"]
-    var activePushInstructions = ["noop", "int_add"]
-    
     var script:String
     var program:PushPoint
     var steps = 0
+    var activePushInstructions:String[] = ["noop", "int_add", "int_div", "int_mod", "int_moddiv", "int_multiply", "int_subtract"]
+
     var bindings = Dictionary<String,PushPoint>()
     
     var intStack   : PushStack = PushStack()
@@ -200,19 +199,6 @@ class PushInterpreter {
             }
         }
     }
-    
-    
-    func execute(command:String) {
-        switch command {
-        case "int_add":
-            self.int_add()
-        case "noop":
-            self.noop()
-        default:
-            break  // do nothing
-        }
-    }
-    
     
     func run() {
         self.reset()
