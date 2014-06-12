@@ -38,6 +38,20 @@ class InterpreterTests: XCTestCase {
         XCTAssertTrue(myPI.steps == 0, "Should have a reset counter")
     }
     
-    // Reset
+    func testNewInterpreterHasNoNameBindings() {
+        var myPI = PushInterpreter()
+        XCTAssertTrue(myPI.bindings.count == 0, "Should have no bindings to start out with")
+    }
+    
+    // Name bindings
+    
+    func testNameDictionary() {
+        var myPI = PushInterpreter(script:"x")
+        myPI.bind("x",point:PushPoint.Integer(444))
+        myPI.run()
+        XCTAssertTrue(myPI.bindings.count == 1, "Should have a binding now")
+        XCTAssertTrue(myPI.intStack.description == "[ 444 ]", "It should have looked up the bound value")
+        XCTAssertTrue(myPI.nameStack.length() == 0, "should not have pushed the name point")
+    }
     
 }

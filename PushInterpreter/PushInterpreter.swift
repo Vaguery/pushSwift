@@ -13,12 +13,13 @@ import Foundation
 
 class PushInterpreter {
     
-    let allPushInstructions = ["noop"]
-    var activePushInstructions = ["noop"]
+    let allPushInstructions = ["noop", "int_add"]
+    var activePushInstructions = ["noop", "int_add"]
     
     var script:String
     var program:PushPoint
     var steps = 0
+    var bindings = Dictionary<String,PushPoint>()
     
     var intStack   : PushStack = PushStack()
     var boolStack  : PushStack = PushStack()
@@ -138,6 +139,11 @@ class PushInterpreter {
     }
     
     
+    func bind(name:String, point:PushPoint) {
+        self.bindings[name] = point
+    }
+    
+    
     func clear_stacks() {
         intStack.clear()
         boolStack.clear()
@@ -177,13 +183,33 @@ class PushInterpreter {
                 floatStack.push(point)
             case .Boolean(_):
                 boolStack.push(point)
-            case .Name(_):
-                nameStack.push(point)
+            case .Name(let name):
+                if let val = self.bindings[name] {
+                    execStack.push(val.clone())
+                } else {
+                    nameStack.push(point)
+                }
             case .Block(let subtree):
                 for item in subtree.reverse() {execStack.push(item)}
             case .Instruction(let command):
-                break // for now
+                if (activePushInstructions.filter {$0 == command}).count > 0 {
+                    self.execute(command)
+                } else {
+                    nameStack.push(PushPoint.Name(command))
+                }
             }
+        }
+    }
+    
+    
+    func execute(command:String) {
+        switch command {
+        case "int_add":
+            self.int_add()
+        case "noop":
+            self.noop()
+        default:
+            break  // do nothing
         }
     }
     
