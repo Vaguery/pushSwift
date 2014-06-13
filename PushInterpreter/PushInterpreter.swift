@@ -13,12 +13,13 @@ import Foundation
 
 class PushInterpreter {
     
-    var script:String
-    var program:PushPoint
+    var script:String = ""
+    var program:PushPoint = PushPoint.Block([])
     var steps = 0
-    var activePushInstructions:String[] = ["noop", "int_add", "int_div", "int_mod", "int_divmod", "int_multiply", "int_subtract"]
+    var allPushInstructions:Dictionary<String,(Void->Void)>
+    var activePushInstructions:String[]
 
-    var bindings = Dictionary<String,PushPoint>()
+    var bindings = Dictionary<String,PushPoint>(minimumCapacity: 0)
     
     var intStack   : PushStack = PushStack()
     var boolStack  : PushStack = PushStack()
@@ -29,13 +30,34 @@ class PushInterpreter {
     
     
     init() {
-        self.script = ""
+        script = ""
+        allPushInstructions = Dictionary<String,(Void->Void)>(minimumCapacity: 0)
+        activePushInstructions = String[]()
+        self.loadActiveInstructions()
         self.program = PushPoint.Block(PushPoint[]())
+        self.reset()
     }
     init(script:String) {
         self.script = script
+        allPushInstructions = Dictionary<String,(Void->Void)>(minimumCapacity: 0)
+        activePushInstructions = String[]()
+        self.loadActiveInstructions()
         self.program = PushPoint.Block(PushPoint[]())
-        self.program = PushPoint.Block(self.parse(script))
+        self.reset()
+    }
+    
+    
+    func loadActiveInstructions() {
+        allPushInstructions = [
+            "noop" : {self.noop()},
+            "int_add" : {self.int_add()},
+            "int_div" : {self.int_div()},
+            "int_mod" : {self.int_mod()},
+            "int_divmod" : {self.int_divmod()},
+            "int_multiply" : {self.int_multiply()},
+            "int_subtract": {self.int_subtract()}]
+        activePushInstructions = []
+        for item in allPushInstructions.keys {activePushInstructions += item}
     }
     
     

@@ -8,9 +8,10 @@
 
 import Foundation
 
-extension PushInterpreter {
 
-    
+
+extension PushInterpreter {
+        
     func execute(command:String) {
         switch command {
         case "int_add":

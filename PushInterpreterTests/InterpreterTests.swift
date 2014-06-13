@@ -20,7 +20,7 @@ class InterpreterTests: XCTestCase {
         XCTAssertTrue(myInterpreter.floatStack.length() == 0, "floatStack not empty")
         XCTAssertTrue(myInterpreter.nameStack.length()  == 0, "nameStack not empty")
         XCTAssertTrue(myInterpreter.codeStack.length()  == 0, "codeStack not empty")
-        XCTAssertTrue(myInterpreter.execStack.length()  == 0, "execStack not empty")
+        XCTAssertTrue(myInterpreter.execStack.length()  == 1, "execStack contains program")
     }
     
     func testNewInterpreterHasEmptyScriptIfNoneProvided() {
