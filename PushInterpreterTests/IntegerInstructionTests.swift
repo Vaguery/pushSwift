@@ -29,8 +29,8 @@ class IntegerInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.intStack.description == "[ 4 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
 
-    func testIntModDiv() {
-        let myPI = PushInterpreter(script:"70 11 int_moddiv")
+    func testIntDivMod() {
+        let myPI = PushInterpreter(script:"70 11 int_divmod")
         myPI.run()
         XCTAssertTrue(myPI.intStack.description == "[ 6 4 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }

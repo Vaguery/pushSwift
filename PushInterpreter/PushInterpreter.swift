@@ -16,7 +16,7 @@ class PushInterpreter {
     var script:String
     var program:PushPoint
     var steps = 0
-    var activePushInstructions:String[] = ["noop", "int_add", "int_div", "int_mod", "int_moddiv", "int_multiply", "int_subtract"]
+    var activePushInstructions:String[] = ["noop", "int_add", "int_div", "int_mod", "int_divmod", "int_multiply", "int_subtract"]
 
     var bindings = Dictionary<String,PushPoint>()
     
