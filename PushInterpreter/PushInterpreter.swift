@@ -47,20 +47,6 @@ class PushInterpreter {
     }
     
     
-    func loadActiveInstructions() {
-        allPushInstructions = [
-            "noop" : {self.noop()},
-            "int_add" : {self.int_add()},
-            "int_div" : {self.int_div()},
-            "int_mod" : {self.int_mod()},
-            "int_divmod" : {self.int_divmod()},
-            "int_multiply" : {self.int_multiply()},
-            "int_subtract": {self.int_subtract()}]
-        activePushInstructions = []
-        for item in allPushInstructions.keys {activePushInstructions += item}
-    }
-    
-    
     func parse(script:String) -> PushPoint[] {
         var tokens = script.componentsSeparatedByCharactersInSet(
                 NSCharacterSet.whitespaceAndNewlineCharacterSet()).filter(
