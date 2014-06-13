@@ -15,12 +15,16 @@ extension PushInterpreter {
     
     func loadActiveInstructions() {
         allPushInstructions.removeAll()
+
+        loadBooleanInstructions()
+        loadCodeInstructions()
+        loadExecInstructions()
+        loadFloatInstructions()
         loadIntegerInstructions()
         loadMiscellaneousInstructions()
-        loadBooleanInstructions()
+        loadNameInstructions()
         loadRangeInstructions()
-        loadCodeInstructions()
-        
+
         activePushInstructions = []
         for item in allPushInstructions.keys {activePushInstructions += item}
     }

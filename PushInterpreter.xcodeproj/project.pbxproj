@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A919F025194B679F0097AFBB /* ExecInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A919F024194B679F0097AFBB /* ExecInstructions.swift */; };
+		A919F027194B69490097AFBB /* ExecInstructionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A919F026194B69490097AFBB /* ExecInstructionTests.swift */; };
+		A919F02A194B6B400097AFBB /* FloatInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A919F029194B6B400097AFBB /* FloatInstructions.swift */; };
+		A919F02C194B6C4D0097AFBB /* FloatInstructionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A919F02B194B6C4D0097AFBB /* FloatInstructionTests.swift */; };
+		A919F02E194B76670097AFBB /* NameInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A919F02D194B76670097AFBB /* NameInstructions.swift */; };
+		A919F030194B77A90097AFBB /* NameInstructionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A919F02F194B77A90097AFBB /* NameInstructionTests.swift */; };
 		A922134E194B558100AFE086 /* CodeInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A922134D194B558100AFE086 /* CodeInstructions.swift */; };
 		A9221350194B568100AFE086 /* CodeInstructionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A922134F194B568100AFE086 /* CodeInstructionTests.swift */; };
 		A9418FA51948FFE700C5E731 /* RunningScriptsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9418FA41948FFE700C5E731 /* RunningScriptsTests.swift */; };
@@ -43,6 +49,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A919F024194B679F0097AFBB /* ExecInstructions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecInstructions.swift; sourceTree = "<group>"; };
+		A919F026194B69490097AFBB /* ExecInstructionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecInstructionTests.swift; sourceTree = "<group>"; };
+		A919F029194B6B400097AFBB /* FloatInstructions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatInstructions.swift; sourceTree = "<group>"; };
+		A919F02B194B6C4D0097AFBB /* FloatInstructionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatInstructionTests.swift; sourceTree = "<group>"; };
+		A919F02D194B76670097AFBB /* NameInstructions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameInstructions.swift; sourceTree = "<group>"; };
+		A919F02F194B77A90097AFBB /* NameInstructionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameInstructionTests.swift; sourceTree = "<group>"; };
 		A922134D194B558100AFE086 /* CodeInstructions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeInstructions.swift; sourceTree = "<group>"; };
 		A922134F194B568100AFE086 /* CodeInstructionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeInstructionTests.swift; sourceTree = "<group>"; };
 		A9418FA41948FFE700C5E731 /* RunningScriptsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunningScriptsTests.swift; sourceTree = "<group>"; };
@@ -96,6 +108,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A919F028194B6AEA0097AFBB /* Instructions */ = {
+			isa = PBXGroup;
+			children = (
+				A9A838DF1947E54E004414E3 /* PushInstructions.swift */,
+				A919F02D194B76670097AFBB /* NameInstructions.swift */,
+				A9B17AC3194B2AB1003F2048 /* BooleanInstructions.swift */,
+				A922134D194B558100AFE086 /* CodeInstructions.swift */,
+				A919F024194B679F0097AFBB /* ExecInstructions.swift */,
+				A919F029194B6B400097AFBB /* FloatInstructions.swift */,
+				A9B17ABF194B27D0003F2048 /* IntegerInstructions.swift */,
+				A9B17AC1194B293C003F2048 /* MiscellaneousInstructions.swift */,
+				A99C3381194B3A9700F70094 /* RangeInstructions.swift */,
+			);
+			name = Instructions;
+			sourceTree = "<group>";
+		};
 		A961B4F6193F9EE9004289EF = {
 			isa = PBXGroup;
 			children = (
@@ -135,14 +163,9 @@
 		A961B502193F9EE9004289EF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A919F028194B6AEA0097AFBB /* Instructions */,
 				A9A838DD1947E4C1004414E3 /* PushStack.swift */,
 				A9A838D91947E35C004414E3 /* PushPoint.swift */,
-				A9A838DF1947E54E004414E3 /* PushInstructions.swift */,
-				A9B17AC1194B293C003F2048 /* MiscellaneousInstructions.swift */,
-				A99C3381194B3A9700F70094 /* RangeInstructions.swift */,
-				A922134D194B558100AFE086 /* CodeInstructions.swift */,
-				A9B17AC3194B2AB1003F2048 /* BooleanInstructions.swift */,
-				A9B17ABF194B27D0003F2048 /* IntegerInstructions.swift */,
 				A9A838DB1947E3A5004414E3 /* PushInterpreter.swift */,
 				A961B504193F9EE9004289EF /* main.swift */,
 				A961B503193F9EE9004289EF /* Info.plist */,
@@ -153,6 +176,9 @@
 		A961B514193F9EEA004289EF /* PushInterpreterTests */ = {
 			isa = PBXGroup;
 			children = (
+				A919F02F194B77A90097AFBB /* NameInstructionTests.swift */,
+				A919F02B194B6C4D0097AFBB /* FloatInstructionTests.swift */,
+				A919F026194B69490097AFBB /* ExecInstructionTests.swift */,
 				A922134F194B568100AFE086 /* CodeInstructionTests.swift */,
 				A99C337F194B374800F70094 /* RangeInstructionTests.swift */,
 				A99C337D194B2C1000F70094 /* BooleanInstructionTests.swift */,
@@ -282,10 +308,13 @@
 				A9A838DA1947E35D004414E3 /* PushPoint.swift in Sources */,
 				A961B505193F9EE9004289EF /* main.swift in Sources */,
 				A9B17AC2194B293C003F2048 /* MiscellaneousInstructions.swift in Sources */,
+				A919F025194B679F0097AFBB /* ExecInstructions.swift in Sources */,
 				A9B17AC4194B2AB1003F2048 /* BooleanInstructions.swift in Sources */,
 				A99C3382194B3A9700F70094 /* RangeInstructions.swift in Sources */,
+				A919F02E194B76670097AFBB /* NameInstructions.swift in Sources */,
 				A9A838E01947E54E004414E3 /* PushInstructions.swift in Sources */,
 				A9B17AC0194B27D0003F2048 /* IntegerInstructions.swift in Sources */,
+				A919F02A194B6B400097AFBB /* FloatInstructions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,10 +323,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A99C3380194B374800F70094 /* RangeInstructionTests.swift in Sources */,
+				A919F027194B69490097AFBB /* ExecInstructionTests.swift in Sources */,
 				A9CAE67B19432BC0006E5A9B /* InterpreterTests.swift in Sources */,
 				A9221350194B568100AFE086 /* CodeInstructionTests.swift in Sources */,
+				A919F02C194B6C4D0097AFBB /* FloatInstructionTests.swift in Sources */,
 				A947D5C11941EE610009118D /* PushParserTests.swift in Sources */,
 				A9418FA51948FFE700C5E731 /* RunningScriptsTests.swift in Sources */,
+				A919F030194B77A90097AFBB /* NameInstructionTests.swift in Sources */,
 				A9418FA719492C4E00C5E731 /* IntegerInstructionTests.swift in Sources */,
 				A961B518193F9EEA004289EF /* PushInterpreterTests.swift in Sources */,
 				A947D5C3194245F30009118D /* PushCodePointTests.swift in Sources */,
