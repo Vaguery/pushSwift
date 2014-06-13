@@ -36,6 +36,7 @@ extension PushInterpreter {
     
     
     //  (pending)
+    //  (comments are quotes from http://faculty.hampshire.edu/lspector/push3-description.html where available)
     //
     //    INTEGER.DEFINE: Defines the name on top of the NAME stack as an instruction that will push the top item of the INTEGER stack onto the EXEC stack.
     //    INTEGER.DUP: Duplicates the top item on the INTEGER stack. Does not pop its argument (which, if it did, would negate the effect of the duplication!).
@@ -52,7 +53,6 @@ extension PushInterpreter {
     //    INTEGER.YANKDUP: Pushes a copy of an indexed item "deep" in the stack onto the top of the stack, without removing the deep item. The index is taken from the INTEGER stack, and the indexing is done after the index is removed.
     
     
-    //  (comments are quotes from http://faculty.hampshire.edu/lspector/push3-description.html where available)
     
     //  INTEGER.+: Pushes the sum of the top two items.
     
@@ -151,7 +151,7 @@ extension PushInterpreter {
     }
     
     
-    //  INTEGER.%: Pushes the second stack item modulo the top stack item. If the top item is zero this acts as a NOOP. The modulus is computed as the remainder of the quotient, where the quotient has first been truncated toward negative infinity. (This is taken from the definition for the generic MOD function in Common Lisp, which is described for example at http://www.lispworks.com/reference/HyperSpec/Body/f_mod_r.htm.)
+    //  INTEGER.%: Pushes the second stack item modulo the top stack item. If the top item is zero this acts as a NOOP....
     
     func int_mod() {
         if intStack.length() > 1 {
