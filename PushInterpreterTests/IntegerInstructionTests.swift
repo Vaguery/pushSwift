@@ -10,6 +10,7 @@ import XCTest
 import PushInterpreter
 
 class IntegerInstructionTests: XCTestCase {
+    
 
     func testIntAdd() {
         let myPI = PushInterpreter(script:"2 3 int_add")
@@ -47,6 +48,36 @@ class IntegerInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.intStack.description == "[ 770 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
 
+    func testIntLessThan() {
+        let myPI = PushInterpreter(script:"70 11 int_lessThan -3 9 int_lessThan")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ F T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
+
+    func testIntEqual() {
+        let myPI = PushInterpreter(script:"70 11 int_equal -3 -3 int_equal")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ F T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
+
+    func testIntGreaterThan() {
+        let myPI = PushInterpreter(script:"70 11 int_greaterThan -3 9 int_greaterThan")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ T F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
+    
+    func testIntMax() {
+        let myPI = PushInterpreter(script:"70 11 int_max -3 9 int_max")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 70 9 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
+
+    
+    func testIntMin() {
+        let myPI = PushInterpreter(script:"70 11 int_min -3 9 int_min")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 11 -3 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
 
 }
 
