@@ -18,6 +18,7 @@ extension PushInterpreter {
         loadIntegerInstructions()
         loadMiscellaneousInstructions()
         loadBooleanInstructions()
+        loadRangeInstructions()
         
         activePushInstructions = []
         for item in allPushInstructions.keys {activePushInstructions += item}

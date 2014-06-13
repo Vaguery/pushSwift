@@ -18,6 +18,8 @@
 		A961B518193F9EEA004289EF /* PushInterpreterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A961B517193F9EEA004289EF /* PushInterpreterTests.swift */; };
 		A989247E1943D4AD000C11D6 /* README.markdown in Sources */ = {isa = PBXBuildFile; fileRef = A989247D1943D4AD000C11D6 /* README.markdown */; };
 		A99C337E194B2C1000F70094 /* BooleanInstructionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99C337D194B2C1000F70094 /* BooleanInstructionTests.swift */; };
+		A99C3380194B374800F70094 /* RangeInstructionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99C337F194B374800F70094 /* RangeInstructionTests.swift */; };
+		A99C3382194B3A9700F70094 /* RangeInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99C3381194B3A9700F70094 /* RangeInstructions.swift */; };
 		A9A838DA1947E35D004414E3 /* PushPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A838D91947E35C004414E3 /* PushPoint.swift */; };
 		A9A838DC1947E3A5004414E3 /* PushInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A838DB1947E3A5004414E3 /* PushInterpreter.swift */; };
 		A9A838DE1947E4C1004414E3 /* PushStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A838DD1947E4C1004414E3 /* PushStack.swift */; };
@@ -58,6 +60,8 @@
 		A993AE9B194081C1001F0C0A /* StackClass.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = StackClass.playground; path = PushInterpreter/StackClass.playground; sourceTree = "<group>"; };
 		A9988A1C19468EE300EA42F8 /* RegularExpressions.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = RegularExpressions.playground; path = PushInterpreter/RegularExpressions.playground; sourceTree = "<group>"; };
 		A99C337D194B2C1000F70094 /* BooleanInstructionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooleanInstructionTests.swift; sourceTree = "<group>"; };
+		A99C337F194B374800F70094 /* RangeInstructionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeInstructionTests.swift; sourceTree = "<group>"; };
+		A99C3381194B3A9700F70094 /* RangeInstructions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeInstructions.swift; sourceTree = "<group>"; };
 		A9A4B1BD194B100F0045291C /* ClosureFiddle.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = ClosureFiddle.playground; path = PushInterpreter/ClosureFiddle.playground; sourceTree = "<group>"; };
 		A9A838D91947E35C004414E3 /* PushPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushPoint.swift; sourceTree = "<group>"; };
 		A9A838DB1947E3A5004414E3 /* PushInterpreter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushInterpreter.swift; sourceTree = "<group>"; };
@@ -131,6 +135,7 @@
 				A9A838D91947E35C004414E3 /* PushPoint.swift */,
 				A9A838DF1947E54E004414E3 /* PushInstructions.swift */,
 				A9B17AC1194B293C003F2048 /* MiscellaneousInstructions.swift */,
+				A99C3381194B3A9700F70094 /* RangeInstructions.swift */,
 				A9B17AC3194B2AB1003F2048 /* BooleanInstructions.swift */,
 				A9B17ABF194B27D0003F2048 /* IntegerInstructions.swift */,
 				A9A838DB1947E3A5004414E3 /* PushInterpreter.swift */,
@@ -143,6 +148,7 @@
 		A961B514193F9EEA004289EF /* PushInterpreterTests */ = {
 			isa = PBXGroup;
 			children = (
+				A99C337F194B374800F70094 /* RangeInstructionTests.swift */,
 				A99C337D194B2C1000F70094 /* BooleanInstructionTests.swift */,
 				A9418FA619492C4E00C5E731 /* IntegerInstructionTests.swift */,
 				A9418FA41948FFE700C5E731 /* RunningScriptsTests.swift */,
@@ -270,6 +276,7 @@
 				A961B505193F9EE9004289EF /* main.swift in Sources */,
 				A9B17AC2194B293C003F2048 /* MiscellaneousInstructions.swift in Sources */,
 				A9B17AC4194B2AB1003F2048 /* BooleanInstructions.swift in Sources */,
+				A99C3382194B3A9700F70094 /* RangeInstructions.swift in Sources */,
 				A9A838E01947E54E004414E3 /* PushInstructions.swift in Sources */,
 				A9B17AC0194B27D0003F2048 /* IntegerInstructions.swift in Sources */,
 			);
@@ -279,6 +286,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A99C3380194B374800F70094 /* RangeInstructionTests.swift in Sources */,
 				A9CAE67B19432BC0006E5A9B /* InterpreterTests.swift in Sources */,
 				A947D5C11941EE610009118D /* PushParserTests.swift in Sources */,
 				A9418FA51948FFE700C5E731 /* RunningScriptsTests.swift in Sources */,

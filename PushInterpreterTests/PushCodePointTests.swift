@@ -38,6 +38,15 @@ class ProgramPointTests: XCTestCase {
         let myPoint = PushPoint.Name("foo")
         XCTAssertTrue(myPoint.value as String == "foo", "Program Point has wrong value")
     }
+    
+    
+    func testRangePointsAreIntializedRight() {
+        let myPoint = PushPoint.Range(-7,11)
+        let (start,end) = myPoint.value as (Int,Int)
+        XCTAssertTrue( start == -7, "Range start should not be \(start)")
+        XCTAssertTrue( end == 11, "Range end shoud not be \(end)")
+    }
+
 
 //    // BlockPoints are complicated....
     
@@ -89,6 +98,12 @@ class ProgramPointTests: XCTestCase {
         XCTAssertTrue(printed == "0", "Unexpected PushPoint description: \(printed)")
     }
     
+    func testRangePrint() {
+        var printed = PushPoint.Range(13,-812).description
+        XCTAssertTrue(printed == "(13..-812)", "Unexpected PushPoint description: \(printed)")
+    }
+
+    
     func testFloatsPrint() {
         var printed = PushPoint.Float(13.13).description
         XCTAssertTrue(printed == "13.13", "Unexpected PushPoint description: \(printed)")
@@ -138,7 +153,7 @@ class ProgramPointTests: XCTestCase {
     // they should conform to the Equatable protocol
     // TODO
     
-    // they should conform to the Comparable protocol
+    // they should (where meaningful) conform to the Comparable protocol
     // TODO
     
 }

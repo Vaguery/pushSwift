@@ -14,6 +14,7 @@ import Foundation
 enum PushPoint:Printable {
     
     case Integer(Int)
+    case Range(Int,Int)
     case Boolean(Bool)
     case Float(Double)
     case Instruction(String)
@@ -25,6 +26,8 @@ enum PushPoint:Printable {
     switch self {
     case let Integer(int):
         return int
+    case let Range(start,end):
+        return (start,end)
     case let Boolean(bool):
         return bool
     case let Float(float):
@@ -79,6 +82,16 @@ enum PushPoint:Printable {
     }
     
     
+    func isRange() -> Bool {
+        switch self {
+        case .Range(_,_):
+            return true
+        default:
+            return false
+        }
+    }
+    
+    
     func isInstruction() -> Bool {
         switch self {
         case .Instruction(_):
@@ -112,6 +125,8 @@ enum PushPoint:Printable {
         switch self {
         case let Integer(int):
             return "\(int)"
+        case let Range(first,last):
+            return "(\(first)..\(last))"
         case let Boolean(bool):
             let abbr = bool ? "T" : "F"
             return "\(abbr)"
@@ -132,6 +147,8 @@ enum PushPoint:Printable {
         switch self {
         case let Integer(int):
             return PushPoint.Integer(int)
+        case let Range(start,end):
+            return Range(start,end)
         case let Boolean(bool):
             return PushPoint.Boolean(bool)
         case let Float(float):

@@ -22,6 +22,7 @@ class PushInterpreter {
     var bindings = Dictionary<String,PushPoint>(minimumCapacity: 0)
     
     var intStack   : PushStack = PushStack()
+    var rangeStack : PushStack = PushStack()
     var boolStack  : PushStack = PushStack()
     var floatStack : PushStack = PushStack()
     var nameStack  : PushStack = PushStack()
@@ -128,6 +129,7 @@ class PushInterpreter {
         if thisLooksLikeAnInstruction(token) {
             return PushPoint.Instruction(token)
         }
+    
         
         switch token {
         case "T":
@@ -153,6 +155,7 @@ class PushInterpreter {
     
     func clear_stacks() {
         intStack.clear()
+        rangeStack.clear()
         boolStack.clear()
         nameStack.clear()
         codeStack.clear()
@@ -186,6 +189,8 @@ class PushInterpreter {
             switch point {
             case .Integer(_):
                 intStack.push(point)
+            case .Range(_,_):
+                rangeStack.push(point)
             case .Float(_):
                 floatStack.push(point)
             case .Boolean(_):

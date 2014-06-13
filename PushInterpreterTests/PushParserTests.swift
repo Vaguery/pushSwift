@@ -61,6 +61,7 @@ class PushParserTests: XCTestCase {
         }
     }
     
+    
     // can we match Floats?
     
     func testMatcherRecognizesFloatTokens() {
@@ -75,6 +76,7 @@ class PushParserTests: XCTestCase {
         }
     }
     
+    
     func testMatcherCreatesNamesFromUnrecognizedTokens() {
         var myInterpreter = PushInterpreter()
         let tokens = ["771a", "0a", "-9.9.9", "++8888", "9 9 9", "foo&&!"]
@@ -84,6 +86,7 @@ class PushParserTests: XCTestCase {
         }
     }
     
+    
     func testMatcherCreatesInstructionsFromRecognizedTokens() {
         var myInterpreter = PushInterpreter()
         for instruction in myInterpreter.activePushInstructions {
@@ -91,6 +94,7 @@ class PushParserTests: XCTestCase {
             XCTAssertTrue(contains(myInterpreter.activePushInstructions, myPoint.value as String), "Failed to recognize \(instruction) as an instruction name")
         }
     }
+    
     
     func testBlockCaptureWorksInSimpleCases() {
         var myInterpreter = PushInterpreter()
@@ -100,6 +104,7 @@ class PushParserTests: XCTestCase {
         let nums = pts.map({pt in pt.value as Int})
         XCTAssert(nums == [1,2,3],"Parser captured values incorrectly")
     }
+    
     
     func testBlockCaptureWorksForEmptyBlocks() {
         var myInterpreter = PushInterpreter()
@@ -112,6 +117,7 @@ class PushParserTests: XCTestCase {
         XCTAssertTrue(pts.description == "[( )]", "Got \(pts.description) instead")
     }
     
+    
     func testBlockCaptureSkipsExtraCloseParens() {
         var myInterpreter = PushInterpreter()
         var tokenList = ["1", ")", "(", ")", ")"]
@@ -123,6 +129,7 @@ class PushParserTests: XCTestCase {
         XCTAssertTrue(pts.description == "[1, ( )]", "Got \(pts.description) instead")
     }
 
+    
     func testBlockAutoClosesMissingCloseParens() {
         var myInterpreter = PushInterpreter()
         var tokenList = ["(", "(", "(", "1", ")"]
@@ -136,6 +143,7 @@ class PushParserTests: XCTestCase {
         XCTAssertTrue(pts.description == "[( ( ( 1 ) ) )]", "Got \(pts.description) instead")
 
     }
+    
     
     func testBlockCaptureGetsBranches() {
         var myInterpreter = PushInterpreter()

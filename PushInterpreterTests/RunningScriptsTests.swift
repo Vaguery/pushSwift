@@ -61,5 +61,4 @@ class RunningScriptsTests: XCTestCase {
         XCTAssertTrue(pi.boolStack.description == "[ F T F F T ]", "Didn't expect stack to be \(pi.boolStack.description)")
 
     }
-
 }
