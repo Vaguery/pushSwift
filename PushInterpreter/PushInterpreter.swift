@@ -214,7 +214,6 @@ class PushInterpreter {
     }
     
     func run() {
-        self.reset()
         while execStack.length() > 0 {
             self.step()
         }
