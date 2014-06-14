@@ -10,6 +10,13 @@ import XCTest
 import PushInterpreter
 
 class NameInstructionTests: XCTestCase {
+    
+    func test_NameDepth() {
+        let myPI = PushInterpreter(script:"foo bar name_depth")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 2 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
+
 
     func test_NameDup() {
         let myPI = PushInterpreter(script:"foo bar name_dup")
@@ -59,6 +66,11 @@ class NameInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.nameStack.description == "[ \"bar\" \"baz\" \"foo\" ]", "Didn't expect stack to be \(myPI.nameStack.description)")
     }
 
+    func test_NameSwap() {
+        let myPI = PushInterpreter(script:"foo bar baz name_swap")
+        myPI.run()
+        XCTAssertTrue(myPI.nameStack.description == "[ \"foo\" \"baz\" \"bar\" ]", "Didn't expect stack to be \(myPI.nameStack.description)")
+    }
 
 
 }

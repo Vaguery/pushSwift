@@ -13,13 +13,15 @@ extension PushInterpreter {
     func loadNameInstructions() {
         
         let nameInstructions = [
+                 "name_depth" : {self.name_depth()},
                    "name_dup" : {self.name_dup()},
                  "name_flush" : {self.name_flush()},
                "name_isEqual" : {self.name_isEqual()},
             "name_isAssigned" : {self.name_isAssigned()},
                    "name_new" : {self.name_new()},
                    "name_pop" : {self.name_pop()},
-                 "name_rotate": {self.name_rotate()}
+                 "name_rotate": {self.name_rotate()},
+                  "name_swap" : {self.name_swap()}
         ]
         
         for (k,v) in nameInstructions {
@@ -38,14 +40,17 @@ extension PushInterpreter {
 //        NAME.QUOTE: Sets a flag indicating that the next name encountered will be pushed onto the NAME stack (and not have its associated value pushed onto the EXEC stack), regardless of whether or not it has a definition. Upon encountering such a name and pushing it onto the NAME stack the flag will be cleared (whether or not the pushed name had a definition).
 //        NAME.RANDBOUNDNAME: Pushes a randomly selected NAME that already has a definition.
 //        NAME.SHOVE: Inserts the top NAME "deep" in the stack, at the position indexed by the top INTEGER.
-//        NAME.STACKDEPTH: Pushes the stack depth onto the INTEGER stack.
-//        NAME.SWAP: Swaps the top two NAMEs.
 //        NAME.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack.
 //        NAME.YANKDUP: Pushes a copy of an indexed item "deep" in the stack onto the top of the stack, without removing the deep item. The index is taken from the INTEGER stack.
 
     
-    //  NAME.DUP: Duplicates the top item on the NAME stack. Does not pop its argument (which, if it did, would negate the effect of the duplication!).
+    //  NAME.STACKDEPTH: Pushes the stack depth onto the INTEGER stack.
+    func name_depth() {
+        let d = nameStack.length()
+        intStack.push(PushPoint.Integer(d))
+    }
     
+    //  NAME.DUP: Duplicates the top item on the NAME stack. Does not pop its argument (which, if it did, would negate the effect of the duplication!).
     func name_dup() {
         if nameStack.length() > 0 {
             nameStack.dup()
@@ -54,7 +59,6 @@ extension PushInterpreter {
 
     
     //  NAME.FLUSH: Empties the NAME stack.
-
     func name_flush() {
         nameStack.clear()
     }
@@ -96,6 +100,10 @@ extension PushInterpreter {
         nameStack.rotate()
     }
 
+    //  NAME.SWAP: Swaps the top two NAMEs.
+    func name_swap() {
+        nameStack.swap()
+    }
 
     
     
