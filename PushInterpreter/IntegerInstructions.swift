@@ -13,6 +13,7 @@ extension PushInterpreter {
     func loadIntegerInstructions() {
         let intInstructions = [
             "int_add" : {self.int_add()},
+            "int_define" : {self.int_define()},
             "int_depth" : {self.int_depth()},
             "int_div" : {self.int_div()},
             "int_divmod" : {self.int_divmod()},
@@ -44,7 +45,6 @@ extension PushInterpreter {
     //  (pending)
     //  (comments are quotes from http://faculty.hampshire.edu/lspector/push3-description.html where available)
     //
-    //    INTEGER.DEFINE: Defines the name on top of the NAME stack as an instruction that will push the top item of the INTEGER stack onto the EXEC stack.
     //    INTEGER.FROMBOOLEAN: Pushes 1 if the top BOOLEAN is TRUE, or 0 if the top BOOLEAN is FALSE.
     //    INTEGER.FROMFLOAT: Pushes the result of truncating the top FLOAT.
     //    INTEGER.RAND: Pushes a newly generated random INTEGER that is greater than or equal to MIN-RANDOM-INTEGER and less than or equal to MAX-RANDOM-INTEGER.
@@ -64,6 +64,17 @@ extension PushInterpreter {
             intStack.push(sum)
         }
     }
+    
+    
+    //  INTEGER.DEFINE: Defines the name on top of the NAME stack as an instruction that will push the top item of the INTEGER stack onto the EXEC stack.
+    func int_define() {
+        if intStack.length() > 0 && nameStack.length() > 0 {
+            let point = intStack.pop()!
+            let name = nameStack.pop()!.value as String
+            self.bind(name, point: point)
+        }
+    }
+
     
     
     //  INTEGER.STACKDEPTH: Pushes the stack depth onto the INTEGER stack (thereby increasing it!).

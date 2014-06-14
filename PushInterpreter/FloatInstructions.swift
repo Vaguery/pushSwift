@@ -13,6 +13,7 @@ extension PushInterpreter {
         
         let floatInstructions = [
                "float_abs" : {self.float_abs()},
+            "float_define" : {self.float_define()},
             "float_rotate" : {self.float_rotate()}
         ]
         
@@ -36,7 +37,6 @@ extension PushInterpreter {
     //    FLOAT.=: Pushes TRUE onto the BOOLEAN stack if the top two items are equal, or FALSE otherwise.
     //    FLOAT.>: Pushes TRUE onto the BOOLEAN stack if the second item is greater than the top item, or FALSE otherwise.
     //    FLOAT.COS: Pushes the cosine of the top item.
-    //    FLOAT.DEFINE: Defines the name on top of the NAME stack as an instruction that will push the top item of the FLOAT stack onto the EXEC stack.
     //    FLOAT.DUP: Duplicates the top item on the FLOAT stack. Does not pop its argument (which, if it did, would negate the effect of the duplication!).
     //    FLOAT.FLUSH: Empties the FLOAT stack.
     //    FLOAT.FROMBOOLEAN: Pushes 1.0 if the top BOOLEAN is TRUE, or 0.0 if the top BOOLEAN is FALSE.
@@ -55,13 +55,22 @@ extension PushInterpreter {
     
     
     //  float_abs() is not part of the Push 3.0 spec
-    
     func float_abs() {
         if floatStack.length() > 0 {
             let arg = floatStack.pop()!.value as Double
             floatStack.push(PushPoint.Float(abs(arg)))
         }
     }
+    
+    //  FLOAT.DEFINE: Defines the name on top of the NAME stack as an instruction that will push the top item of the FLOAT stack onto the EXEC stack.
+    func float_define() {
+        if floatStack.length() > 0 && nameStack.length() > 0 {
+            let point = floatStack.pop()!
+            let name = nameStack.pop()!.value as String
+            self.bind(name, point: point)
+        }
+    }
+
     
     //  FLOAT.ROT: Rotates the top three items on the FLOAT stack, pulling the third item out and pushing it on top. This is equivalent to "2 FLOAT.YANK".
     func float_rotate() {

@@ -14,6 +14,7 @@ extension PushInterpreter {
         let boolInstructions = [
             "bool_and" : {self.bool_and()},
           "bool_depth" : {self.bool_depth()},
+         "bool_define" : {self.bool_define()},
             "bool_dup" : {self.bool_dup()},
           "bool_equal" : {self.bool_equal()},
           "bool_flush" : {self.bool_flush()},
@@ -37,7 +38,6 @@ extension PushInterpreter {
     //  (comments are quotes from http://faculty.hampshire.edu/lspector/push3-description.html where available)
 
     
-    //  BOOLEAN.DEFINE: Defines the name on top of the NAME stack as an instruction that will push the top item of the BOOLEAN stack onto the EXEC stack.
     //  BOOLEAN.FROMFLOAT: Pushes FALSE if the top FLOAT is 0.0, or TRUE otherwise.
     //  BOOLEAN.FROMINTEGER: Pushes FALSE if the top INTEGER is 0, or TRUE otherwise.
     //  BOOLEAN.RAND: Pushes a random BOOLEAN.
@@ -52,6 +52,15 @@ extension PushInterpreter {
             let arg1 = boolStack.pop()!.value as Bool
             let arg2 = boolStack.pop()!.value as Bool
             boolStack.push(PushPoint.Boolean(arg1 && arg2))
+        }
+    }
+    
+    //  BOOLEAN.DEFINE: Defines the name on top of the NAME stack as an instruction that will push the top item of the BOOLEAN stack onto the EXEC stack.
+    func bool_define() {
+        if boolStack.length() > 0 && nameStack.length() > 0 {
+            let point = boolStack.pop()!
+            let name = nameStack.pop()!.value as String
+            self.bind(name, point: point)
         }
     }
     

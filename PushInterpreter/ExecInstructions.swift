@@ -12,6 +12,7 @@ extension PushInterpreter {
     func loadExecInstructions() {
         
         let execInstructions = [
+               "exec_define" : {self.exec_define()},
                 "exec_depth" : {self.exec_depth()},
                   "exec_dup" : {self.exec_dup()},
                 "exec_flush" : {self.exec_flush()},
@@ -34,7 +35,6 @@ extension PushInterpreter {
     //
     // (pending)
     //    EXEC.=: Pushes TRUE if the top two items on the EXEC stack are equal, or FALSE otherwise.
-    //    EXEC.DEFINE: Defines the name on top of the NAME stack as an instruction that will push the top item of the EXEC stack back onto the EXEC stack.
     //    EXEC.DO*COUNT: An iteration instruction that performs a loop (the body of which is taken from the EXEC stack) the number of times indicated by the INTEGER argument, pushing an index (which runs from zero to one less than the number of iterations) onto the INTEGER stack prior to each execution of the loop body. This is similar to CODE.DO*COUNT except that it takes its code argument from the EXEC stack. This should be implemented as a macro that expands into a call to EXEC.DO*RANGE. EXEC.DO*COUNT takes a single INTEGER argument (the number of times that the loop will be executed) and a single EXEC argument (the body of the loop). If the provided INTEGER argument is negative or zero then this becomes a NOOP. Otherwise it expands into:
     //    ( 0 <1 - IntegerArg> EXEC.DO*RANGE <ExecArg> )
     //    EXEC.DO*RANGE: An iteration instruction that executes the top item on the EXEC stack a number of times that depends on the top two integers, while also pushing the loop counter onto the INTEGER stack for possible access during the execution of the body of the loop. This is similar to CODE.DO*COUNT except that it takes its code argument from the EXEC stack. The top integer is the "destination index" and the second integer is the "current index." First the code and the integer arguments are saved locally and popped. Then the integers are compared. If the integers are equal then the current index is pushed onto the INTEGER stack and the code (which is the "body" of the loop) is pushed onto the EXEC stack for subsequent execution. If the integers are not equal then the current index will still be pushed onto the INTEGER stack but two items will be pushed onto the EXEC stack -- first a recursive call to EXEC.DO*RANGE (with the same code and destination index, but with a current index that has been either incremented or decremented by 1 to be closer to the destination index) and then the body code. Note that the range is inclusive of both endpoints; a call with integer arguments 3 and 5 will cause its body to be executed 3 times, with the loop counter having the values 3, 4, and 5. Note also that one can specify a loop that "counts down" by providing a destination index that is less than the specified current index.
@@ -47,6 +47,16 @@ extension PushInterpreter {
     //    EXEC.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack. This may be thought of as a "DO SOONER" instruction.
     //    EXEC.YANKDUP: Pushes a copy of an indexed item "deep" in the stack onto the top of the stack, without removing the deep item. The index is taken from the INTEGER stack.
     
+    
+    //  EXEC.DEFINE: Defines the name on top of the NAME stack as an instruction that will push the top item of the EXEC stack back onto the EXEC stack.
+    func exec_define() {
+        if execStack.length() > 0 && nameStack.length() > 0 {
+            let point = execStack.pop()!
+            let name = nameStack.pop()!.value as String
+            self.bind(name, point: point)
+        }
+    }
+
     
     
     //  EXEC.STACKDEPTH: Pushes the stack depth onto the INTEGER stack.

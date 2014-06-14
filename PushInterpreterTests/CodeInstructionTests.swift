@@ -11,6 +11,14 @@ import PushInterpreter
 
 class CodeInstructionTests: XCTestCase {
     
+    func test_CodeDefine() {
+        let myPI = PushInterpreter(script:"foo code_quote bar code_define foo foo foo")
+        myPI.run()
+        XCTAssertTrue(myPI.bindings.count > 0, "Expected \(myPI.bindings) to include foo")
+        XCTAssertTrue(myPI.nameStack.description == "[ \"bar\" \"bar\" \"bar\" ]", "Didn't expect stack to be \(myPI.nameStack.description)")
+    }
+
+    
     func test_CodeDepth() {
         let myPI = PushInterpreter(script:"code_quote 1 code_depth")
         myPI.run()

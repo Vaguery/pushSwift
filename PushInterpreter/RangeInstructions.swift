@@ -12,6 +12,7 @@ extension PushInterpreter {
     func loadRangeInstructions() {
         
         let rangeInstructions = [
+              "range_define" : {self.range_define()},
             "range_fromInts" : {self.range_fromInts()},
             "range_fromZero" : {self.range_fromZero()},
             "range_isUpward" : {self.range_isUpward()},
@@ -31,6 +32,14 @@ extension PushInterpreter {
     
     // (ranges are not a feature of Push 3.0, so all these are new)
     
+    func range_define() {
+        if rangeStack.length() > 0 && nameStack.length() > 0 {
+            let point = rangeStack.pop()!
+            let name = nameStack.pop()!.value as String
+            self.bind(name, point: point)
+        }
+    }
+
     
     func range_fromInts() {
         if intStack.length() > 1 {

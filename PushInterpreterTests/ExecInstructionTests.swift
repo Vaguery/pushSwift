@@ -11,6 +11,14 @@ import PushInterpreter
 
 class ExecInstructionTests: XCTestCase {
 
+    func test_ExecDefine() {
+        let myPI = PushInterpreter(script:"foo exec_define 44 foo foo foo")
+        myPI.run()
+        XCTAssertTrue(myPI.bindings.count > 0, "Expected \(myPI.bindings) to include foo")
+        XCTAssertTrue(myPI.intStack.description == "[ 44 44 44 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
+
+    
     func test_ExecDepth() {
         let myPI = PushInterpreter(script:"exec_depth 1 2 3 4")
         myPI.run()

@@ -18,6 +18,14 @@ class IntegerInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.intStack.description == "[ 5 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
     
+    func test_IntDefine() {
+        let myPI = PushInterpreter(script:"foo 11 int_define foo foo foo")
+        myPI.run()
+        XCTAssertTrue(myPI.bindings.count > 0, "Expected \(myPI.bindings) to include foo")
+        XCTAssertTrue(myPI.intStack.description == "[ 11 11 11 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
+
+    
     func test_IntDepth() {
         let myPI = PushInterpreter(script:"1 2 3 4 1 2 3 4 int_depth")
         myPI.run()

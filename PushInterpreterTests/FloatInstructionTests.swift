@@ -17,6 +17,14 @@ class FloatInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.floatStack.description == "[ 9.5 1.25 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
     }
     
+    func test_FloatDefine() {
+        let myPI = PushInterpreter(script:"foo 4.5 float_define foo foo foo")
+        myPI.run()
+        XCTAssertTrue(myPI.bindings.count > 0, "Expected \(myPI.bindings) to include foo")
+        XCTAssertTrue(myPI.floatStack.description == "[ 4.5 4.5 4.5 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
+    }
+
+    
     func test_FloatRotate() {
         let myPI = PushInterpreter(script:"1.1 2.2 3.3 float_rotate")
         myPI.run()

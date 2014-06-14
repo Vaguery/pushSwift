@@ -12,6 +12,7 @@ extension PushInterpreter {
     func loadCodeInstructions() {
         
         let codeInstructions = [
+             "code_define" : {self.code_define()},
               "code_depth" : {self.code_depth()},
                 "code_dup" : {self.code_dup()},
               "code_flush" : {self.code_flush()},
@@ -41,7 +42,6 @@ extension PushInterpreter {
     //    CODE.CONS: Pushes the result of "consing" (in the Lisp sense) the second stack item onto the first stack item (which is coerced to a list if necessary). For example, if the top piece of code is "( A B )" and the second piece of code is "X" then this pushes "( X A B )" (after popping the argument).
     //    CODE.CONTAINER: Pushes the "container" of the second CODE stack item within the first CODE stack item onto the CODE stack. If second item contains the first anywhere (i.e. in any nested list) then the container is the smallest sub-list that contains but is not equal to the first instance. For example, if the top piece of code is "( B ( C ( A ) ) ( D ( A ) ) )" and the second piece of code is "( A )" then this pushes ( C ( A ) ). Pushes an empty list if there is no such container.
     //    CODE.CONTAINS: Pushes TRUE on the BOOLEAN stack if the second CODE stack item contains the first CODE stack item anywhere (e.g. in a sub-list).
-    //    CODE.DEFINE: Defines the name on top of the NAME stack as an instruction that will push the top item of the CODE stack onto the EXEC stack.
     //    CODE.DEFINITION: Pushes the definition associated with the top NAME on the NAME stack (if any) onto the CODE stack. This extracts the definition for inspection/manipulation, rather than for immediate execution (although it may then be executed with a call to CODE.DO or a similar instruction).
     //    CODE.DISCREPANCY: Pushes a measure of the discrepancy between the top two CODE stack items onto the INTEGER stack. This will be zero if the top two items are equivalent, and will be higher the 'more different' the items are from one another. The calculation is as follows:
     //    1. Construct a list of all of the unique items in both of the lists (where uniqueness is determined by equalp). Sub-lists and atoms all count as items.
@@ -77,6 +77,17 @@ extension PushInterpreter {
     //    CODE.SUBST: Pushes the result of substituting the third item on the code stack for the second item in the first item. As of this writing this is implemented only in the Lisp implementation, within which it relies on the Lisp "subst" function. As such, there are several problematic possibilities; for example "dotted-lists" can result in certain cases with empty-list arguments. If any of these problematic possibilities occurs the stack is left unchanged.
     //    CODE.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack.
     //    CODE.YANKDUP: Pushes a copy of an indexed item "deep" in the stack onto the top of the stack, without removing the deep item. The index is taken from the INTEGER stack.
+    
+    
+    //  CODE.DEFINE: Defines the name on top of the NAME stack as an instruction that will push the top item of the CODE stack onto the EXEC stack.
+    func code_define() {
+        if codeStack.length() > 0 && nameStack.length() > 0 {
+            let point = codeStack.pop()!
+            let name = nameStack.pop()!.value as String
+            self.bind(name, point: point)
+        }
+    }
+
     
     
     //  CODE.STACKDEPTH: Pushes the stack depth onto the INTEGER stack.

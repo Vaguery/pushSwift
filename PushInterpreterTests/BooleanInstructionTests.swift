@@ -18,6 +18,16 @@ class BooleanInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.boolStack.description == "[ F F F T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
     }
     
+    
+    func test_BoolDefine() {
+        let myPI = PushInterpreter(script:"F foo bool_define foo foo foo")
+        myPI.run()
+        XCTAssertTrue(myPI.bindings.count > 0, "Expected \(myPI.bindings) to include foo")
+        XCTAssertTrue(myPI.boolStack.description == "[ F F F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
+    
+
+    
     func test_BoolDepth() {
         let myPI = PushInterpreter(script:"F F T T F F T T bool_depth")
         myPI.run()
