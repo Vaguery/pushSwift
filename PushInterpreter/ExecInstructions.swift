@@ -12,8 +12,9 @@ extension PushInterpreter {
     func loadExecInstructions() {
         
         let execInstructions = [
-            "exec_isBlock" : {self.exec_isBlock()},
-            "exec_isLiteral" : {self.exec_isLiteral()}
+              "exec_isBlock" : {self.exec_isBlock()},
+            "exec_isLiteral" : {self.exec_isLiteral()},
+               "exec_rotate" : {self.exec_rotate()}
         ]
         
         for (k,v) in execInstructions {
@@ -38,7 +39,6 @@ extension PushInterpreter {
     //    EXEC.IF: If the top item of the BOOLEAN stack is TRUE then this removes the second item on the EXEC stack, leaving the first item to be executed. If it is false then it removes the first item, leaving the second to be executed. This is similar to CODE.IF except that it operates on the EXEC stack. This acts as a NOOP unless there are at least two items on the EXEC stack and one item on the BOOLEAN stack.
     //    EXEC.K: The Push implementation of the "K combinator". Removes the second item on the EXEC stack.
     //    EXEC.POP: Pops the EXEC stack. This may be thought of as a "DONT" instruction.
-    //    EXEC.ROT: Rotates the top three items on the EXEC stack, pulling the third item out and pushing it on top. This is equivalent to "2 EXEC.YANK".
     //    EXEC.S: The Push implementation of the "S combinator". Pops 3 items from the EXEC stack, which we will call A, B, and C (with A being the first one popped). Then pushes a list containing B and C back onto the EXEC stack, followed by another instance of C, followed by another instance of A.
     //    EXEC.SHOVE: Inserts the top EXEC item "deep" in the stack, at the position indexed by the top INTEGER. This may be thought of as a "DO LATER" instruction.
     //    EXEC.STACKDEPTH: Pushes the stack depth onto the INTEGER stack.
@@ -67,5 +67,9 @@ extension PushInterpreter {
         }
     }
 
+    //    EXEC.ROT: Rotates the top three items on the EXEC stack, pulling the third item out and pushing it on top. This is equivalent to "2 EXEC.YANK".
+    func exec_rotate() {
+        execStack.rotate()
+    }
     
 }

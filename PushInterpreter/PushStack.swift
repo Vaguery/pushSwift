@@ -35,6 +35,23 @@ class PushStack:Printable {
         return items.count
     }
     
+    func rotate() {
+        let c = items.count
+        switch c {
+        case 0,1:
+            break
+        case 2:
+            self.swap()
+        default:
+            let top = self.pop()!
+            let second = self.pop()!
+            let third = self.pop()!
+            self.push(second)
+            self.push(top)
+            self.push(third)
+        }
+    }
+    
     func swap() {
         if items.count > 1 {
             let old_top = self.pop()

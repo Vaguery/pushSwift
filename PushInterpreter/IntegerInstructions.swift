@@ -22,6 +22,7 @@ extension PushInterpreter {
             "int_min" : {self.int_min()},
             "int_mod" : {self.int_mod()},
             "int_multiply" : {self.int_multiply()},
+            "int_rotate" : {self.int_rotate()},
             "int_subtract" : {self.int_subtract()}
         ]
         
@@ -45,7 +46,6 @@ extension PushInterpreter {
     //    INTEGER.FROMFLOAT: Pushes the result of truncating the top FLOAT.
     //    INTEGER.POP: Pops the INTEGER stack.
     //    INTEGER.RAND: Pushes a newly generated random INTEGER that is greater than or equal to MIN-RANDOM-INTEGER and less than or equal to MAX-RANDOM-INTEGER.
-    //    INTEGER.ROT: Rotates the top three items on the INTEGER stack, pulling the third item out and pushing it on top. This is equivalent to "2 INTEGER.YANK".
     //    INTEGER.SHOVE: Inserts the second INTEGER "deep" in the stack, at the position indexed by the top INTEGER. The index position is calculated after the index is removed.
     //    INTEGER.STACKDEPTH: Pushes the stack depth onto the INTEGER stack (thereby increasing it!).
     //    INTEGER.SWAP: Swaps the top two INTEGERs.
@@ -175,6 +175,12 @@ extension PushInterpreter {
             intStack.push(product)
         }
     }
+    
+    //    INTEGER.ROT: Rotates the top three items on the INTEGER stack, pulling the third item out and pushing it on top. This is equivalent to "2 INTEGER.YANK".
+    func int_rotate() {
+        intStack.rotate()
+    }
+
     
     
     //  INTEGER.-: Pushes the difference of the top two items; that is, the second item minus the top item.

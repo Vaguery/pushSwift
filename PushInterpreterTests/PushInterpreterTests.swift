@@ -65,7 +65,29 @@ class StackTests: XCTestCase {
         XCTAssertTrue(poppedInt2 == nil, "An item was retrieved")
     }
 
-//    // swap
+    //  rotate
+    
+    func testRotateWithTwoItemsIsSwap() {
+        var myStack = PushStack()
+        myStack.push(PushPoint.Integer(1))
+        myStack.push(PushPoint.Integer(2))
+        myStack.rotate()
+        XCTAssertTrue(myStack.description == "[ 2 1 ]", "Did not expect \(myStack.description)")
+    }
+
+    
+    func testRotateWithThreeItemsWorksAsExpected() {
+        var myStack = PushStack()
+        myStack.push(PushPoint.Integer(1))
+        myStack.push(PushPoint.Integer(2))
+        myStack.push(PushPoint.Integer(3))
+        myStack.rotate()
+        XCTAssertTrue(myStack.description == "[ 2 3 1 ]", "Did not expect \(myStack.description)")
+    }
+
+    
+    
+    //  swap
     
     func testSwapDoesNothingIfStackLacksTwoItems() {
         var myStack = PushStack()

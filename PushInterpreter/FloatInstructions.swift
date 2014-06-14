@@ -12,7 +12,8 @@ extension PushInterpreter {
     func loadFloatInstructions() {
         
         let floatInstructions = [
-            "float_abs" : {self.float_abs()}
+               "float_abs" : {self.float_abs()},
+            "float_rotate" : {self.float_rotate()}
         ]
         
         for (k,v) in floatInstructions {
@@ -44,7 +45,6 @@ extension PushInterpreter {
     //    FLOAT.MIN: Pushes the minimum of the top two items.
     //    FLOAT.POP: Pops the FLOAT stack.
     //    FLOAT.RAND: Pushes a newly generated random FLOAT that is greater than or equal to MIN-RANDOM-FLOAT and less than or equal to MAX-RANDOM-FLOAT.
-    //    FLOAT.ROT: Rotates the top three items on the FLOAT stack, pulling the third item out and pushing it on top. This is equivalent to "2 FLOAT.YANK".
     //    FLOAT.SHOVE: Inserts the top FLOAT "deep" in the stack, at the position indexed by the top INTEGER.
     //    FLOAT.SIN: Pushes the sine of the top item.
     //    FLOAT.STACKDEPTH: Pushes the stack depth onto the INTEGER stack.
@@ -61,6 +61,11 @@ extension PushInterpreter {
             let arg = floatStack.pop()!.value as Double
             floatStack.push(PushPoint.Float(abs(arg)))
         }
+    }
+    
+    //  FLOAT.ROT: Rotates the top three items on the FLOAT stack, pulling the third item out and pushing it on top. This is equivalent to "2 FLOAT.YANK".
+    func float_rotate() {
+        floatStack.rotate()
     }
     
     

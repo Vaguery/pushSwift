@@ -12,73 +12,92 @@ import PushInterpreter
 class IntegerInstructionTests: XCTestCase {
     
 
-    func testIntAdd() {
+    func test_IntAdd() {
         let myPI = PushInterpreter(script:"2 3 int_add")
         myPI.run()
         XCTAssertTrue(myPI.intStack.description == "[ 5 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
     
-    func testIntSubtract() {
-        let myPI = PushInterpreter(script:"2 3 int_subtract")
+    func test_IntDiv() {
+        let myPI = PushInterpreter(script:"70 11 int_div")
         myPI.run()
-        XCTAssertTrue(myPI.intStack.description == "[ -1 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+        XCTAssertTrue(myPI.intStack.description == "[ 6 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
     
-    func testIntModulo() {
-        let myPI = PushInterpreter(script:"70 11 int_mod")
-        myPI.run()
-        XCTAssertTrue(myPI.intStack.description == "[ 4 ]", "Didn't expect stack to be \(myPI.intStack.description)")
-    }
+    
 
-    func testIntDivMod() {
+    
+    func test_IntDivMod() {
         let myPI = PushInterpreter(script:"70 11 int_divmod")
         myPI.run()
         XCTAssertTrue(myPI.intStack.description == "[ 6 4 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
     
-    func testIntDiv() {
-        let myPI = PushInterpreter(script:"70 11 int_div")
-        myPI.run()
-        XCTAssertTrue(myPI.intStack.description == "[ 6 ]", "Didn't expect stack to be \(myPI.intStack.description)")
-    }
-
-    func testIntMultiply() {
-        let myPI = PushInterpreter(script:"70 11 int_multiply")
-        myPI.run()
-        XCTAssertTrue(myPI.intStack.description == "[ 770 ]", "Didn't expect stack to be \(myPI.intStack.description)")
-    }
-
-    func testIntLessThan() {
-        let myPI = PushInterpreter(script:"70 11 int_lessThan -3 9 int_lessThan")
-        myPI.run()
-        XCTAssertTrue(myPI.boolStack.description == "[ F T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
-    }
-
-    func testIntEqual() {
+    func test_IntEqual() {
         let myPI = PushInterpreter(script:"70 11 int_equal -3 -3 int_equal")
         myPI.run()
         XCTAssertTrue(myPI.boolStack.description == "[ F T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
     }
-
-    func testIntGreaterThan() {
+    
+    func test_IntGreaterThan() {
         let myPI = PushInterpreter(script:"70 11 int_greaterThan -3 9 int_greaterThan")
         myPI.run()
         XCTAssertTrue(myPI.boolStack.description == "[ T F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
     }
+
+
+    func test_IntLessThan() {
+        let myPI = PushInterpreter(script:"70 11 int_lessThan -3 9 int_lessThan")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ F T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
     
-    func testIntMax() {
+    func test_IntMax() {
         let myPI = PushInterpreter(script:"70 11 int_max -3 9 int_max")
         myPI.run()
         XCTAssertTrue(myPI.intStack.description == "[ 70 9 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
-
     
-    func testIntMin() {
+    func test_IntMin() {
         let myPI = PushInterpreter(script:"70 11 int_min -3 9 int_min")
         myPI.run()
         XCTAssertTrue(myPI.intStack.description == "[ 11 -3 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
 
+    
+    func test_IntModulo() {
+        let myPI = PushInterpreter(script:"70 11 int_mod")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 4 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
+
+    func test_IntMultiply() {
+        let myPI = PushInterpreter(script:"70 11 int_multiply")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 770 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
+    
+    func test_IntRotate() {
+        let myPI = PushInterpreter(script:"1 2 3 int_rotate")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 2 3 1 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
+
+
+    
+    func test_IntSubtract() {
+        let myPI = PushInterpreter(script:"2 3 int_subtract")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ -1 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
+    
+
+    
+
+
+
+    
+    
 }
 
 

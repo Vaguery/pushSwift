@@ -13,7 +13,8 @@ extension PushInterpreter {
         
         let rangeInstructions = [
             "range_fromInts" : {self.range_fromInts()},
-             "range_reverse" : {self.range_reverse()}
+             "range_reverse" : {self.range_reverse()},
+              "range_rotate" : {self.range_rotate()}
         ]
         
         for (k,v) in rangeInstructions {
@@ -25,7 +26,7 @@ extension PushInterpreter {
     /////////////////////
     // range instructions
     
-    // (ranges are not a feature of Push 3.0)
+    // (ranges are not a feature of Push 3.0, so all these are new)
     
     func range_fromInts() {
         if intStack.length() > 1 {
@@ -40,6 +41,10 @@ extension PushInterpreter {
             let (start,end) = rangeStack.pop()!.value as (Int,Int)
             rangeStack.push(PushPoint.Range(end,start))
         }
+    }
+    
+    func range_rotate() {
+        rangeStack.rotate()
     }
 
     

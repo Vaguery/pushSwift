@@ -11,31 +11,62 @@ import PushInterpreter
 
 class BooleanInstructionTests: XCTestCase {
     
-    func testBoolNot() {
-        let myPI = PushInterpreter(script:"F bool_not")
+    
+    func test_BoolAnd() {
+        let myPI = PushInterpreter(script:"F F bool_and F T bool_and T F bool_and T T bool_and")
         myPI.run()
-        XCTAssertTrue(myPI.boolStack.description == "[ T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+        XCTAssertTrue(myPI.boolStack.description == "[ F F F T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
     }
     
-    func testBoolEqual() {
+    func test_BoolDup() {
+        let myPI = PushInterpreter(script:"F T bool_dup")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ F T T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
+
+
+    func test_BoolEqual() {
         let myPI = PushInterpreter(script:"F T bool_equal T T bool_equal")
         myPI.run()
         XCTAssertTrue(myPI.boolStack.description == "[ F T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
     }
     
-    
-    func testBoolAnd() {
-        let myPI = PushInterpreter(script:"F F bool_and F T bool_and T F bool_and T T bool_and")
+    func test_BoolFlush() {
+        let myPI = PushInterpreter(script:"F F F F F bool_flush T")
         myPI.run()
-        XCTAssertTrue(myPI.boolStack.description == "[ F F F T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+        XCTAssertTrue(myPI.boolStack.description == "[ T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
     }
 
 
-    func testBoolOr() {
+    func test_BoolNot() {
+        let myPI = PushInterpreter(script:"F bool_not")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
+    
+    func test_BoolOr() {
         let myPI = PushInterpreter(script:"F F bool_or F T bool_or T F bool_or T T bool_or")
         myPI.run()
         XCTAssertTrue(myPI.boolStack.description == "[ F T T T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
     }
+    
+    func test_BoolPop() {
+        let myPI = PushInterpreter(script:"F F T bool_pop")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ F F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
+
+    
+    func test_BoolRotate() {
+        let myPI = PushInterpreter(script:"F F T bool_rotate")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ F T F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
+
+    
+    
+
+
 
 
 }

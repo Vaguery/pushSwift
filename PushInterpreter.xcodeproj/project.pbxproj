@@ -112,13 +112,13 @@
 			isa = PBXGroup;
 			children = (
 				A9A838DF1947E54E004414E3 /* PushInstructions.swift */,
-				A919F02D194B76670097AFBB /* NameInstructions.swift */,
 				A9B17AC3194B2AB1003F2048 /* BooleanInstructions.swift */,
 				A922134D194B558100AFE086 /* CodeInstructions.swift */,
 				A919F024194B679F0097AFBB /* ExecInstructions.swift */,
 				A919F029194B6B400097AFBB /* FloatInstructions.swift */,
 				A9B17ABF194B27D0003F2048 /* IntegerInstructions.swift */,
 				A9B17AC1194B293C003F2048 /* MiscellaneousInstructions.swift */,
+				A919F02D194B76670097AFBB /* NameInstructions.swift */,
 				A99C3381194B3A9700F70094 /* RangeInstructions.swift */,
 			);
 			name = Instructions;

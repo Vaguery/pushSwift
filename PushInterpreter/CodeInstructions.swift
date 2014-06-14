@@ -13,7 +13,9 @@ extension PushInterpreter {
         
         let codeInstructions = [
              "code_isAtom" : {self.code_isAtom()},
-            "code_isEmpty" : {self.code_isEmpty()}
+            "code_isEmpty" : {self.code_isEmpty()},
+              "code_quote" : {self.code_quote()},
+             "code_rotate" : {self.code_rotate()}
         ]
         
         for (k,v) in codeInstructions {
@@ -67,9 +69,7 @@ extension PushInterpreter {
     //    CODE.POP: Pops the CODE stack.
     //    CODE.POSITION: Pushes onto the INTEGER stack the position of the second item on the CODE stack within the first item (which is coerced to a list if necessary). Pushes -1 if no
     //    match is found.
-    //    CODE.QUOTE: Specifies that the next expression submitted for execution will instead be pushed literally onto the CODE stack. This can be implemented by moving the top item on the EXEC stack onto the CODE stack.
     //    CODE.RAND: Pushes a newly-generated random program onto the CODE stack. The limit for the size of the expression is taken from the INTEGER stack; to ensure that it is in the appropriate range this is taken modulo the value of the MAX-POINTS-IN-RANDOM-EXPRESSIONS parameter and the absolute value of the result is used.
-    //    CODE.ROT: Rotates the top three items on the CODE stack, pulling the third item out and pushing it on top. This is equivalent to "2 CODE.YANK".
     //    CODE.SHOVE: Inserts the top piece of CODE "deep" in the stack, at the position indexed by the top INTEGER.
     //    CODE.SIZE: Pushes the number of "points" in the top piece of CODE onto the INTEGER stack. Each instruction, literal, and pair of parentheses counts as a point.
     //    CODE.STACKDEPTH: Pushes the stack depth onto the INTEGER stack.
@@ -95,6 +95,24 @@ extension PushInterpreter {
             let pts = codeStack.pop()!.value as PushPoint[]
             boolStack.push(PushPoint.Boolean(pts.count == 0))
         }
+    }
+    
+    //  CODE.QUOTE: Specifies that the next expression submitted for execution will instead be pushed literally onto the CODE stack. This can be implemented by moving the top item on the EXEC stack onto the CODE stack.
+    
+    func code_quote() {
+        if execStack.length() > 0 {
+            let quoted = execStack.pop()!
+            if quoted.isBlock() {
+                codeStack.push(quoted)
+            } else {
+                codeStack.push(PushPoint.Block([quoted]))
+            }
+        }
+    }
+    
+    //  CODE.ROT: Rotates the top three items on the CODE stack, pulling the third item out and pushing it on top. This is equivalent to "2 CODE.YANK".
+    func code_rotate() {
+        codeStack.rotate()
     }
 
     
