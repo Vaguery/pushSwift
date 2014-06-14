@@ -66,8 +66,21 @@ class IntegerInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.intStack.description == "[ 4 5 6 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
     
+    func test_IntFromBool() {
+        let myPI = PushInterpreter(script:"F T int_fromBool int_fromBool")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 1 0 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
+
+    
     func test_IntGreaterThan() {
         let myPI = PushInterpreter(script:"70 11 int_greaterThan -3 9 int_greaterThan")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ T F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
+
+    func test_IntIsPositive() {
+        let myPI = PushInterpreter(script:"9 int_isPositive -1 int_isPositive")
         myPI.run()
         XCTAssertTrue(myPI.boolStack.description == "[ T F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
     }

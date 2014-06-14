@@ -20,6 +20,7 @@ extension PushInterpreter {
             "exec_isLiteral" : {self.exec_isLiteral()},
                   "exec_pop" : {self.exec_pop()}, 
                "exec_rotate" : {self.exec_rotate()},
+                "exec_shove" : {self.exec_shove()},
                  "exec_swap" : {self.exec_swap()}
         ]
         
@@ -42,7 +43,6 @@ extension PushInterpreter {
     //    EXEC.IF: If the top item of the BOOLEAN stack is TRUE then this removes the second item on the EXEC stack, leaving the first item to be executed. If it is false then it removes the first item, leaving the second to be executed. This is similar to CODE.IF except that it operates on the EXEC stack. This acts as a NOOP unless there are at least two items on the EXEC stack and one item on the BOOLEAN stack.
     //    EXEC.K: The Push implementation of the "K combinator". Removes the second item on the EXEC stack.
     //    EXEC.S: The Push implementation of the "S combinator". Pops 3 items from the EXEC stack, which we will call A, B, and C (with A being the first one popped). Then pushes a list containing B and C back onto the EXEC stack, followed by another instance of C, followed by another instance of A.
-    //    EXEC.SHOVE: Inserts the top EXEC item "deep" in the stack, at the position indexed by the top INTEGER. This may be thought of as a "DO LATER" instruction.
     //    EXEC.Y: The Push implementation of the "Y combinator". Inserts beneath the top item of the EXEC stack a new item of the form "( EXEC.Y <TopItem> )".
     //    EXEC.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack. This may be thought of as a "DO SOONER" instruction.
     //    EXEC.YANKDUP: Pushes a copy of an indexed item "deep" in the stack onto the top of the stack, without removing the deep item. The index is taken from the INTEGER stack.
@@ -101,6 +101,15 @@ extension PushInterpreter {
     func exec_rotate() {
         execStack.rotate()
     }
+    
+    //  EXEC.SHOVE: Inserts the top EXEC item "deep" in the stack, at the position indexed by the top INTEGER. This may be thought of as a "DO LATER" instruction.
+    func exec_shove() {
+        if intStack.length() > 0 {
+            let d = intStack.pop()!.value as Int
+            execStack.shove(d)
+        }
+    }
+
     
     //  EXEC.SWAP: Swaps the top two items on the EXEC stack.
     func exec_swap() {

@@ -79,6 +79,19 @@ class BooleanInstructionTests: XCTestCase {
         myPI.run()
         XCTAssertTrue(myPI.boolStack.description == "[ F T F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
     }
+    
+    func test_BoolShove() {
+        let myPI = PushInterpreter(script:"3 F F F F F T bool_shove")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ F F F T F F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
+    
+    func test_BoolShoveWorksWhenBoolIsEmpty() {
+        let myPI = PushInterpreter(script:"3 bool_shove")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
+
 
     func test_BoolSwap() {
         let myPI = PushInterpreter(script:"F F T bool_swap")

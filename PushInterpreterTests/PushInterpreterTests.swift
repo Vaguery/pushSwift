@@ -149,6 +149,21 @@ class StackTests: XCTestCase {
         for i in 1...8 { s.push(PushPoint.Integer(i))}
         XCTAssertTrue(s.description == "[ 1 2 3 4 5 6 7 8 ]", "Did not expect \(s.description)")
     }
+    
+    // shove
+    
+    func test_Shove() {
+        var s = PushStack()
+        for i in 1...8 { s.push(PushPoint.Integer(i))}
+        s.shove(4)
+        XCTAssertTrue(s.description == "[ 1 2 3 4 8 5 6 7 ]", "Did not expect \(s.description)")
+        s.shove(-4)
+        XCTAssertTrue(s.description == "[ 1 2 3 4 7 8 5 6 ]", "Did not expect \(s.description)")
+        s.shove(0)
+        XCTAssertTrue(s.description == "[ 6 1 2 3 4 7 8 5 ]", "Did not expect \(s.description)")
+        s.shove(20)
+        XCTAssertTrue(s.description == "[ 6 1 2 3 5 4 7 8 ]", "Did not expect \(s.description)")
+    }
 }
 
 

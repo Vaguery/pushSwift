@@ -21,6 +21,7 @@ extension PushInterpreter {
                 "code_pop" : {self.code_pop()},
               "code_quote" : {self.code_quote()},
              "code_rotate" : {self.code_rotate()},
+              "code_shove" : {self.code_shove()},
                "code_swap" : {self.code_swap()}
         ]
         
@@ -72,7 +73,6 @@ extension PushInterpreter {
     //    CODE.POSITION: Pushes onto the INTEGER stack the position of the second item on the CODE stack within the first item (which is coerced to a list if necessary). Pushes -1 if no
     //    match is found.
     //    CODE.RAND: Pushes a newly-generated random program onto the CODE stack. The limit for the size of the expression is taken from the INTEGER stack; to ensure that it is in the appropriate range this is taken modulo the value of the MAX-POINTS-IN-RANDOM-EXPRESSIONS parameter and the absolute value of the result is used.
-    //    CODE.SHOVE: Inserts the top piece of CODE "deep" in the stack, at the position indexed by the top INTEGER.
     //    CODE.SIZE: Pushes the number of "points" in the top piece of CODE onto the INTEGER stack. Each instruction, literal, and pair of parentheses counts as a point.
     //    CODE.SUBST: Pushes the result of substituting the third item on the code stack for the second item in the first item. As of this writing this is implemented only in the Lisp implementation, within which it relies on the Lisp "subst" function. As such, there are several problematic possibilities; for example "dotted-lists" can result in certain cases with empty-list arguments. If any of these problematic possibilities occurs the stack is left unchanged.
     //    CODE.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack.
@@ -145,6 +145,15 @@ extension PushInterpreter {
     func code_rotate() {
         codeStack.rotate()
     }
+    
+    //  CODE.SHOVE: Inserts the top piece of CODE "deep" in the stack, at the position indexed by the top INTEGER.
+    func code_shove() {
+        if intStack.length() > 0 {
+            let d = intStack.pop()!.value as Int
+            codeStack.shove(d)
+        }
+    }
+
 
     //  CODE.SWAP: Swaps the top two pieces of CODE.
     func code_swap() {

@@ -14,6 +14,8 @@ extension PushInterpreter {
         let floatInstructions = [
                "float_abs" : {self.float_abs()},
             "float_define" : {self.float_define()},
+          "float_fromBool" : {self.float_fromBool()},
+        "float_isPositive" : {self.float_isPositive()},
             "float_rotate" : {self.float_rotate()}
         ]
         
@@ -39,7 +41,6 @@ extension PushInterpreter {
     //    FLOAT.COS: Pushes the cosine of the top item.
     //    FLOAT.DUP: Duplicates the top item on the FLOAT stack. Does not pop its argument (which, if it did, would negate the effect of the duplication!).
     //    FLOAT.FLUSH: Empties the FLOAT stack.
-    //    FLOAT.FROMBOOLEAN: Pushes 1.0 if the top BOOLEAN is TRUE, or 0.0 if the top BOOLEAN is FALSE.
     //    FLOAT.FROMINTEGER: Pushes a floating point version of the top INTEGER.
     //    FLOAT.MAX: Pushes the maximum of the top two items.
     //    FLOAT.MIN: Pushes the minimum of the top two items.
@@ -68,6 +69,25 @@ extension PushInterpreter {
             let point = floatStack.pop()!
             let name = nameStack.pop()!.value as String
             self.bind(name, point: point)
+        }
+    }
+    
+    //  FLOAT.FROMBOOLEAN: Pushes 1.0 if the top BOOLEAN is TRUE, or 0.0 if the top BOOLEAN is FALSE.
+    func float_fromBool() {
+        if boolStack.length() > 0 {
+            let bit = boolStack.pop()!.value as Bool
+            let out = bit ? 1.0 : 0.0
+            floatStack.push(PushPoint.Float(out))
+        }
+    }
+
+    
+    // float_isPositive(): replaces Push 3.0 BOOLEAN.FROMFLOAT
+    func float_isPositive() {
+        if floatStack.length() > 0 {
+            let arg = floatStack.pop()!.value as Double
+            let q:Bool = (arg >= 0.0)
+            boolStack.push(PushPoint.Boolean(q))
         }
     }
 

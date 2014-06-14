@@ -22,6 +22,7 @@ extension PushInterpreter {
              "bool_or" : {self.bool_or()},
             "bool_pop" : {self.bool_pop()},
          "bool_rotate" : {self.bool_rotate()},
+          "bool_shove" : {self.bool_shove()},
            "bool_swap" : {self.bool_swap()}
         ]
         
@@ -35,15 +36,20 @@ extension PushInterpreter {
     // boolean instructions
     
     //  (pending)
-    //  (comments are quotes from http://faculty.hampshire.edu/lspector/push3-description.html where available)
-
+    //  (comments are quotes from http://faculty.hampshire.edu/lspector/push3-description.html where available) 
     
-    //  BOOLEAN.FROMFLOAT: Pushes FALSE if the top FLOAT is 0.0, or TRUE otherwise.
-    //  BOOLEAN.FROMINTEGER: Pushes FALSE if the top INTEGER is 0, or TRUE otherwise.
     //  BOOLEAN.RAND: Pushes a random BOOLEAN.
-    //  BOOLEAN.SHOVE: Inserts the top BOOLEAN "deep" in the stack, at the position indexed by the top INTEGER.
     //  BOOLEAN.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack.
     //  BOOLEAN.YANKDUP: Pushes a copy of an indexed item "deep" in the stack onto the top of the stack, without removing the deep item. The index is taken from the INTEGER stack.
+
+    
+    //  (skipped)
+    //  BOOLEAN.FROMFLOAT: Pushes FALSE if the top FLOAT is 0.0, or TRUE otherwise.
+    //  not implemented; see float_isPositive()
+    
+    //  BOOLEAN.FROMINTEGER: Pushes FALSE if the top INTEGER is 0, or TRUE otherwise.
+    //  not implemented; see int_isPositive()
+
 
     
     //  BOOLEAN.AND: Pushes the logical AND of the top two BOOLEANs.
@@ -63,6 +69,7 @@ extension PushInterpreter {
             self.bind(name, point: point)
         }
     }
+    
     
     //  BOOLEAN.STACKDEPTH: Pushes the stack depth onto the INTEGER stack.
     func bool_depth() {
@@ -118,6 +125,14 @@ extension PushInterpreter {
     //  BOOLEAN.ROT: Rotates the top three items on the BOOLEAN stack, pulling the third item out and pushing it on top. This is equivalent to "2 BOOLEAN.YANK".
     func bool_rotate() {
         boolStack.rotate()
+    }
+    
+    //  BOOLEAN.SHOVE: Inserts the top BOOLEAN "deep" in the stack, at the position indexed by the top INTEGER.
+    func bool_shove() {
+        if intStack.length() > 0 {
+            let d = intStack.pop()!.value as Int
+            boolStack.shove(d)
+        }
     }
     
     //  BOOLEAN.SWAP: Swaps the top two BOOLEANs.

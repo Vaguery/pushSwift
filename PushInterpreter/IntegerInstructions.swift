@@ -20,7 +20,9 @@ extension PushInterpreter {
             "int_dup" : {self.int_dup()},
             "int_equal" : {self.int_equal()},
             "int_flush" : {self.int_flush()},
+            "int_fromBool" : {self.int_fromBool()},
             "int_greaterThan" : {self.int_greaterThan()},
+            "int_isPositive" : {self.int_isPositive()},
             "int_lessThan" : {self.int_lessThan()},
             "int_max" : {self.int_max()},
             "int_min" : {self.int_min()},
@@ -45,7 +47,6 @@ extension PushInterpreter {
     //  (pending)
     //  (comments are quotes from http://faculty.hampshire.edu/lspector/push3-description.html where available)
     //
-    //    INTEGER.FROMBOOLEAN: Pushes 1 if the top BOOLEAN is TRUE, or 0 if the top BOOLEAN is FALSE.
     //    INTEGER.FROMFLOAT: Pushes the result of truncating the top FLOAT.
     //    INTEGER.RAND: Pushes a newly generated random INTEGER that is greater than or equal to MIN-RANDOM-INTEGER and less than or equal to MAX-RANDOM-INTEGER.
     //    INTEGER.SHOVE: Inserts the second INTEGER "deep" in the stack, at the position indexed by the top INTEGER. The index position is calculated after the index is removed.
@@ -130,10 +131,20 @@ extension PushInterpreter {
         }
     }
     
-    //    INTEGER.FLUSH: Empties the INTEGER stack.
+    //  INTEGER.FLUSH: Empties the INTEGER stack.
     func int_flush() {
         intStack.clear()
     }
+    
+    //  INTEGER.FROMBOOLEAN: Pushes 1 if the top BOOLEAN is TRUE, or 0 if the top BOOLEAN is FALSE.
+    func int_fromBool() {
+        if boolStack.length() > 0 {
+            let bit = boolStack.pop()!.value as Bool
+            let out = bit ? 1 : 0
+            intStack.push(PushPoint.Integer(out))
+        }
+    }
+    
     
     //  INTEGER.>: Pushes TRUE onto the BOOLEAN stack if the second item is greater than the top item, or FALSE otherwise.
     
@@ -146,8 +157,18 @@ extension PushInterpreter {
     }
     
     
-    //  INTEGER.<: Pushes TRUE onto the BOOLEAN stack if the second item is less than the top item, or FALSE otherwise.
+    // int_isPositive(): replaces Push 3.0 BOOLEAN.FROMINT
+    func int_isPositive() {
+        if intStack.length() > 0 {
+            let arg = intStack.pop()!.value as Int
+            let q:Bool = (arg >= 0)
+            boolStack.push(PushPoint.Boolean(q))
+        }
+    }
+
     
+    
+    //  INTEGER.<: Pushes TRUE onto the BOOLEAN stack if the second item is less than the top item, or FALSE otherwise.
     func int_lessThan() {
         if intStack.length() > 1 {
             let arg2 = intStack.pop()!.value as Int

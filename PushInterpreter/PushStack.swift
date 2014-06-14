@@ -61,6 +61,15 @@ class PushStack:Printable {
         }
     }
     
+    func shove(new_depth:Int) {
+        if items.count > 1 {  // if length is 1, nothing will happen!
+            var d = new_depth % items.count
+            if d < 0 { d = items.count + d}
+            let pt = self.pop()!
+            self.items.insert(pt, atIndex: d)
+        }
+    }
+    
     func clear() {
         items = PushPoint[]()
     }
