@@ -16,7 +16,8 @@ extension PushInterpreter {
             "float_define" : {self.float_define()},
           "float_fromBool" : {self.float_fromBool()},
         "float_isPositive" : {self.float_isPositive()},
-            "float_rotate" : {self.float_rotate()}
+            "float_rotate" : {self.float_rotate()},
+             "float_shove" : {self.float_shove()}
         ]
         
         for (k,v) in floatInstructions {
@@ -46,7 +47,6 @@ extension PushInterpreter {
     //    FLOAT.MIN: Pushes the minimum of the top two items.
     //    FLOAT.POP: Pops the FLOAT stack.
     //    FLOAT.RAND: Pushes a newly generated random FLOAT that is greater than or equal to MIN-RANDOM-FLOAT and less than or equal to MAX-RANDOM-FLOAT.
-    //    FLOAT.SHOVE: Inserts the top FLOAT "deep" in the stack, at the position indexed by the top INTEGER.
     //    FLOAT.SIN: Pushes the sine of the top item.
     //    FLOAT.STACKDEPTH: Pushes the stack depth onto the INTEGER stack.
     //    FLOAT.SWAP: Swaps the top two BOOLEANs.
@@ -97,5 +97,13 @@ extension PushInterpreter {
         floatStack.rotate()
     }
     
+    //  FLOAT.SHOVE: Inserts the top FLOAT "deep" in the stack, at the position indexed by the top INTEGER.
+    func float_shove() {
+        if intStack.length() > 0 {
+            let d = intStack.pop()!.value as Int
+            floatStack.shove(d)
+        }
+    }
+
     
 }

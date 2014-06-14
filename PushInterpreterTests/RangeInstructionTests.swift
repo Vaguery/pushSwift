@@ -60,6 +60,19 @@ class RangeInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.rangeStack.description == "[ (3..4) (5..6) (1..2) ]", "Didn't expect stack to be \(myPI.rangeStack.description)")
     }
 
+    func test_RangeShove() {
+        let myPI = PushInterpreter(script:"1 2 range_fromInts 3 4 range_fromInts 5 6 range_fromInts 0 range_shove")
+        myPI.run()
+        XCTAssertTrue(myPI.rangeStack.description == "[ (5..6) (1..2) (3..4) ]", "Didn't expect stack to be \(myPI.rangeStack.description)")
+    }
+    
+    
+    func test_RangeSwap() {
+        let myPI = PushInterpreter(script:"1 2 range_fromInts 3 4 range_fromInts 5 6 range_fromInts range_swap")
+        myPI.run()
+        XCTAssertTrue(myPI.rangeStack.description == "[ (1..2) (5..6) (3..4) ]", "Didn't expect stack to be \(myPI.rangeStack.description)")
+    }
+    
 
     
 }

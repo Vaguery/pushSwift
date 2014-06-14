@@ -21,6 +21,7 @@ extension PushInterpreter {
                    "name_new" : {self.name_new()},
                    "name_pop" : {self.name_pop()},
                  "name_rotate": {self.name_rotate()},
+                 "name_shove" : {self.name_shove()},
                   "name_swap" : {self.name_swap()}
         ]
         
@@ -39,7 +40,6 @@ extension PushInterpreter {
 
 //        NAME.QUOTE: Sets a flag indicating that the next name encountered will be pushed onto the NAME stack (and not have its associated value pushed onto the EXEC stack), regardless of whether or not it has a definition. Upon encountering such a name and pushing it onto the NAME stack the flag will be cleared (whether or not the pushed name had a definition).
 //        NAME.RANDBOUNDNAME: Pushes a randomly selected NAME that already has a definition.
-//        NAME.SHOVE: Inserts the top NAME "deep" in the stack, at the position indexed by the top INTEGER.
 //        NAME.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack.
 //        NAME.YANKDUP: Pushes a copy of an indexed item "deep" in the stack onto the top of the stack, without removing the deep item. The index is taken from the INTEGER stack.
 
@@ -100,6 +100,15 @@ extension PushInterpreter {
     func name_rotate() {
         nameStack.rotate()
     }
+    
+    //  NAME.SHOVE: Inserts the top NAME "deep" in the stack, at the position indexed by the top INTEGER.
+    func name_shove() {
+        if intStack.length() > 0 {
+            let d = intStack.pop()!.value as Int
+            nameStack.shove(d)
+        }
+    }
+
 
     //  NAME.SWAP: Swaps the top two NAMEs.
     func name_swap() {

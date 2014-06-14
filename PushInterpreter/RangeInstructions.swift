@@ -18,7 +18,9 @@ extension PushInterpreter {
             "range_isUpward" : {self.range_isUpward()},
                  "range_mix" : {self.range_mix()},
              "range_reverse" : {self.range_reverse()},
-              "range_rotate" : {self.range_rotate()}
+              "range_rotate" : {self.range_rotate()},
+               "range_shove" : {self.range_shove()},
+                "range_swap" : {self.range_swap()}
         ]
         
         for (k,v) in rangeInstructions {
@@ -108,7 +110,19 @@ extension PushInterpreter {
         rangeStack.rotate()
     }
     
+    func range_shove() {
+        if intStack.length() > 0 {
+            let d = intStack.pop()!.value as Int
+            rangeStack.shove(d)
+        }
+    }
     
+    func range_swap() {
+        if rangeStack.length() > 1 {
+            rangeStack.swap()
+        }
+    }
+
     
 
     

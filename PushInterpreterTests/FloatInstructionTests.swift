@@ -46,5 +46,12 @@ class FloatInstructionTests: XCTestCase {
         XCTAssertEqualWithAccuracy(myPI.floatStack.items[2].value as Double, 1.1, 0.0001, "Didn't expect stack to be \(myPI.floatStack.description)")
     }
 
+    func test_FloatShove() {
+        let myPI = PushInterpreter(script:"1.0 2.0 3.0 4.0 5.0 2 float_shove ")
+        myPI.run()
+        XCTAssertTrue(myPI.floatStack.description == "[ 1.0 2.0 5.0 3.0 4.0 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
+    }
+    
+
     
 }
