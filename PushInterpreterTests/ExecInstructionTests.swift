@@ -11,8 +11,18 @@ import PushInterpreter
 
 class ExecInstructionTests: XCTestCase {
 
-    
+    func test_ExecDepth() {
+        let myPI = PushInterpreter(script:"exec_depth 1 2 3 4")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 4 1 2 3 4 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
 
+    
+    func test_ExecDup() {
+        let myPI = PushInterpreter(script:"exec_dup T")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ T T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
     
     func test_ExecIsBlock() {
         let myPI = PushInterpreter(script:"exec_isBlock 4 exec_isBlock ( 4 )")
@@ -26,11 +36,22 @@ class ExecInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.boolStack.description == "[ T F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
     }
     
+    func test_ExecPop() {
+        let myPI = PushInterpreter(script:"T exec_pop F T")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ T T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
+    
     func test_ExecRotate() {
         let myPI = PushInterpreter(script:"exec_rotate 1 2 3 4")
         myPI.run()
         XCTAssertTrue(myPI.intStack.description == "[ 3 1 2 4 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
 
-    
+    func test_ExecSwap() {
+        let myPI = PushInterpreter(script:"exec_swap 1 2 3 4")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 2 1 3 4 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
+
 }

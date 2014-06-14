@@ -13,13 +13,15 @@ extension PushInterpreter {
         
         let boolInstructions = [
             "bool_and" : {self.bool_and()},
+          "bool_depth" : {self.bool_depth()},
             "bool_dup" : {self.bool_dup()},
           "bool_equal" : {self.bool_equal()},
           "bool_flush" : {self.bool_flush()},
             "bool_not" : {self.bool_not()},
              "bool_or" : {self.bool_or()},
             "bool_pop" : {self.bool_pop()},
-         "bool_rotate" : {self.bool_rotate()}
+         "bool_rotate" : {self.bool_rotate()},
+           "bool_swap" : {self.bool_swap()}
         ]
         
         for (k,v) in boolInstructions {
@@ -40,8 +42,6 @@ extension PushInterpreter {
     //  BOOLEAN.FROMINTEGER: Pushes FALSE if the top INTEGER is 0, or TRUE otherwise.
     //  BOOLEAN.RAND: Pushes a random BOOLEAN.
     //  BOOLEAN.SHOVE: Inserts the top BOOLEAN "deep" in the stack, at the position indexed by the top INTEGER.
-    //  BOOLEAN.STACKDEPTH: Pushes the stack depth onto the INTEGER stack.
-    //  BOOLEAN.SWAP: Swaps the top two BOOLEANs.
     //  BOOLEAN.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack.
     //  BOOLEAN.YANKDUP: Pushes a copy of an indexed item "deep" in the stack onto the top of the stack, without removing the deep item. The index is taken from the INTEGER stack.
 
@@ -55,6 +55,11 @@ extension PushInterpreter {
         }
     }
     
+    //  BOOLEAN.STACKDEPTH: Pushes the stack depth onto the INTEGER stack.
+    func bool_depth() {
+        let d = boolStack.length()
+        intStack.push(PushPoint.Integer(d))
+    }
     
     //  BOOLEAN.DUP: Duplicates the top item on the BOOLEAN stack. Does not pop its argument (which, if it did, would negate the effect of the duplication!).
     func bool_dup() {
@@ -105,5 +110,11 @@ extension PushInterpreter {
     func bool_rotate() {
         boolStack.rotate()
     }
+    
+    //  BOOLEAN.SWAP: Swaps the top two BOOLEANs.
+    func bool_swap() {
+        boolStack.swap()
+    }
+
 
 }

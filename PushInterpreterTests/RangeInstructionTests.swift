@@ -18,6 +18,26 @@ class RangeInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.rangeStack.description == "[ (-11..11) ]", "Didn't expect stack to be \(myPI.rangeStack.description)")
     }
     
+    func test_RangeZero() {
+        let myPI = PushInterpreter(script:"12 range_fromZero")
+        myPI.run()
+        XCTAssertTrue(myPI.rangeStack.description == "[ (0..12) ]", "Didn't expect stack to be \(myPI.rangeStack.description)")
+    }
+
+    
+    func test_rangeIsUpward() {
+        let myPI = PushInterpreter(script:"-11 11 range_fromInts range_isUpward 3 1 range_fromInts range_isUpward 9 9 range_fromInts range_isUpward")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ T F F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
+    
+    func test_rangeMix() {
+        let myPI = PushInterpreter(script:"-11 11 range_fromInts 3 1 range_fromInts range_mix")
+        myPI.run()
+        XCTAssertTrue(myPI.rangeStack.description == "[ (-11..1) (3..11) ]", "Didn't expect stack to be \(myPI.rangeStack.description)")
+
+    }
+    
     func test_RangeReverse() {
         let myPI = PushInterpreter(script:"-11 11 range_fromInts range_reverse")
         myPI.run()

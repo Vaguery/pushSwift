@@ -18,13 +18,18 @@ class IntegerInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.intStack.description == "[ 5 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
     
+    func test_IntDepth() {
+        let myPI = PushInterpreter(script:"1 2 3 4 1 2 3 4 int_depth")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 1 2 3 4 1 2 3 4 8 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
+
+    
     func test_IntDiv() {
         let myPI = PushInterpreter(script:"70 11 int_div")
         myPI.run()
         XCTAssertTrue(myPI.intStack.description == "[ 6 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
-    
-    
 
     
     func test_IntDivMod() {
@@ -33,10 +38,24 @@ class IntegerInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.intStack.description == "[ 6 4 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
     
+    func test_IntDup() {
+        let myPI = PushInterpreter(script:"70 11 int_dup")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 70 11 11 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
+
+    
     func test_IntEqual() {
         let myPI = PushInterpreter(script:"70 11 int_equal -3 -3 int_equal")
         myPI.run()
         XCTAssertTrue(myPI.boolStack.description == "[ F T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
+    
+    
+    func test_IntFlush() {
+        let myPI = PushInterpreter(script:"1 2 3 int_flush 4 5 6")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 4 5 6 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
     
     func test_IntGreaterThan() {
@@ -77,6 +96,14 @@ class IntegerInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.intStack.description == "[ 770 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
     
+    func test_IntPop() {
+        let myPI = PushInterpreter(script:"1 2 3 4 int_pop")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 1 2 3 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
+
+    
+    
     func test_IntRotate() {
         let myPI = PushInterpreter(script:"1 2 3 int_rotate")
         myPI.run()
@@ -91,7 +118,11 @@ class IntegerInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.intStack.description == "[ -1 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
     
-
+    func test_IntSwap() {
+        let myPI = PushInterpreter(script:"1 2 3 4 int_swap")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 1 2 4 3 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
     
 
 

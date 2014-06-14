@@ -13,17 +13,22 @@ extension PushInterpreter {
     func loadIntegerInstructions() {
         let intInstructions = [
             "int_add" : {self.int_add()},
+            "int_depth" : {self.int_depth()},
             "int_div" : {self.int_div()},
             "int_divmod" : {self.int_divmod()},
+            "int_dup" : {self.int_dup()},
             "int_equal" : {self.int_equal()},
+            "int_flush" : {self.int_flush()},
             "int_greaterThan" : {self.int_greaterThan()},
             "int_lessThan" : {self.int_lessThan()},
             "int_max" : {self.int_max()},
             "int_min" : {self.int_min()},
             "int_mod" : {self.int_mod()},
             "int_multiply" : {self.int_multiply()},
+            "int_pop" : {self.int_pop()},
             "int_rotate" : {self.int_rotate()},
-            "int_subtract" : {self.int_subtract()}
+            "int_subtract" : {self.int_subtract()},
+            "int_swap" : {self.int_swap()}
         ]
         
         for (k,v) in intInstructions {
@@ -40,15 +45,10 @@ extension PushInterpreter {
     //  (comments are quotes from http://faculty.hampshire.edu/lspector/push3-description.html where available)
     //
     //    INTEGER.DEFINE: Defines the name on top of the NAME stack as an instruction that will push the top item of the INTEGER stack onto the EXEC stack.
-    //    INTEGER.DUP: Duplicates the top item on the INTEGER stack. Does not pop its argument (which, if it did, would negate the effect of the duplication!).
-    //    INTEGER.FLUSH: Empties the INTEGER stack.
     //    INTEGER.FROMBOOLEAN: Pushes 1 if the top BOOLEAN is TRUE, or 0 if the top BOOLEAN is FALSE.
     //    INTEGER.FROMFLOAT: Pushes the result of truncating the top FLOAT.
-    //    INTEGER.POP: Pops the INTEGER stack.
     //    INTEGER.RAND: Pushes a newly generated random INTEGER that is greater than or equal to MIN-RANDOM-INTEGER and less than or equal to MAX-RANDOM-INTEGER.
     //    INTEGER.SHOVE: Inserts the second INTEGER "deep" in the stack, at the position indexed by the top INTEGER. The index position is calculated after the index is removed.
-    //    INTEGER.STACKDEPTH: Pushes the stack depth onto the INTEGER stack (thereby increasing it!).
-    //    INTEGER.SWAP: Swaps the top two INTEGERs.
     //    INTEGER.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack, and the indexing is done after the index is removed.
     //    INTEGER.YANKDUP: Pushes a copy of an indexed item "deep" in the stack onto the top of the stack, without removing the deep item. The index is taken from the INTEGER stack, and the indexing is done after the index is removed.
     
@@ -63,6 +63,13 @@ extension PushInterpreter {
             let sum = PushPoint.Integer(v1+v2)
             intStack.push(sum)
         }
+    }
+    
+    
+    //  INTEGER.STACKDEPTH: Pushes the stack depth onto the INTEGER stack (thereby increasing it!).
+    func int_depth() {
+        let d = intStack.length()
+        intStack.push(PushPoint.Integer(d))
     }
     
     
@@ -96,6 +103,12 @@ extension PushInterpreter {
     }
     
     
+    //  INTEGER.DUP: Duplicates the top item on the INTEGER stack. Does not pop its argument (which, if it did, would negate the effect of the duplication!).
+    func int_dup() {
+        intStack.dup()
+    }
+    
+    
     //  INTEGER.=: Pushes TRUE onto the BOOLEAN stack if the top two items are equal, or FALSE otherwise.
     
     func int_equal() {
@@ -106,6 +119,10 @@ extension PushInterpreter {
         }
     }
     
+    //    INTEGER.FLUSH: Empties the INTEGER stack.
+    func int_flush() {
+        intStack.clear()
+    }
     
     //  INTEGER.>: Pushes TRUE onto the BOOLEAN stack if the second item is greater than the top item, or FALSE otherwise.
     
@@ -176,7 +193,14 @@ extension PushInterpreter {
         }
     }
     
-    //    INTEGER.ROT: Rotates the top three items on the INTEGER stack, pulling the third item out and pushing it on top. This is equivalent to "2 INTEGER.YANK".
+    
+    //  INTEGER.POP: Pops the INTEGER stack.
+    func int_pop() {
+        let discard = intStack.pop()
+    }
+    
+    
+    //  INTEGER.ROT: Rotates the top three items on the INTEGER stack, pulling the third item out and pushing it on top. This is equivalent to "2 INTEGER.YANK".
     func int_rotate() {
         intStack.rotate()
     }
@@ -192,5 +216,11 @@ extension PushInterpreter {
             let difference = PushPoint.Integer(arg1 - arg2)
             intStack.push(difference)
         }
+    }
+    
+    
+    //  INTEGER.SWAP: Swaps the top two INTEGERs.
+    func int_swap() {
+        intStack.swap()
     }
 }

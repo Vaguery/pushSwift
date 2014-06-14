@@ -10,6 +10,27 @@ import XCTest
 import PushInterpreter
 
 class CodeInstructionTests: XCTestCase {
+    
+    func test_CodeDepth() {
+        let myPI = PushInterpreter(script:"code_quote 1 code_depth")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 1 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
+
+    
+    func test_CodeDup() {
+        let myPI = PushInterpreter(script:"code_quote 1 code_dup")
+        myPI.run()
+        XCTAssertTrue(myPI.codeStack.description == "[ ( 1 ) ( 1 ) ]", "Didn't expect stack to be \(myPI.codeStack.description)")
+    }
+    
+
+    
+    func test_CodeFlush() {
+        let myPI = PushInterpreter(script:"code_quote 1 code_quote 2 code_flush code_quote 3")
+        myPI.run()
+        XCTAssertTrue(myPI.codeStack.description == "[ ( 3 ) ]", "Didn't expect stack to be \(myPI.codeStack.description)")
+    }
 
     func test_CodeIsAtom() {
         let myPI = PushInterpreter(script:"code_isAtom code_isAtom")
@@ -29,6 +50,13 @@ class CodeInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.boolStack.description == "[ F T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
     }
     
+    func test_CodePop() {
+        let myPI = PushInterpreter(script:"code_quote 2 code_quote ( 3 4 ) code_pop")
+        myPI.run()
+        XCTAssertTrue(myPI.codeStack.description == "[ ( 2 ) ]", "Didn't expect stack to be \(myPI.codeStack.description)")
+    }
+
+    
     func test_CodeQuote() {
         let myPI = PushInterpreter(script:"1 code_quote 2 code_quote ( 3 4 )")
         myPI.run()
@@ -39,6 +67,14 @@ class CodeInstructionTests: XCTestCase {
         let myPI = PushInterpreter(script:"code_quote 1 code_quote 2 code_quote ( 3 4 ) code_rotate")
         myPI.run()
         XCTAssertTrue(myPI.codeStack.description == "[ ( 2 ) ( 3 4 ) ( 1 ) ]", "Didn't expect stack to be \(myPI.codeStack.description)")
+    }
+    
+    
+    func test_CodeSwap() {
+        let myPI = PushInterpreter(script:"code_quote 1 code_quote 2 code_swap")
+        myPI.run()
+        XCTAssertTrue(myPI.codeStack.description == "[ ( 2 ) ( 1 ) ]", "Didn't expect stack to be \(myPI.codeStack.description)")
+
     }
 
 

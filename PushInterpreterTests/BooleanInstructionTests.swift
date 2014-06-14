@@ -18,6 +18,13 @@ class BooleanInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.boolStack.description == "[ F F F T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
     }
     
+    func test_BoolDepth() {
+        let myPI = PushInterpreter(script:"F F T T F F T T bool_depth")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 8 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
+
+    
     func test_BoolDup() {
         let myPI = PushInterpreter(script:"F T bool_dup")
         myPI.run()
@@ -63,7 +70,12 @@ class BooleanInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.boolStack.description == "[ F T F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
     }
 
-    
+    func test_BoolSwap() {
+        let myPI = PushInterpreter(script:"F F T bool_swap")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ F T F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+
+    }
     
 
 

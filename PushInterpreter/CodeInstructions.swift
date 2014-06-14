@@ -12,10 +12,15 @@ extension PushInterpreter {
     func loadCodeInstructions() {
         
         let codeInstructions = [
+              "code_depth" : {self.code_depth()},
+                "code_dup" : {self.code_dup()},
+              "code_flush" : {self.code_flush()},
              "code_isAtom" : {self.code_isAtom()},
             "code_isEmpty" : {self.code_isEmpty()},
+                "code_pop" : {self.code_pop()},
               "code_quote" : {self.code_quote()},
-             "code_rotate" : {self.code_rotate()}
+             "code_rotate" : {self.code_rotate()},
+               "code_swap" : {self.code_swap()}
         ]
         
         for (k,v) in codeInstructions {
@@ -49,9 +54,7 @@ extension PushInterpreter {
     //    ( 0 <1 - IntegerArg> CODE.QUOTE <CodeArg> CODE.DO*RANGE )
     //    CODE.DO*RANGE: An iteration instruction that executes the top item on the CODE stack a number of times that depends on the top two integers, while also pushing the loop counter onto the INTEGER stack for possible access during the execution of the body of the loop. The top integer is the "destination index" and the second integer is the "current index." First the code and the integer arguments are saved locally and popped. Then the integers are compared. If the integers are equal then the current index is pushed onto the INTEGER stack and the code (which is the "body" of the loop) is pushed onto the EXEC stack for subsequent execution. If the integers are not equal then the current index will still be pushed onto the INTEGER stack but two items will be pushed onto the EXEC stack -- first a recursive call to CODE.DO*RANGE (with the same code and destination index, but with a current index that has been either incremented or decremented by 1 to be closer to the destination index) and then the body code. Note that the range is inclusive of both endpoints; a call with integer arguments 3 and 5 will cause its body to be executed 3 times, with the loop counter having the values 3, 4, and 5. Note also that one can specify a loop that "counts down" by providing a destination index that is less than the specified current index.
     //    CODE.DO*TIMES: Like CODE.DO*COUNT but does not push the loop counter. This should be implemented as a macro that expands into CODE.DO*RANGE, similarly to the implementation of CODE.DO*COUNT, except that a call to INTEGER.POP should be tacked on to the front of the loop body code in the call to CODE.DO*RANGE. This call to INTEGER.POP will remove the loop counter, which will have been pushed by CODE.DO*RANGE, prior to the execution of the loop body.
-    //    CODE.DUP: Duplicates the top item on the CODE stack. Does not pop its argument (which, if it did, would negate the effect of the duplication!).
     //    CODE.EXTRACT: Pushes the sub-expression of the top item of the CODE stack that is indexed by the top item of the INTEGER stack. The indexing here counts "points," where each parenthesized expression and each literal/instruction is considered a point, and it proceeds in depth first order. The entire piece of code is at index 0; if it is a list then the first item in the list is at index 1, etc. The integer used as the index is taken modulo the number of points in the overall expression (and its absolute value is taken in case it is negative) to ensure that it is within the meaningful range.
-    //    CODE.FLUSH: Empties the CODE stack.
     //    CODE.FROMBOOLEAN: Pops the BOOLEAN stack and pushes the popped item (TRUE or FALSE) onto the CODE stack.
     //    CODE.FROMFLOAT: Pops the FLOAT stack and pushes the popped item onto the CODE stack.
     //    CODE.FROMINTEGER: Pops the INTEGER stack and pushes the popped integer onto the CODE stack.
@@ -66,21 +69,35 @@ extension PushInterpreter {
     //    CODE.NTH: Pushes the nth element of the expression on top of the CODE stack (which is coerced to a list first if necessary). If the expression is an empty list then the result is an empty list. N is taken from the INTEGER stack and is taken modulo the length of the expression into which it is indexing.
     //    CODE.NTHCDR: Pushes the nth "CDR" (in the Lisp sense) of the expression on top of the CODE stack (which is coerced to a list first if necessary). If the expression is an empty list then the result is an empty list. N is taken from the INTEGER stack and is taken modulo the length of the expression into which it is indexing. A "CDR" of a list is the list without its first element.
     //    CODE.NULL: Pushes TRUE onto the BOOLEAN stack if the top item of the CODE stack is an empty list, or FALSE otherwise.
-    //    CODE.POP: Pops the CODE stack.
     //    CODE.POSITION: Pushes onto the INTEGER stack the position of the second item on the CODE stack within the first item (which is coerced to a list if necessary). Pushes -1 if no
     //    match is found.
     //    CODE.RAND: Pushes a newly-generated random program onto the CODE stack. The limit for the size of the expression is taken from the INTEGER stack; to ensure that it is in the appropriate range this is taken modulo the value of the MAX-POINTS-IN-RANDOM-EXPRESSIONS parameter and the absolute value of the result is used.
     //    CODE.SHOVE: Inserts the top piece of CODE "deep" in the stack, at the position indexed by the top INTEGER.
     //    CODE.SIZE: Pushes the number of "points" in the top piece of CODE onto the INTEGER stack. Each instruction, literal, and pair of parentheses counts as a point.
-    //    CODE.STACKDEPTH: Pushes the stack depth onto the INTEGER stack.
     //    CODE.SUBST: Pushes the result of substituting the third item on the code stack for the second item in the first item. As of this writing this is implemented only in the Lisp implementation, within which it relies on the Lisp "subst" function. As such, there are several problematic possibilities; for example "dotted-lists" can result in certain cases with empty-list arguments. If any of these problematic possibilities occurs the stack is left unchanged.
-    //    CODE.SWAP: Swaps the top two pieces of CODE.
     //    CODE.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack.
     //    CODE.YANKDUP: Pushes a copy of an indexed item "deep" in the stack onto the top of the stack, without removing the deep item. The index is taken from the INTEGER stack.
     
     
-    //    CODE.ATOM: Pushes TRUE onto the BOOLEAN stack if the top piece of code is a single instruction or a literal, and FALSE otherwise (that is, if it is something surrounded by parentheses).
-
+    //  CODE.STACKDEPTH: Pushes the stack depth onto the INTEGER stack.
+    func code_depth() {
+        let d = codeStack.length()
+        intStack.push(PushPoint.Integer(d))
+    }
+    
+    //  CODE.DUP: Duplicates the top item on the CODE stack. Does not pop its argument (which, if it did, would negate the effect of the duplication!).
+    func code_dup() {
+        codeStack.dup()
+    }
+    
+    
+    //  CODE.FLUSH: Empties the CODE stack.
+    func code_flush() {
+        codeStack.clear()
+    }
+    
+    
+    //  CODE.ATOM: Pushes TRUE onto the BOOLEAN stack if the top piece of code is a single instruction or a literal, and FALSE otherwise (that is, if it is something surrounded by parentheses).
     func code_isAtom() {
         if codeStack.length() > 0 {
             let pts = codeStack.pop()!.value as PushPoint[]
@@ -89,7 +106,6 @@ extension PushInterpreter {
     }
     
     // code_isEmpty() is not part of Push 3.0 specification
-    
     func code_isEmpty() {
         if codeStack.length() > 0 {
             let pts = codeStack.pop()!.value as PushPoint[]
@@ -97,8 +113,12 @@ extension PushInterpreter {
         }
     }
     
-    //  CODE.QUOTE: Specifies that the next expression submitted for execution will instead be pushed literally onto the CODE stack. This can be implemented by moving the top item on the EXEC stack onto the CODE stack.
+    //  CODE.POP: Pops the CODE stack.
+    func code_pop() {
+        let discard = codeStack.pop()
+    }
     
+    //  CODE.QUOTE: Specifies that the next expression submitted for execution will instead be pushed literally onto the CODE stack. This can be implemented by moving the top item on the EXEC stack onto the CODE stack.
     func code_quote() {
         if execStack.length() > 0 {
             let quoted = execStack.pop()!
@@ -113,6 +133,11 @@ extension PushInterpreter {
     //  CODE.ROT: Rotates the top three items on the CODE stack, pulling the third item out and pushing it on top. This is equivalent to "2 CODE.YANK".
     func code_rotate() {
         codeStack.rotate()
+    }
+
+    //  CODE.SWAP: Swaps the top two pieces of CODE.
+    func code_swap() {
+        codeStack.swap()
     }
 
     
