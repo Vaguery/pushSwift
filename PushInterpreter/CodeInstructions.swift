@@ -14,6 +14,7 @@ extension PushInterpreter {
         let codeInstructions = [
              "code_append" : {self.code_append()},
             "code_archive" : {self.code_archive()},
+                "code_car" : {self.code_car()},
              "code_define" : {self.code_define()},
               "code_depth" : {self.code_depth()},
                 "code_dup" : {self.code_dup()},
@@ -41,7 +42,6 @@ extension PushInterpreter {
     //
     // (pending)
     //
-    //    CODE.CAR: Pushes the first item of the list on top of the CODE stack. For example, if the top piece of code is "( A B )" then this pushes "A" (after popping the argument). If the code on top of the stack is not a list then this has no effect. The name derives from the similar Lisp function; a more generic name would be "FIRST".
     //    CODE.CDR: Pushes a version of the list from the top of the CODE stack without its first element. For example, if the top piece of code is "( A B )" then this pushes "( B )" (after popping the argument). If the code on top of the stack is not a list then this pushes the empty list ("( )"). The name derives from the similar Lisp function; a more generic name would be "REST".
     //    CODE.CONS: Pushes the result of "consing" (in the Lisp sense) the second stack item onto the first stack item (which is coerced to a list if necessary). For example, if the top piece of code is "( A B )" and the second piece of code is "X" then this pushes "( X A B )" (after popping the argument).
     //    CODE.CONTAINER: Pushes the "container" of the second CODE stack item within the first CODE stack item onto the CODE stack. If second item contains the first anywhere (i.e. in any nested list) then the container is the smallest sub-list that contains but is not equal to the first instance. For example, if the top piece of code is "( B ( C ( A ) ) ( D ( A ) ) )" and the second piece of code is "( A )" then this pushes ( C ( A ) ). Pushes an empty list if there is no such container.
@@ -97,6 +97,18 @@ extension PushInterpreter {
         if codeStack.length() > 0 {
             let arg = codeStack.pop()!
             execStack.items.insert(arg, atIndex: 0)
+        }
+    }
+    
+    
+    //  CODE.CAR: Pushes the first item of the list on top of the CODE stack. For example, if the top piece of code is "( A B )" then this pushes "A" (after popping the argument). If the code on top of the stack is not a list then this has no effect. The name derives from the similar Lisp function; a more generic name would be "FIRST".
+    func code_car() {
+        if codeStack.length() > 0 {
+            let arg = codeStack.pop()!.value as PushPoint[]
+            if arg.count > 1 {
+                let carred = PushPoint.Block([arg[0]])
+                codeStack.push(carred)
+            }
         }
     }
 
