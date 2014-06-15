@@ -11,6 +11,13 @@ import PushInterpreter
 
 class CodeInstructionTests: XCTestCase {
     
+    func test_CodeAppend() {
+        let myPI = PushInterpreter(script:"code_quote ( 1 2 ) code_quote foo code_append")
+        myPI.run()
+        XCTAssertTrue(myPI.codeStack.description == "[ ( ( 1 2 ) ( \"foo\" ) ) ]", "Didn't expect stack to be \(myPI.codeStack.description)")
+    }
+    
+    
     func test_CodeArchive() {
         let myPI = PushInterpreter(script:"code_quote F code_archive code_quote 2 code_quote 3")
         myPI.run()
@@ -73,6 +80,13 @@ class CodeInstructionTests: XCTestCase {
         myPI.run()
         XCTAssertTrue(myPI.boolStack.description == "[ F T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
     }
+    
+    func test_CodeIsEqual() {
+        let myPI = PushInterpreter(script:"code_quote ( 1 2 ) code_quote ( 1 2 ) code_isEqual code_quote ( 1 ( 2 ) ) code_quote ( ( 1 ) 2 ) code_isEqual")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ T F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
+
     
     func test_CodePop() {
         let myPI = PushInterpreter(script:"code_quote 2 code_quote ( 3 4 ) code_pop")

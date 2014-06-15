@@ -12,6 +12,7 @@ extension PushInterpreter {
     func loadCodeInstructions() {
         
         let codeInstructions = [
+             "code_append" : {self.code_append()},
             "code_archive" : {self.code_archive()},
              "code_define" : {self.code_define()},
               "code_depth" : {self.code_depth()},
@@ -20,6 +21,7 @@ extension PushInterpreter {
               "code_flush" : {self.code_flush()},
              "code_isAtom" : {self.code_isAtom()},
             "code_isEmpty" : {self.code_isEmpty()},
+            "code_isEqual" : {self.code_isEqual()},
                 "code_pop" : {self.code_pop()},
               "code_quote" : {self.code_quote()},
              "code_rotate" : {self.code_rotate()},
@@ -38,8 +40,7 @@ extension PushInterpreter {
     // via http://faculty.hampshire.edu/lspector/push3-description.html
     //
     // (pending)
-    //    CODE.=: Pushes TRUE if the top two pieces of CODE are equal, or FALSE otherwise.
-    //    CODE.APPEND: Pushes the result of appending the top two pieces of code. If one of the pieces of code is a single instruction or literal (that is, something not surrounded by parentheses) then it is surrounded by parentheses first.
+    //
     //    CODE.CAR: Pushes the first item of the list on top of the CODE stack. For example, if the top piece of code is "( A B )" then this pushes "A" (after popping the argument). If the code on top of the stack is not a list then this has no effect. The name derives from the similar Lisp function; a more generic name would be "FIRST".
     //    CODE.CDR: Pushes a version of the list from the top of the CODE stack without its first element. For example, if the top piece of code is "( A B )" then this pushes "( B )" (after popping the argument). If the code on top of the stack is not a list then this pushes the empty list ("( )"). The name derives from the similar Lisp function; a more generic name would be "REST".
     //    CODE.CONS: Pushes the result of "consing" (in the Lisp sense) the second stack item onto the first stack item (which is coerced to a list if necessary). For example, if the top piece of code is "( A B )" and the second piece of code is "X" then this pushes "( X A B )" (after popping the argument).
@@ -81,6 +82,16 @@ extension PushInterpreter {
     //    CODE.YANKDUP: Pushes a copy of an indexed item "deep" in the stack onto the top of the stack, without removing the deep item. The index is taken from the INTEGER stack.
     
     
+    //  CODE.APPEND: Pushes the result of appending the top two pieces of code. If one of the pieces of code is a single instruction or literal (that is, something not surrounded by parentheses) then it is surrounded by parentheses first.
+    func code_append() {
+        if codeStack.length() > 1 {
+            let arg2 = codeStack.pop()!
+            let arg1 = codeStack.pop()!
+            let plus = PushPoint.Block([arg1, arg2])
+            codeStack.push(plus)
+        }
+    }
+    
     //  code_archive()
     func code_archive() {
         if codeStack.length() > 0 {
@@ -98,7 +109,6 @@ extension PushInterpreter {
             self.bind(name, point: point)
         }
     }
-
     
     
     //  CODE.STACKDEPTH: Pushes the stack depth onto the INTEGER stack.
@@ -111,6 +121,8 @@ extension PushInterpreter {
     func code_dup() {
         codeStack.dup()
     }
+    
+    
     
     
     //  CODE.FLUSH: Empties the CODE stack.
@@ -139,6 +151,18 @@ extension PushInterpreter {
             boolStack.push(PushPoint.Boolean(pts.count == 0))
         }
     }
+    
+    
+    //  CODE.=: Pushes TRUE if the top two pieces of CODE are equal, or FALSE otherwise.
+    func code_isEqual() {
+        if codeStack.length() > 1 {
+            let arg2 = codeStack.pop()! as PushPoint
+            let arg1 = codeStack.pop()! as PushPoint
+            let isSame:Bool = (arg1.description == arg2.description)
+            boolStack.push(PushPoint.Boolean(isSame))
+        }
+    }
+
     
     //  CODE.POP: Pops the CODE stack.
     func code_pop() {

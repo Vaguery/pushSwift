@@ -10,7 +10,7 @@ import XCTest
 import PushInterpreter
 
 class BooleanInstructionTests: XCTestCase {
-    
+        
     
     func test_BoolAnd() {
         let myPI = PushInterpreter(script:"F F bool_and F T bool_and T F bool_and T T bool_and")
