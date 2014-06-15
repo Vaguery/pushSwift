@@ -19,6 +19,13 @@ class BooleanInstructionTests: XCTestCase {
     }
     
     
+    func test_BoolArchive() {
+        let myPI = PushInterpreter(script:"F F bool_archive T T T T")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ F T T T T F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
+    
+    
     func test_BoolDefine() {
         let myPI = PushInterpreter(script:"F foo bool_define foo foo foo")
         myPI.run()

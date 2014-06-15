@@ -13,6 +13,7 @@ extension PushInterpreter {
         
         let floatInstructions = [
                "float_abs" : {self.float_abs()},
+           "float_archive" : {self.float_archive()},
             "float_define" : {self.float_define()},
               "float_flip" : {self.float_flip()},
           "float_fromBool" : {self.float_fromBool()},
@@ -63,6 +64,17 @@ extension PushInterpreter {
             floatStack.push(PushPoint.Float(abs(arg)))
         }
     }
+    
+    
+    //  float_archive()
+    func float_archive() {
+        if floatStack.length() > 0 {
+            let arg = floatStack.pop()!
+            execStack.items.insert(arg, atIndex: 0)
+        }
+    }
+
+    
     
     //  FLOAT.DEFINE: Defines the name on top of the NAME stack as an instruction that will push the top item of the FLOAT stack onto the EXEC stack.
     func float_define() {

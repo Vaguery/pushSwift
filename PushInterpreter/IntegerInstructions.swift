@@ -13,6 +13,7 @@ extension PushInterpreter {
     func loadIntegerInstructions() {
         let intInstructions = [
                     "int_add" : {self.int_add()},
+                "int_archive" : {self.int_archive()},
                  "int_define" : {self.int_define()},
                   "int_depth" : {self.int_depth()},
                     "int_div" : {self.int_div()},
@@ -67,6 +68,15 @@ extension PushInterpreter {
         }
     }
     
+    
+    //  int_archive()
+    func int_archive() {
+        if intStack.length() > 0 {
+            let arg = intStack.pop()!
+            execStack.items.insert(arg, atIndex: 0)
+        }
+    }
+
     
     //  INTEGER.DEFINE: Defines the name on top of the NAME stack as an instruction that will push the top item of the INTEGER stack onto the EXEC stack.
     func int_define() {

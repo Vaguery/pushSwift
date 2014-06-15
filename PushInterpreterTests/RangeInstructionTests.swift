@@ -13,6 +13,13 @@ class RangeInstructionTests: XCTestCase {
     // for the moment, Range points cannot be parsed from scripts
     
     
+    func test_RangeArchive() {
+        let myPI = PushInterpreter(script:"1 range_fromZero range_archive 2 range_fromZero 3 range_fromZero")
+        myPI.run()
+        XCTAssertTrue(myPI.rangeStack.description == "[ (0..2) (0..3) (0..1) ]", "Didn't expect stack to be \(myPI.rangeStack.description)")
+    }
+
+    
     func test_RangeDefine() {
         let myPI = PushInterpreter(script:"foo 1 2 range_fromInts range_define foo foo foo")
         myPI.run()

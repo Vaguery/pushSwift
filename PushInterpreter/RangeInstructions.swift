@@ -12,6 +12,7 @@ extension PushInterpreter {
     func loadRangeInstructions() {
         
         let rangeInstructions = [
+             "range_archive" : {self.range_archive()},
               "range_define" : {self.range_define()},
                 "range_flip" : {self.range_flip()},
             "range_fromInts" : {self.range_fromInts()},
@@ -55,6 +56,16 @@ extension PushInterpreter {
     // range_isSubset() : pops two ranges; pushes T if they are both the same direction, AND one is entirely within the other
     // range_shift() : pops a range and an Int; adds the int to both extremes
     // range_scale() : pops a range and an Int; multiples the int by both extremes
+    
+    
+    //  range_archive()
+    func range_archive() {
+        if rangeStack.length() > 0 {
+            let arg = rangeStack.pop()!
+            execStack.items.insert(arg, atIndex: 0)
+        }
+    }
+
     
     
     func range_define() {

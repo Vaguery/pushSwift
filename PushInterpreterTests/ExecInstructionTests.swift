@@ -11,6 +11,13 @@ import PushInterpreter
 
 class ExecInstructionTests: XCTestCase {
 
+    func test_ExecArchive() {
+        let myPI = PushInterpreter(script:"exec_archive F T T T")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ T T T F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
+
+    
     func test_ExecDefine() {
         let myPI = PushInterpreter(script:"foo exec_define 44 foo foo foo")
         myPI.run()
@@ -51,6 +58,12 @@ class ExecInstructionTests: XCTestCase {
         let myPI = PushInterpreter(script:"exec_isBlock 4 exec_isBlock ( 4 )")
         myPI.run()
         XCTAssertTrue(myPI.boolStack.description == "[ F T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
+    
+    func test_ExecK() {
+        let myPI = PushInterpreter(script:"exec_k 1 2 3 4 5")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 1 3 4 5 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
     
     func test_ExecIsLiteral() {

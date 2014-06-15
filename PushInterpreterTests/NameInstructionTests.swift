@@ -11,6 +11,13 @@ import PushInterpreter
 
 class NameInstructionTests: XCTestCase {
     
+    func test_NameArchive() {
+        let myPI = PushInterpreter(script:"a name_archive b c")
+        myPI.run()
+        XCTAssertTrue(myPI.nameStack.description == "[ \"b\" \"c\" \"a\" ]", "Didn't expect stack to be \(myPI.nameStack.description)")
+    }
+
+    
     func test_NameDepth() {
         let myPI = PushInterpreter(script:"foo bar name_depth")
         myPI.run()

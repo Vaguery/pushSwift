@@ -13,6 +13,7 @@ extension PushInterpreter {
     func loadNameInstructions() {
         
         let nameInstructions = [
+               "name_archive" : {self.name_archive()},
                  "name_depth" : {self.name_depth()},
                    "name_dup" : {self.name_dup()},
                   "name_flip" : {self.name_flip()},
@@ -34,7 +35,7 @@ extension PushInterpreter {
     
     
     ////////////////////
-    // code instructions
+    // name instructions
     // via http://faculty.hampshire.edu/lspector/push3-description.html
     //
     // (pending)
@@ -43,6 +44,15 @@ extension PushInterpreter {
 //        NAME.RANDBOUNDNAME: Pushes a randomly selected NAME that already has a definition.
 //        NAME.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack.
 //        NAME.YANKDUP: Pushes a copy of an indexed item "deep" in the stack onto the top of the stack, without removing the deep item. The index is taken from the INTEGER stack.
+
+    
+    //  name_archive()
+    func name_archive() {
+        if nameStack.length() > 0 {
+            let arg = nameStack.pop()!
+            execStack.items.insert(arg, atIndex: 0)
+        }
+    }
 
     
     //  NAME.STACKDEPTH: Pushes the stack depth onto the INTEGER stack.

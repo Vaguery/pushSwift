@@ -13,6 +13,7 @@ extension PushInterpreter {
         
         let boolInstructions = [
             "bool_and" : {self.bool_and()},
+        "bool_archive" : {self.bool_archive()},
           "bool_depth" : {self.bool_depth()},
          "bool_define" : {self.bool_define()},
             "bool_dup" : {self.bool_dup()},
@@ -61,6 +62,15 @@ extension PushInterpreter {
             boolStack.push(PushPoint.Boolean(arg1 && arg2))
         }
     }
+    
+    //  bool_archive()
+    func bool_archive() {
+        if boolStack.length() > 0 {
+            let arg = boolStack.pop()!
+            execStack.items.insert(arg, atIndex: 0)
+        }
+    }
+    
     
     //  BOOLEAN.DEFINE: Defines the name on top of the NAME stack as an instruction that will push the top item of the BOOLEAN stack onto the EXEC stack.
     func bool_define() {

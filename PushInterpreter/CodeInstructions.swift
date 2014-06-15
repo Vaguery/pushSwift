@@ -12,6 +12,7 @@ extension PushInterpreter {
     func loadCodeInstructions() {
         
         let codeInstructions = [
+            "code_archive" : {self.code_archive()},
              "code_define" : {self.code_define()},
               "code_depth" : {self.code_depth()},
                 "code_dup" : {self.code_dup()},
@@ -79,6 +80,15 @@ extension PushInterpreter {
     //    CODE.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack.
     //    CODE.YANKDUP: Pushes a copy of an indexed item "deep" in the stack onto the top of the stack, without removing the deep item. The index is taken from the INTEGER stack.
     
+    
+    //  code_archive()
+    func code_archive() {
+        if codeStack.length() > 0 {
+            let arg = codeStack.pop()!
+            execStack.items.insert(arg, atIndex: 0)
+        }
+    }
+
     
     //  CODE.DEFINE: Defines the name on top of the NAME stack as an instruction that will push the top item of the CODE stack onto the EXEC stack.
     func code_define() {
