@@ -15,6 +15,7 @@ extension PushInterpreter {
                "exec_define" : {self.exec_define()},
                 "exec_depth" : {self.exec_depth()},
                   "exec_dup" : {self.exec_dup()},
+                 "exec_flip" : {self.exec_flip()},
                 "exec_flush" : {self.exec_flush()},
               "exec_isBlock" : {self.exec_isBlock()},
             "exec_isLiteral" : {self.exec_isLiteral()},
@@ -69,6 +70,13 @@ extension PushInterpreter {
     func exec_dup() {
         execStack.dup()
     }
+    
+    
+    //  exec_flip()
+    func exec_flip() {
+        execStack.flip()
+    }
+    
     
     //  EXEC.FLUSH: Empties the EXEC stack. This may be thought of as a "HALT" instruction.
     func exec_flush() {

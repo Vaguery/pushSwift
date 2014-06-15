@@ -13,6 +13,7 @@ extension PushInterpreter {
         
         let rangeInstructions = [
               "range_define" : {self.range_define()},
+                "range_flip" : {self.range_flip()},
             "range_fromInts" : {self.range_fromInts()},
             "range_fromZero" : {self.range_fromZero()},
             "range_isUpward" : {self.range_isUpward()},
@@ -63,6 +64,11 @@ extension PushInterpreter {
             self.bind(name, point: point)
         }
     }
+    
+    
+    func range_flip() {
+        rangeStack.flip()
+    }
 
     
     func range_fromInts() {
@@ -73,12 +79,14 @@ extension PushInterpreter {
         }
     }
     
+    
     func range_fromZero() {
         if intStack.length() > 0 {
             let arg1 = intStack.pop()!.value as Int
             rangeStack.push(PushPoint.Range(0,arg1))
         }
     }
+    
     
     func range_isUpward() {
         if rangeStack.length() > 0 {
@@ -106,9 +114,11 @@ extension PushInterpreter {
         }
     }
     
+    
     func range_rotate() {
         rangeStack.rotate()
     }
+    
     
     func range_shove() {
         if intStack.length() > 0 {
@@ -117,13 +127,10 @@ extension PushInterpreter {
         }
     }
     
+    
     func range_swap() {
         if rangeStack.length() > 1 {
             rangeStack.swap()
         }
     }
-
-    
-
-    
 }

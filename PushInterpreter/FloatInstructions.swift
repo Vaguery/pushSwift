@@ -14,6 +14,7 @@ extension PushInterpreter {
         let floatInstructions = [
                "float_abs" : {self.float_abs()},
             "float_define" : {self.float_define()},
+              "float_flip" : {self.float_flip()},
           "float_fromBool" : {self.float_fromBool()},
         "float_isPositive" : {self.float_isPositive()},
             "float_rotate" : {self.float_rotate()},
@@ -71,6 +72,14 @@ extension PushInterpreter {
             self.bind(name, point: point)
         }
     }
+    
+    
+    //  float_flip()
+    func float_flip() {
+        floatStack.flip()
+    }
+    
+    
     
     //  FLOAT.FROMBOOLEAN: Pushes 1.0 if the top BOOLEAN is TRUE, or 0.0 if the top BOOLEAN is FALSE.
     func float_fromBool() {

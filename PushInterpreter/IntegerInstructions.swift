@@ -12,26 +12,27 @@ extension PushInterpreter {
     
     func loadIntegerInstructions() {
         let intInstructions = [
-            "int_add" : {self.int_add()},
-            "int_define" : {self.int_define()},
-            "int_depth" : {self.int_depth()},
-            "int_div" : {self.int_div()},
-            "int_divmod" : {self.int_divmod()},
-            "int_dup" : {self.int_dup()},
-            "int_equal" : {self.int_equal()},
-            "int_flush" : {self.int_flush()},
-            "int_fromBool" : {self.int_fromBool()},
+                    "int_add" : {self.int_add()},
+                 "int_define" : {self.int_define()},
+                  "int_depth" : {self.int_depth()},
+                    "int_div" : {self.int_div()},
+                 "int_divmod" : {self.int_divmod()},
+                    "int_dup" : {self.int_dup()},
+                  "int_equal" : {self.int_equal()},
+                   "int_flip" : {self.int_flip()},
+                  "int_flush" : {self.int_flush()},
+               "int_fromBool" : {self.int_fromBool()},
             "int_greaterThan" : {self.int_greaterThan()},
-            "int_isPositive" : {self.int_isPositive()},
-            "int_lessThan" : {self.int_lessThan()},
-            "int_max" : {self.int_max()},
-            "int_min" : {self.int_min()},
-            "int_mod" : {self.int_mod()},
-            "int_multiply" : {self.int_multiply()},
-            "int_pop" : {self.int_pop()},
-            "int_rotate" : {self.int_rotate()},
-            "int_subtract" : {self.int_subtract()},
-            "int_swap" : {self.int_swap()}
+             "int_isPositive" : {self.int_isPositive()},
+               "int_lessThan" : {self.int_lessThan()},
+                    "int_max" : {self.int_max()},
+                    "int_min" : {self.int_min()},
+                    "int_mod" : {self.int_mod()},
+               "int_multiply" : {self.int_multiply()},
+                    "int_pop" : {self.int_pop()},
+                 "int_rotate" : {self.int_rotate()},
+               "int_subtract" : {self.int_subtract()},
+                   "int_swap" : {self.int_swap()}
         ]
         
         for (k,v) in intInstructions {
@@ -130,6 +131,13 @@ extension PushInterpreter {
             boolStack.push(PushPoint.Boolean(arg1 == arg2))
         }
     }
+    
+    
+    //  int_flip()
+    func int_flip() {
+        intStack.flip()
+    }
+    
     
     //  INTEGER.FLUSH: Empties the INTEGER stack.
     func int_flush() {

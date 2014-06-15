@@ -15,6 +15,7 @@ extension PushInterpreter {
         let nameInstructions = [
                  "name_depth" : {self.name_depth()},
                    "name_dup" : {self.name_dup()},
+                  "name_flip" : {self.name_flip()},
                  "name_flush" : {self.name_flush()},
                "name_isEqual" : {self.name_isEqual()},
             "name_isAssigned" : {self.name_isAssigned()},
@@ -56,6 +57,12 @@ extension PushInterpreter {
         if nameStack.length() > 0 {
             nameStack.dup()
         }
+    }
+    
+    
+    //  name_flip()
+    func name_flip() {
+        nameStack.flip()
     }
 
     

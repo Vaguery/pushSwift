@@ -48,6 +48,13 @@ class BooleanInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.boolStack.description == "[ F T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
     }
     
+    func test_BoolFlip() {
+        let myPI = PushInterpreter(script:"F T F F F T T T F T bool_flip")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ T F T T T F F F T F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
+
+    
     func test_BoolFlush() {
         let myPI = PushInterpreter(script:"F F F F F bool_flush T")
         myPI.run()

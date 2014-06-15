@@ -59,6 +59,12 @@ class IntegerInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.boolStack.description == "[ F T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
     }
     
+    func test_IntFlip() {
+        let myPI = PushInterpreter(script:"1 2 3 4 int_flip")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 4 3 2 1 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
+
     
     func test_IntFlush() {
         let myPI = PushInterpreter(script:"1 2 3 int_flush 4 5 6")

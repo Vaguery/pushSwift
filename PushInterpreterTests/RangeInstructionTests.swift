@@ -20,6 +20,12 @@ class RangeInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.rangeStack.description == "[ (1..2) (1..2) (1..2) ]", "Didn't expect stack to be \(myPI.rangeStack.description)")
     }
 
+    func test_RangeFlip() {
+        let myPI = PushInterpreter(script:"1 range_fromZero 2 range_fromZero 3 range_fromZero range_flip")
+        myPI.run()
+        XCTAssertTrue(myPI.rangeStack.description == "[ (0..3) (0..2) (0..1) ]", "Didn't expect stack to be \(myPI.rangeStack.description)")
+    }
+
     
     
     func test_RangeFromInts() {
@@ -28,7 +34,7 @@ class RangeInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.rangeStack.description == "[ (-11..11) ]", "Didn't expect stack to be \(myPI.rangeStack.description)")
     }
     
-    func test_RangeZero() {
+    func test_RangeFromZero() {
         let myPI = PushInterpreter(script:"12 range_fromZero")
         myPI.run()
         XCTAssertTrue(myPI.rangeStack.description == "[ (0..12) ]", "Didn't expect stack to be \(myPI.rangeStack.description)")

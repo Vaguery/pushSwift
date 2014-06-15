@@ -15,6 +15,7 @@ extension PushInterpreter {
              "code_define" : {self.code_define()},
               "code_depth" : {self.code_depth()},
                 "code_dup" : {self.code_dup()},
+               "code_flip" : {self.code_flip()},
               "code_flush" : {self.code_flush()},
              "code_isAtom" : {self.code_isAtom()},
             "code_isEmpty" : {self.code_isEmpty()},
@@ -114,6 +115,11 @@ extension PushInterpreter {
             let pts = codeStack.pop()!.value as PushPoint[]
             boolStack.push(PushPoint.Boolean(pts.count == 1))
         }
+    }
+    
+    // code_flip()
+    func code_flip() {
+        codeStack.flip()
     }
     
     // code_isEmpty() is not part of Push 3.0 specification

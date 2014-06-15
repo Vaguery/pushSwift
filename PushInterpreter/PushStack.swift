@@ -15,14 +15,38 @@ class PushStack:Printable {
     
     var items:PushPoint[] = []
     
-    func push(item: PushPoint) {
-        items.append(item)
+    
+    func clear() {
+        items = PushPoint[]()
     }
+
     
     var description:String {
         return items.reduce("[") {$0 + " \($1.description)"} + " ]"
     }
     
+    
+    func dup() {
+        items.unshare()
+        if items.count > 0 {
+            let duped = self.items[items.count - 1]
+            self.push(duped.clone())
+        }
+    }
+
+    
+    func flip() {
+        if items.count > 1 {
+            items = items.reverse()
+        }
+    }
+    
+    
+    func length() -> Int {
+        return items.count
+    }
+    
+
     func pop() -> PushPoint? {
         if items.count == 0 {
             return nil
@@ -31,10 +55,11 @@ class PushStack:Printable {
         }
     }
     
-    func length() -> Int {
-        return items.count
-    }
     
+    func push(item: PushPoint) {
+        items.append(item)
+    }
+
     func rotate() {
         let c = items.count
         switch c {
@@ -52,14 +77,6 @@ class PushStack:Printable {
         }
     }
     
-    func swap() {
-        if items.count > 1 {
-            let old_top = self.pop()
-            let old_second = self.pop()
-            self.push(old_top!)
-            self.push(old_second!)
-        }
-    }
     
     func shove(new_depth:Int) {
         if items.count > 1 {  // if length is 1, nothing will happen!
@@ -69,16 +86,17 @@ class PushStack:Printable {
             self.items.insert(pt, atIndex: d)
         }
     }
+
     
-    func clear() {
-        items = PushPoint[]()
-    }
-    
-    func dup() {
-        items.unshare()
-        if items.count > 0 {
-            let duped = self.items[items.count - 1]
-            self.push(duped.clone())
+    func swap() {
+        if items.count > 1 {
+            let old_top = self.pop()
+            let old_second = self.pop()
+            self.push(old_top!)
+            self.push(old_second!)
         }
     }
+    
+    
+    
 }

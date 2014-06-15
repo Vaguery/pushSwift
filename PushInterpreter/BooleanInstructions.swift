@@ -17,6 +17,7 @@ extension PushInterpreter {
          "bool_define" : {self.bool_define()},
             "bool_dup" : {self.bool_dup()},
           "bool_equal" : {self.bool_equal()},
+           "bool_flip" : {self.bool_flip()},
           "bool_flush" : {self.bool_flush()},
             "bool_not" : {self.bool_not()},
              "bool_or" : {self.bool_or()},
@@ -44,11 +45,11 @@ extension PushInterpreter {
 
     
     //  (skipped)
-    //  BOOLEAN.FROMFLOAT: Pushes FALSE if the top FLOAT is 0.0, or TRUE otherwise.
-    //  not implemented; see float_isPositive()
     
     //  BOOLEAN.FROMINTEGER: Pushes FALSE if the top INTEGER is 0, or TRUE otherwise.
     //  not implemented; see int_isPositive()
+    //  BOOLEAN.FROMFLOAT: Pushes FALSE if the top FLOAT is 0.0, or TRUE otherwise.
+    //  not implemented; see float_isPositive()
 
 
     
@@ -90,6 +91,12 @@ extension PushInterpreter {
             let arg2 = boolStack.pop()!.value as Bool
             boolStack.push(PushPoint.Boolean(arg1 == arg2))
         }
+    }
+    
+    
+    // bool_flip()
+    func bool_flip() {
+        boolStack.flip()
     }
     
     
