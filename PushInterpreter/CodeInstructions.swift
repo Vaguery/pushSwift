@@ -15,6 +15,7 @@ extension PushInterpreter {
              "code_append" : {self.code_append()},
             "code_archive" : {self.code_archive()},
                 "code_car" : {self.code_car()},
+                "code_cdr" : {self.code_cdr()},
              "code_define" : {self.code_define()},
               "code_depth" : {self.code_depth()},
                 "code_dup" : {self.code_dup()},
@@ -42,7 +43,6 @@ extension PushInterpreter {
     //
     // (pending)
     //
-    //    CODE.CDR: Pushes a version of the list from the top of the CODE stack without its first element. For example, if the top piece of code is "( A B )" then this pushes "( B )" (after popping the argument). If the code on top of the stack is not a list then this pushes the empty list ("( )"). The name derives from the similar Lisp function; a more generic name would be "REST".
     //    CODE.CONS: Pushes the result of "consing" (in the Lisp sense) the second stack item onto the first stack item (which is coerced to a list if necessary). For example, if the top piece of code is "( A B )" and the second piece of code is "X" then this pushes "( X A B )" (after popping the argument).
     //    CODE.CONTAINER: Pushes the "container" of the second CODE stack item within the first CODE stack item onto the CODE stack. If second item contains the first anywhere (i.e. in any nested list) then the container is the smallest sub-list that contains but is not equal to the first instance. For example, if the top piece of code is "( B ( C ( A ) ) ( D ( A ) ) )" and the second piece of code is "( A )" then this pushes ( C ( A ) ). Pushes an empty list if there is no such container.
     //    CODE.CONTAINS: Pushes TRUE on the BOOLEAN stack if the second CODE stack item contains the first CODE stack item anywhere (e.g. in a sub-list).
@@ -111,6 +111,19 @@ extension PushInterpreter {
             }
         }
     }
+    
+    
+    //  CODE.CDR: Pushes a version of the list from the top of the CODE stack without its first element. For example, if the top piece of code is "( A B )" then this pushes "( B )" (after popping the argument). If the code on top of the stack is not a list then this pushes the empty list ("( )"). The name derives from the similar Lisp function; a more generic name would be "REST".
+    func code_cdr() {
+        if codeStack.length() > 0 {
+            var arg = codeStack.pop()!.value as PushPoint[]
+            if arg.count > 1 {
+                let discard = arg.removeAtIndex(0)
+                codeStack.push(PushPoint.Block(arg))
+            }
+        }
+    }
+
 
     
     //  CODE.DEFINE: Defines the name on top of the NAME stack as an instruction that will push the top item of the CODE stack onto the EXEC stack.
