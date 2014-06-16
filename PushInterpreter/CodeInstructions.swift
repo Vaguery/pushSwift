@@ -21,9 +21,11 @@ extension PushInterpreter {
                 "code_dup" : {self.code_dup()},
                "code_flip" : {self.code_flip()},
               "code_flush" : {self.code_flush()},
+          "code_fromFloat" : {self.code_fromFloat()},
              "code_isAtom" : {self.code_isAtom()},
             "code_isEmpty" : {self.code_isEmpty()},
             "code_isEqual" : {self.code_isEqual()},
+             "code_length" : {self.code_length()},
                 "code_pop" : {self.code_pop()},
               "code_quote" : {self.code_quote()},
              "code_rotate" : {self.code_rotate()},
@@ -40,6 +42,10 @@ extension PushInterpreter {
     ////////////////////
     // code instructions
     // via http://faculty.hampshire.edu/lspector/push3-description.html
+    //
+    //  (skipped)
+    //  CODE.NOOP: Does nothing.
+    //  (see noop() instruction)
     //
     // (pending)
     //
@@ -60,16 +66,13 @@ extension PushInterpreter {
     //    CODE.DO*TIMES: Like CODE.DO*COUNT but does not push the loop counter. This should be implemented as a macro that expands into CODE.DO*RANGE, similarly to the implementation of CODE.DO*COUNT, except that a call to INTEGER.POP should be tacked on to the front of the loop body code in the call to CODE.DO*RANGE. This call to INTEGER.POP will remove the loop counter, which will have been pushed by CODE.DO*RANGE, prior to the execution of the loop body.
     //    CODE.EXTRACT: Pushes the sub-expression of the top item of the CODE stack that is indexed by the top item of the INTEGER stack. The indexing here counts "points," where each parenthesized expression and each literal/instruction is considered a point, and it proceeds in depth first order. The entire piece of code is at index 0; if it is a list then the first item in the list is at index 1, etc. The integer used as the index is taken modulo the number of points in the overall expression (and its absolute value is taken in case it is negative) to ensure that it is within the meaningful range.
     //    CODE.FROMBOOLEAN: Pops the BOOLEAN stack and pushes the popped item (TRUE or FALSE) onto the CODE stack.
-    //    CODE.FROMFLOAT: Pops the FLOAT stack and pushes the popped item onto the CODE stack.
     //    CODE.FROMINTEGER: Pops the INTEGER stack and pushes the popped integer onto the CODE stack.
     //    CODE.FROMNAME: Pops the NAME stack and pushes the popped item onto the CODE stack.
     //    CODE.IF: If the top item of the BOOLEAN stack is TRUE this recursively executes the second item of the CODE stack; otherwise it recursively executes the first item of the CODE stack. Either way both elements of the CODE stack (and the BOOLEAN value upon which the decision was made) are popped.
     //    CODE.INSERT: Pushes the result of inserting the second item of the CODE stack into the first item, at the position indexed by the top item of the INTEGER stack (and replacing whatever was there formerly). The indexing is computed as in CODE.EXTRACT.
     //    CODE.INSTRUCTIONS: Pushes a list of all active instructions in the interpreter's current configuration.
-    //    CODE.LENGTH: Pushes the length of the top item on the CODE stack onto the INTEGER stack. If the top item is not a list then this pushes a 1. If the top item is a list then this pushes the number of items in the top level of the list; that is, nested lists contribute only 1 to this count, no matter what they contain.
     //    CODE.LIST: Pushes a list of the top two items of the CODE stack onto the CODE stack.
     //    CODE.MEMBER: Pushes TRUE onto the BOOLEAN stack if the second item of the CODE stack is a member of the first item (which is coerced to a list if necessary). Pushes FALSE onto the BOOLEAN stack otherwise.
-    //    CODE.NOOP: Does nothing.
     //    CODE.NTH: Pushes the nth element of the expression on top of the CODE stack (which is coerced to a list first if necessary). If the expression is an empty list then the result is an empty list. N is taken from the INTEGER stack and is taken modulo the length of the expression into which it is indexing.
     //    CODE.NTHCDR: Pushes the nth "CDR" (in the Lisp sense) of the expression on top of the CODE stack (which is coerced to a list first if necessary). If the expression is an empty list then the result is an empty list. N is taken from the INTEGER stack and is taken modulo the length of the expression into which it is indexing. A "CDR" of a list is the list without its first element.
     //    CODE.NULL: Pushes TRUE onto the BOOLEAN stack if the top item of the CODE stack is an empty list, or FALSE otherwise.
@@ -156,6 +159,16 @@ extension PushInterpreter {
     }
     
     
+    //  CODE.FROMFLOAT: Pops the FLOAT stack and pushes the popped item onto the CODE stack.
+    func code_fromFloat() {
+        if floatStack.length() > 0 {
+            let arg = floatStack.pop()! as PushPoint
+            codeStack.push(PushPoint.Block([arg]))
+        }
+    }
+
+    
+    
     //  CODE.ATOM: Pushes TRUE onto the BOOLEAN stack if the top piece of code is a single instruction or a literal, and FALSE otherwise (that is, if it is something surrounded by parentheses).
     func code_isAtom() {
         if codeStack.length() > 0 {
@@ -188,6 +201,14 @@ extension PushInterpreter {
         }
     }
 
+    //  CODE.LENGTH: Pushes the length of the top item on the CODE stack onto the INTEGER stack. If the top item is not a list then this pushes a 1. If the top item is a list then this pushes the number of items in the top level of the list; that is, nested lists contribute only 1 to this count, no matter what they contain.
+    func code_length() {
+        if codeStack.length() > 0 {
+            let arg = codeStack.pop()!.value as PushPoint[]
+            intStack.push(PushPoint.Integer(arg.count))
+        }
+    }
+    
     
     //  CODE.POP: Pops the CODE stack.
     func code_pop() {

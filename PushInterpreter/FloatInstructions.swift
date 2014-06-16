@@ -17,7 +17,9 @@ extension PushInterpreter {
             "float_define" : {self.float_define()},
               "float_flip" : {self.float_flip()},
           "float_fromBool" : {self.float_fromBool()},
+       "float_greaterThan" : {self.float_greaterThan()},
         "float_isPositive" : {self.float_isPositive()},
+          "float_lessThan" : {self.float_lessThan()},
             "float_rotate" : {self.float_rotate()},
              "float_shove" : {self.float_shove()}
         ]
@@ -38,9 +40,7 @@ extension PushInterpreter {
     //    FLOAT.+: Pushes the sum of the top two items.
     //    FLOAT.-: Pushes the difference of the top two items; that is, the second item minus the top item.
     //    FLOAT./: Pushes the quotient of the top two items; that is, the second item divided by the top item. If the top item is zero this acts as a NOOP.
-    //    FLOAT.<: Pushes TRUE onto the BOOLEAN stack if the second item is less than the top item, or FALSE otherwise.
     //    FLOAT.=: Pushes TRUE onto the BOOLEAN stack if the top two items are equal, or FALSE otherwise.
-    //    FLOAT.>: Pushes TRUE onto the BOOLEAN stack if the second item is greater than the top item, or FALSE otherwise.
     //    FLOAT.COS: Pushes the cosine of the top item.
     //    FLOAT.DUP: Duplicates the top item on the FLOAT stack. Does not pop its argument (which, if it did, would negate the effect of the duplication!).
     //    FLOAT.FLUSH: Empties the FLOAT stack.
@@ -101,6 +101,16 @@ extension PushInterpreter {
             floatStack.push(PushPoint.Float(out))
         }
     }
+    
+    
+    //  FLOAT.>: Pushes TRUE onto the BOOLEAN stack if the second item is greater than the top item, or FALSE otherwise.
+    func float_greaterThan() {
+        if floatStack.length() > 1 {
+            let arg2 = floatStack.pop()!.value as Double
+            let arg1 = floatStack.pop()!.value as Double
+            boolStack.push(PushPoint.Boolean(arg1 > arg2))
+        }
+    }
 
     
     // float_isPositive(): replaces Push 3.0 BOOLEAN.FROMFLOAT
@@ -111,12 +121,23 @@ extension PushInterpreter {
             boolStack.push(PushPoint.Boolean(q))
         }
     }
+    
+    //  FLOAT.<: Pushes TRUE onto the BOOLEAN stack if the second item is less than the top item, or FALSE otherwise.
+    func float_lessThan() {
+        if floatStack.length() > 1 {
+            let arg2 = floatStack.pop()!.value as Double
+            let arg1 = floatStack.pop()!.value as Double
+            boolStack.push(PushPoint.Boolean(arg1 < arg2))
+        }
+    }
+
 
     
     //  FLOAT.ROT: Rotates the top three items on the FLOAT stack, pulling the third item out and pushing it on top. This is equivalent to "2 FLOAT.YANK".
     func float_rotate() {
         floatStack.rotate()
     }
+    
     
     //  FLOAT.SHOVE: Inserts the top FLOAT "deep" in the stack, at the position indexed by the top INTEGER.
     func float_shove() {

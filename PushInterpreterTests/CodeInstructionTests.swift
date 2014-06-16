@@ -66,14 +66,19 @@ class CodeInstructionTests: XCTestCase {
         myPI.run()
         XCTAssertTrue(myPI.codeStack.description == "[ ( 3 ) ( 2 ) ( 1 ) ]", "Didn't expect stack to be \(myPI.codeStack.description)")
     }
-
-
     
     func test_CodeFlush() {
         let myPI = PushInterpreter(script:"code_quote 1 code_quote 2 code_flush code_quote 3")
         myPI.run()
         XCTAssertTrue(myPI.codeStack.description == "[ ( 3 ) ]", "Didn't expect stack to be \(myPI.codeStack.description)")
     }
+    
+    func test_CodeFromFloat() {
+        let myPI = PushInterpreter(script:"3.5 code_fromFloat")
+        myPI.run()
+        XCTAssertTrue(myPI.codeStack.description == "[ ( 3.5 ) ]", "Didn't expect stack to be \(myPI.codeStack.description)")
+    }
+
 
     func test_CodeIsAtom() {
         let myPI = PushInterpreter(script:"code_isAtom code_isAtom")
@@ -98,6 +103,13 @@ class CodeInstructionTests: XCTestCase {
         myPI.run()
         XCTAssertTrue(myPI.boolStack.description == "[ T F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
     }
+    
+    func test_CodeLength() {
+        let myPI = PushInterpreter(script:"code_quote ( 1 2 ) code_length code_quote ( 1 ) code_length code_quote ( ( 1 2 ) ( 3 4 ( 5 ) ) ) code_length code_quote ( ) code_length")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 2 1 2 0 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
+
 
     
     func test_CodePop() {

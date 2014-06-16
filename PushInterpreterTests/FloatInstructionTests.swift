@@ -44,10 +44,23 @@ class FloatInstructionTests: XCTestCase {
         myPI.run()
         XCTAssertTrue(myPI.floatStack.description == "[ 0.0 1.0 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
     }
+    
+    func test_FloatGreaterThan() {
+        let myPI = PushInterpreter(script:"1.0 -2.0 float_greaterThan 3.0 3.0 float_greaterThan")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ T F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
+
 
 
     func test_FloatIsPositive() {
         let myPI = PushInterpreter(script:"9.5 float_isPositive -1.25 float_isPositive")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ T F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
+
+    func test_FloatLessThan() {
+        let myPI = PushInterpreter(script:"-111.0 -2.0 float_lessThan 3.0 3.0 float_lessThan")
         myPI.run()
         XCTAssertTrue(myPI.boolStack.description == "[ T F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
     }

@@ -19,6 +19,7 @@
 		A9418FA719492C4E00C5E731 /* IntegerInstructionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9418FA619492C4E00C5E731 /* IntegerInstructionTests.swift */; };
 		A947D5C11941EE610009118D /* PushParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A947D5C01941EE610009118D /* PushParserTests.swift */; };
 		A947D5C3194245F30009118D /* PushCodePointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A947D5C2194245F30009118D /* PushCodePointTests.swift */; };
+		A94FB22A194F030600677E51 /* Answers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94FB229194F030600677E51 /* Answers.swift */; };
 		A961B505193F9EE9004289EF /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A961B504193F9EE9004289EF /* main.swift */; };
 		A961B507193F9EE9004289EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A961B506193F9EE9004289EF /* AppDelegate.swift */; };
 		A961B509193F9EE9004289EF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A961B508193F9EE9004289EF /* Images.xcassets */; };
@@ -63,6 +64,8 @@
 		A942C1D81946CA83004A2C69 /* Wrestling.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Wrestling.playground; path = ../Wrestling.playground; sourceTree = "<group>"; };
 		A947D5C01941EE610009118D /* PushParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushParserTests.swift; sourceTree = "<group>"; };
 		A947D5C2194245F30009118D /* PushCodePointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushCodePointTests.swift; sourceTree = "<group>"; };
+		A94FB229194F030600677E51 /* Answers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answers.swift; sourceTree = "<group>"; };
+		A94FB22B194F055000677E51 /* Randomness.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Randomness.playground; path = PushInterpreter/Randomness.playground; sourceTree = "<group>"; };
 		A961B4FF193F9EE9004289EF /* PushInterpreter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PushInterpreter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A961B503193F9EE9004289EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A961B504193F9EE9004289EF /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -134,6 +137,7 @@
 				A9E525E91945557D004E2F87 /* Enumerations.playground */,
 				A993AE9B194081C1001F0C0A /* StackClass.playground */,
 				A9A4B1BD194B100F0045291C /* ClosureFiddle.playground */,
+				A94FB22B194F055000677E51 /* Randomness.playground */,
 				A969257D19488A9C000F056E /* BlockCapture.playground */,
 				A989247D1943D4AD000C11D6 /* README.markdown */,
 				A961B501193F9EE9004289EF /* PushInterpreter */,
@@ -169,6 +173,7 @@
 				A9A838DD1947E4C1004414E3 /* PushStack.swift */,
 				A9A838D91947E35C004414E3 /* PushPoint.swift */,
 				A9A838DB1947E3A5004414E3 /* PushInterpreter.swift */,
+				A94FB229194F030600677E51 /* Answers.swift */,
 				A961B504193F9EE9004289EF /* main.swift */,
 				A961B503193F9EE9004289EF /* Info.plist */,
 			);
@@ -314,6 +319,7 @@
 				A919F025194B679F0097AFBB /* ExecInstructions.swift in Sources */,
 				A9B17AC4194B2AB1003F2048 /* BooleanInstructions.swift in Sources */,
 				A99C3382194B3A9700F70094 /* RangeInstructions.swift in Sources */,
+				A94FB22A194F030600677E51 /* Answers.swift in Sources */,
 				A919F02E194B76670097AFBB /* NameInstructions.swift in Sources */,
 				A9A838E01947E54E004414E3 /* PushInstructions.swift in Sources */,
 				A9B17AC0194B27D0003F2048 /* IntegerInstructions.swift in Sources */,
