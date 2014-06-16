@@ -15,13 +15,18 @@ extension PushInterpreter {
              "code_append" : {self.code_append()},
             "code_archive" : {self.code_archive()},
                 "code_car" : {self.code_car()},
+               "code_cons" : {self.code_cons()},
                 "code_cdr" : {self.code_cdr()},
              "code_define" : {self.code_define()},
               "code_depth" : {self.code_depth()},
                 "code_dup" : {self.code_dup()},
                "code_flip" : {self.code_flip()},
               "code_flush" : {self.code_flush()},
+           "code_fromBool" : {self.code_fromBool()},
+            "code_fromInt" : {self.code_fromInt()},
           "code_fromFloat" : {self.code_fromFloat()},
+           "code_fromName" : {self.code_fromName()},
+          "code_fromRange" : {self.code_fromRange()},
              "code_isAtom" : {self.code_isAtom()},
             "code_isEmpty" : {self.code_isEmpty()},
             "code_isEqual" : {self.code_isEqual()},
@@ -49,7 +54,6 @@ extension PushInterpreter {
     //
     // (pending)
     //
-    //    CODE.CONS: Pushes the result of "consing" (in the Lisp sense) the second stack item onto the first stack item (which is coerced to a list if necessary). For example, if the top piece of code is "( A B )" and the second piece of code is "X" then this pushes "( X A B )" (after popping the argument).
     //    CODE.CONTAINER: Pushes the "container" of the second CODE stack item within the first CODE stack item onto the CODE stack. If second item contains the first anywhere (i.e. in any nested list) then the container is the smallest sub-list that contains but is not equal to the first instance. For example, if the top piece of code is "( B ( C ( A ) ) ( D ( A ) ) )" and the second piece of code is "( A )" then this pushes ( C ( A ) ). Pushes an empty list if there is no such container.
     //    CODE.CONTAINS: Pushes TRUE on the BOOLEAN stack if the second CODE stack item contains the first CODE stack item anywhere (e.g. in a sub-list).
     //    CODE.DEFINITION: Pushes the definition associated with the top NAME on the NAME stack (if any) onto the CODE stack. This extracts the definition for inspection/manipulation, rather than for immediate execution (although it may then be executed with a call to CODE.DO or a similar instruction).
@@ -65,9 +69,6 @@ extension PushInterpreter {
     //    CODE.DO*RANGE: An iteration instruction that executes the top item on the CODE stack a number of times that depends on the top two integers, while also pushing the loop counter onto the INTEGER stack for possible access during the execution of the body of the loop. The top integer is the "destination index" and the second integer is the "current index." First the code and the integer arguments are saved locally and popped. Then the integers are compared. If the integers are equal then the current index is pushed onto the INTEGER stack and the code (which is the "body" of the loop) is pushed onto the EXEC stack for subsequent execution. If the integers are not equal then the current index will still be pushed onto the INTEGER stack but two items will be pushed onto the EXEC stack -- first a recursive call to CODE.DO*RANGE (with the same code and destination index, but with a current index that has been either incremented or decremented by 1 to be closer to the destination index) and then the body code. Note that the range is inclusive of both endpoints; a call with integer arguments 3 and 5 will cause its body to be executed 3 times, with the loop counter having the values 3, 4, and 5. Note also that one can specify a loop that "counts down" by providing a destination index that is less than the specified current index.
     //    CODE.DO*TIMES: Like CODE.DO*COUNT but does not push the loop counter. This should be implemented as a macro that expands into CODE.DO*RANGE, similarly to the implementation of CODE.DO*COUNT, except that a call to INTEGER.POP should be tacked on to the front of the loop body code in the call to CODE.DO*RANGE. This call to INTEGER.POP will remove the loop counter, which will have been pushed by CODE.DO*RANGE, prior to the execution of the loop body.
     //    CODE.EXTRACT: Pushes the sub-expression of the top item of the CODE stack that is indexed by the top item of the INTEGER stack. The indexing here counts "points," where each parenthesized expression and each literal/instruction is considered a point, and it proceeds in depth first order. The entire piece of code is at index 0; if it is a list then the first item in the list is at index 1, etc. The integer used as the index is taken modulo the number of points in the overall expression (and its absolute value is taken in case it is negative) to ensure that it is within the meaningful range.
-    //    CODE.FROMBOOLEAN: Pops the BOOLEAN stack and pushes the popped item (TRUE or FALSE) onto the CODE stack.
-    //    CODE.FROMINTEGER: Pops the INTEGER stack and pushes the popped integer onto the CODE stack.
-    //    CODE.FROMNAME: Pops the NAME stack and pushes the popped item onto the CODE stack.
     //    CODE.IF: If the top item of the BOOLEAN stack is TRUE this recursively executes the second item of the CODE stack; otherwise it recursively executes the first item of the CODE stack. Either way both elements of the CODE stack (and the BOOLEAN value upon which the decision was made) are popped.
     //    CODE.INSERT: Pushes the result of inserting the second item of the CODE stack into the first item, at the position indexed by the top item of the INTEGER stack (and replacing whatever was there formerly). The indexing is computed as in CODE.EXTRACT.
     //    CODE.INSTRUCTIONS: Pushes a list of all active instructions in the interpreter's current configuration.
@@ -116,6 +117,18 @@ extension PushInterpreter {
     }
     
     
+    //  CODE.CONS: Pushes the result of "consing" (in the Lisp sense) the second stack item onto the first stack item (which is coerced to a list if necessary). For example, if the top piece of code is "( A B )" and the second piece of code is "X" then this pushes "( X A B )" (after popping the argument).
+    func code_cons() {
+        if codeStack.length() > 1 {
+            let arg2 = codeStack.pop()! as PushPoint
+            let arg1 = codeStack.pop()!.value as PushPoint[]
+            let consed = [arg2] + arg1
+            codeStack.push(PushPoint.Block(consed))
+        }
+    }
+
+    
+    
     //  CODE.CDR: Pushes a version of the list from the top of the CODE stack without its first element. For example, if the top piece of code is "( A B )" then this pushes "( B )" (after popping the argument). If the code on top of the stack is not a list then this pushes the empty list ("( )"). The name derives from the similar Lisp function; a more generic name would be "REST".
     func code_cdr() {
         if codeStack.length() > 0 {
@@ -159,6 +172,25 @@ extension PushInterpreter {
     }
     
     
+    //  CODE.FROMBOOLEAN: Pops the BOOLEAN stack and pushes the popped item (TRUE or FALSE) onto the CODE stack.
+    func code_fromBool() {
+        if boolStack.length() > 0 {
+            let arg = boolStack.pop()! as PushPoint
+            codeStack.push(PushPoint.Block([arg]))
+        }
+    }
+    
+    
+    //  CODE.FROMINTEGER: Pops the INTEGER stack and pushes the popped integer onto the CODE stack.
+    func code_fromInt() {
+        if intStack.length() > 0 {
+            let arg = intStack.pop()! as PushPoint
+            codeStack.push(PushPoint.Block([arg]))
+        }
+    }
+
+
+    
     //  CODE.FROMFLOAT: Pops the FLOAT stack and pushes the popped item onto the CODE stack.
     func code_fromFloat() {
         if floatStack.length() > 0 {
@@ -166,6 +198,25 @@ extension PushInterpreter {
             codeStack.push(PushPoint.Block([arg]))
         }
     }
+
+    
+    //  CODE.FROMNAME: Pops the NAME stack and pushes the popped item onto the CODE stack.
+    func code_fromName() {
+        if nameStack.length() > 0 {
+            let arg = nameStack.pop()! as PushPoint
+            codeStack.push(PushPoint.Block([arg]))
+        }
+    }
+    
+    
+    //  code_fromRange()
+    func code_fromRange() {
+        if rangeStack.length() > 0 {
+            let arg = rangeStack.pop()! as PushPoint
+            codeStack.push(PushPoint.Block([arg]))
+        }
+    }
+
 
     
     

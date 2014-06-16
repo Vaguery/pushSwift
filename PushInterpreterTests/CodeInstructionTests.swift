@@ -37,6 +37,13 @@ class CodeInstructionTests: XCTestCase {
         myPI.run()
         XCTAssertTrue(myPI.codeStack.description == "[ ( 2 3 ) ]", "Didn't expect stack to be \(myPI.codeStack.description)")
     }
+    
+    func test_CodeCons() {
+        let myPI = PushInterpreter(script:"code_quote F code_quote ( 1 2 3 ) code_cons")
+        myPI.run()
+        XCTAssertTrue(myPI.codeStack.description == "[ ( ( 1 2 3 ) F ) ]", "Didn't expect stack to be \(myPI.codeStack.description)")
+    }
+
 
     
     func test_CodeDefine() {
@@ -73,10 +80,10 @@ class CodeInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.codeStack.description == "[ ( 3 ) ]", "Didn't expect stack to be \(myPI.codeStack.description)")
     }
     
-    func test_CodeFromFloat() {
-        let myPI = PushInterpreter(script:"3.5 code_fromFloat")
+    func test_CodeFromAllTheThings() {
+        let myPI = PushInterpreter(script:"3.5 code_fromFloat F code_fromBool -10 code_fromInt foo code_fromName 4 9 range_fromInts code_fromRange")
         myPI.run()
-        XCTAssertTrue(myPI.codeStack.description == "[ ( 3.5 ) ]", "Didn't expect stack to be \(myPI.codeStack.description)")
+        XCTAssertTrue(myPI.codeStack.description == "[ ( 3.5 ) ( F ) ( -10 ) ( \"foo\" ) ( (4..9) ) ]", "Didn't expect stack to be \(myPI.codeStack.description)")
     }
 
 
