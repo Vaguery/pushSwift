@@ -80,6 +80,19 @@ class FloatInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.floatStack.description == "[ 1.0 2.0 5.0 3.0 4.0 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
     }
     
+    func test_FloatYank() {
+        let myPI = PushInterpreter(script:"2 1.5 2.5 3.5 4.5 5.5 float_yank")
+        myPI.run()
+        XCTAssertTrue(myPI.floatStack.description == "[ 1.5 2.5 4.5 5.5 3.5 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
+    }
+    
+    
+    func test_FloatYankDup() {
+        let myPI = PushInterpreter(script:"2 1.5 2.5 3.5 4.5 5.5 float_yankDup")
+        myPI.run()
+        XCTAssertTrue(myPI.floatStack.description == "[ 1.5 2.5 3.5 4.5 5.5 3.5 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
+    }
+
 
     
 }

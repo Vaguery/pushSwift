@@ -93,5 +93,18 @@ class NameInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.nameStack.description == "[ \"foo\" \"baz\" \"bar\" ]", "Didn't expect stack to be \(myPI.nameStack.description)")
     }
 
+    func test_NameYank() {
+        let myPI = PushInterpreter(script:"a b c d e -22 name_yank")
+        myPI.run()
+        XCTAssertTrue(myPI.nameStack.description == "[ \"a\" \"b\" \"c\" \"e\" \"d\" ]", "Didn't expect stack to be \(myPI.nameStack.description)")
+    }
+    
+    
+    func test_NameYankDup() {
+        let myPI = PushInterpreter(script:"a b c d e -22 name_yankDup")
+        myPI.run()
+        XCTAssertTrue(myPI.nameStack.description == "[ \"a\" \"b\" \"c\" \"d\" \"e\" \"d\" ]", "Didn't expect stack to be \(myPI.nameStack.description)")
+    }
+
 
 }

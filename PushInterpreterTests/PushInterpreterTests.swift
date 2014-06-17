@@ -164,6 +164,38 @@ class StackTests: XCTestCase {
         s.shove(20)
         XCTAssertTrue(s.description == "[ 6 1 2 3 5 4 7 8 ]", "Did not expect \(s.description)")
     }
+    
+    // yank
+    
+    func test_Yank() {
+        var s = PushStack()
+        for i in 1...8 { s.push(PushPoint.Integer(i))}
+        s.yank(4)
+        XCTAssertTrue(s.description == "[ 1 2 3 4 6 7 8 5 ]", "Did not expect \(s.description)")
+        s.yank(-4)
+        XCTAssertTrue(s.description == "[ 1 2 3 4 7 8 5 6 ]", "Did not expect \(s.description)")
+        s.yank(0)
+        XCTAssertTrue(s.description == "[ 2 3 4 7 8 5 6 1 ]", "Did not expect \(s.description)")
+        s.yank(7)
+        XCTAssertTrue(s.description == "[ 2 3 4 7 8 5 6 1 ]", "Did not expect \(s.description)")
+    }
+    
+    // yankDup
+    
+    func test_YankDup() {
+        var s = PushStack()
+        for i in 1...8 { s.push(PushPoint.Integer(i))}
+        s.yankDup(4)
+        XCTAssertTrue(s.description == "[ 1 2 3 4 5 6 7 8 5 ]", "Did not expect \(s.description)")
+        s.yankDup(-4)
+        XCTAssertTrue(s.description == "[ 1 2 3 4 5 6 7 8 5 6 ]", "Did not expect \(s.description)")
+        s.yankDup(0)
+        XCTAssertTrue(s.description == "[ 1 2 3 4 5 6 7 8 5 6 1 ]", "Did not expect \(s.description)")
+        s.yankDup(7)
+        XCTAssertTrue(s.description == "[ 1 2 3 4 5 6 7 8 5 6 1 8 ]", "Did not expect \(s.description)")
+    }
+
+
 }
 
 

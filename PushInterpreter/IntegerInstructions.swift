@@ -33,7 +33,9 @@ extension PushInterpreter {
                     "int_pop" : {self.int_pop()},
                  "int_rotate" : {self.int_rotate()},
                "int_subtract" : {self.int_subtract()},
-                   "int_swap" : {self.int_swap()}
+                   "int_swap" : {self.int_swap()},
+                   "int_yank" : {self.int_yank()},
+                "int_yankDup" : {self.int_yankDup()}
         ]
         
         for (k,v) in intInstructions {
@@ -52,8 +54,6 @@ extension PushInterpreter {
     //    INTEGER.FROMFLOAT: Pushes the result of truncating the top FLOAT.
     //    INTEGER.RAND: Pushes a newly generated random INTEGER that is greater than or equal to MIN-RANDOM-INTEGER and less than or equal to MAX-RANDOM-INTEGER.
     //    INTEGER.SHOVE: Inserts the second INTEGER "deep" in the stack, at the position indexed by the top INTEGER. The index position is calculated after the index is removed.
-    //    INTEGER.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack, and the indexing is done after the index is removed.
-    //    INTEGER.YANKDUP: Pushes a copy of an indexed item "deep" in the stack onto the top of the stack, without removing the deep item. The index is taken from the INTEGER stack, and the indexing is done after the index is removed.
     
     
     
@@ -273,4 +273,22 @@ extension PushInterpreter {
     func int_swap() {
         intStack.swap()
     }
+    
+    
+    //  INTEGER.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack, and the indexing is done after the index is removed.
+    func int_yank() {
+        if intStack.length() > 0 {
+            let d = intStack.pop()!.value as Int
+            intStack.yank(d)
+        }
+    }
+
+    //    INTEGER.YANKDUP: Pushes a copy of an indexed item "deep" in the stack onto the top of the stack, without removing the deep item. The index is taken from the INTEGER stack, and the indexing is done after the index is removed.
+    func int_yankDup() {
+        if intStack.length() > 0 {
+            let d = intStack.pop()!.value as Int
+            intStack.yankDup(d)
+        }
+    }
+
 }

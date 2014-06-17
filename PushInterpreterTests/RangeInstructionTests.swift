@@ -86,6 +86,19 @@ class RangeInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.rangeStack.description == "[ (1..2) (5..6) (3..4) ]", "Didn't expect stack to be \(myPI.rangeStack.description)")
     }
     
+    func test_RangeYank() {
+        let myPI = PushInterpreter(script:"0 3 range_fromZero 4 range_fromZero 5 range_fromZero range_yank")
+        myPI.run()
+        XCTAssertTrue(myPI.rangeStack.description == "[ (0..4) (0..5) (0..3) ]", "Didn't expect stack to be \(myPI.rangeStack.description)")
+    }
+    
+    
+    func test_RangeYankDup() {
+        let myPI = PushInterpreter(script:"0 3 range_fromZero 4 range_fromZero 5 range_fromZero range_yankDup")
+        myPI.run()
+        XCTAssertTrue(myPI.rangeStack.description == "[ (0..3) (0..4) (0..5) (0..3) ]", "Didn't expect stack to be \(myPI.rangeStack.description)")
+    }
+
 
     
 }

@@ -163,6 +163,7 @@ class PushInterpreter {
         execStack.clear()
     }
     
+    
     func stage(new_script:String) {
         self.script = new_script
         self.program = PushPoint.Block(self.parse(self.script))

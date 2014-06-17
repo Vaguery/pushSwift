@@ -114,6 +114,19 @@ class BooleanInstructionTests: XCTestCase {
 
     }
     
+    func test_BoolYank() {
+        let myPI = PushInterpreter(script:"F T F F F F F F T 1 bool_yank")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ F F F F F F F T T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+        
+    }
+
+    func test_BoolYankDup() {
+        let myPI = PushInterpreter(script:"T F F F 0 bool_yankDup")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ T F F F T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+        
+    }
 
 
 

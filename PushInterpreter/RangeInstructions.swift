@@ -22,7 +22,9 @@ extension PushInterpreter {
              "range_reverse" : {self.range_reverse()},
               "range_rotate" : {self.range_rotate()},
                "range_shove" : {self.range_shove()},
-                "range_swap" : {self.range_swap()}
+                "range_swap" : {self.range_swap()},
+                "range_yank" : {self.range_yank()},
+             "range_yankDup" : {self.range_yankDup()}
         ]
         
         for (k,v) in rangeInstructions {
@@ -144,4 +146,21 @@ extension PushInterpreter {
             rangeStack.swap()
         }
     }
+    
+    
+    func range_yank() {
+        if intStack.length() > 0 {
+            let d = intStack.pop()!.value as Int
+            rangeStack.yank(d)
+        }
+    }
+    
+
+    func range_yankDup() {
+        if intStack.length() > 0 {
+            let d = intStack.pop()!.value as Int
+            rangeStack.yankDup(d)
+        }
+    }
+
 }

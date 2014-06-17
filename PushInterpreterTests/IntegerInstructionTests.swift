@@ -158,6 +158,18 @@ class IntegerInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.intStack.description == "[ 1 2 4 3 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
     
+    func test_IntYank() {
+        let myPI = PushInterpreter(script:"1 2 3 4 5 6 7 -2 int_yank")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 1 2 3 4 5 7 6 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
+    
+    
+    func test_IntYankDup() {
+        let myPI = PushInterpreter(script:"1 2 3 4 5 6 7 -2 int_yankDup")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 1 2 3 4 5 6 7 6 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
 
 
 

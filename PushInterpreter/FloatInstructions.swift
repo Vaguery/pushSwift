@@ -21,7 +21,9 @@ extension PushInterpreter {
         "float_isPositive" : {self.float_isPositive()},
           "float_lessThan" : {self.float_lessThan()},
             "float_rotate" : {self.float_rotate()},
-             "float_shove" : {self.float_shove()}
+             "float_shove" : {self.float_shove()},
+              "float_yank" : {self.float_yank()},
+           "float_yankDup" : {self.float_yankDup()}
         ]
         
         for (k,v) in floatInstructions {
@@ -53,8 +55,6 @@ extension PushInterpreter {
     //    FLOAT.STACKDEPTH: Pushes the stack depth onto the INTEGER stack.
     //    FLOAT.SWAP: Swaps the top two BOOLEANs.
     //    FLOAT.TAN: Pushes the tangent of the top item.
-    //    FLOAT.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack.
-    //    FLOAT.YANKDUP: Pushes a copy of an indexed item "deep" in the stack onto the top of the stack, without removing the deep item. The index is taken from the INTEGER stack.
     
     
     //  float_abs() is not part of the Push 3.0 spec
@@ -147,5 +147,21 @@ extension PushInterpreter {
         }
     }
 
+    //  FLOAT.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack.
+    func float_yank() {
+        if intStack.length() > 0 {
+            let d = intStack.pop()!.value as Int
+            floatStack.yank(d)
+        }
+    }
     
+
+    //  FLOAT.YANKDUP: Pushes a copy of an indexed item "deep" in the stack onto the top of the stack, without removing the deep item. The index is taken from the INTEGER stack.
+    func float_yankDup() {
+        if intStack.length() > 0 {
+            let d = intStack.pop()!.value as Int
+            floatStack.yankDup(d)
+        }
+    }
+
 }

@@ -24,7 +24,9 @@ extension PushInterpreter {
                    "name_pop" : {self.name_pop()},
                  "name_rotate": {self.name_rotate()},
                  "name_shove" : {self.name_shove()},
-                  "name_swap" : {self.name_swap()}
+                  "name_swap" : {self.name_swap()},
+                  "name_yank" : {self.name_yank()},
+               "name_yankDup" : {self.name_yankDup()}
         ]
         
         for (k,v) in nameInstructions {
@@ -42,8 +44,6 @@ extension PushInterpreter {
 
 //        NAME.QUOTE: Sets a flag indicating that the next name encountered will be pushed onto the NAME stack (and not have its associated value pushed onto the EXEC stack), regardless of whether or not it has a definition. Upon encountering such a name and pushing it onto the NAME stack the flag will be cleared (whether or not the pushed name had a definition).
 //        NAME.RANDBOUNDNAME: Pushes a randomly selected NAME that already has a definition.
-//        NAME.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack.
-//        NAME.YANKDUP: Pushes a copy of an indexed item "deep" in the stack onto the top of the stack, without removing the deep item. The index is taken from the INTEGER stack.
 
     
     //  name_archive()
@@ -132,6 +132,20 @@ extension PushInterpreter {
         nameStack.swap()
     }
 
-    
+    //  NAME.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack.
+    func name_yank() {
+        if intStack.length() > 0 {
+            let d = intStack.pop()!.value as Int
+            nameStack.yank(d)
+        }
+    }
+
+    //  NAME.YANKDUP: Pushes a copy of an indexed item "deep" in the stack onto the top of the stack, without removing the deep item. The index is taken from the INTEGER stack.
+    func name_yankDup() {
+        if intStack.length() > 0 {
+            let d = intStack.pop()!.value as Int
+            nameStack.yankDup(d)
+        }
+    }
     
 }

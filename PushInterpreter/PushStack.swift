@@ -98,5 +98,25 @@ class PushStack:Printable {
     }
     
     
+    func yank(new_depth:Int) {
+        if items.count > 1 {  // if length is 1, nothing will happen!
+            var d = new_depth % items.count
+            if d < 0 { d = items.count + d}
+            let pt = self.items.removeAtIndex(d)
+            self.push(pt)
+        }
+    }
+    
+    func yankDup(new_depth:Int) {
+        if items.count > 1 {  // if length is 1, nothing will happen!
+            var d = new_depth % items.count
+            if d < 0 { d = items.count + d}
+            let pt = self.items[d]
+            self.push(pt.clone())
+        }
+    }
+
+
+    
     
 }

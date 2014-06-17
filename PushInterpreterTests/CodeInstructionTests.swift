@@ -153,5 +153,19 @@ class CodeInstructionTests: XCTestCase {
 
     }
 
+    func test_CodeYank() {
+        let myPI = PushInterpreter(script:"code_quote 1 code_quote 2 code_quote 3 0 code_yank")
+        myPI.run()
+        XCTAssertTrue(myPI.codeStack.description == "[ ( 2 ) ( 3 ) ( 1 ) ]", "Didn't expect stack to be \(myPI.codeStack.description)")
+        
+    }
+    
+    func test_CodeYankDup() {
+        let myPI = PushInterpreter(script:"code_quote 1 code_quote 2 code_quote 3 0 code_yankDup")
+        myPI.run()
+        XCTAssertTrue(myPI.codeStack.description == "[ ( 1 ) ( 2 ) ( 3 ) ( 1 ) ]", "Didn't expect stack to be \(myPI.codeStack.description)")
+        
+    }
+
 
 }

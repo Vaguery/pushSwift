@@ -35,7 +35,9 @@ extension PushInterpreter {
               "code_quote" : {self.code_quote()},
              "code_rotate" : {self.code_rotate()},
               "code_shove" : {self.code_shove()},
-               "code_swap" : {self.code_swap()}
+               "code_swap" : {self.code_swap()},
+               "code_yank" : {self.code_yank()},
+            "code_yankDup" : {self.code_yankDup()}
         ]
         
         for (k,v) in codeInstructions {
@@ -82,8 +84,6 @@ extension PushInterpreter {
     //    CODE.RAND: Pushes a newly-generated random program onto the CODE stack. The limit for the size of the expression is taken from the INTEGER stack; to ensure that it is in the appropriate range this is taken modulo the value of the MAX-POINTS-IN-RANDOM-EXPRESSIONS parameter and the absolute value of the result is used.
     //    CODE.SIZE: Pushes the number of "points" in the top piece of CODE onto the INTEGER stack. Each instruction, literal, and pair of parentheses counts as a point.
     //    CODE.SUBST: Pushes the result of substituting the third item on the code stack for the second item in the first item. As of this writing this is implemented only in the Lisp implementation, within which it relies on the Lisp "subst" function. As such, there are several problematic possibilities; for example "dotted-lists" can result in certain cases with empty-list arguments. If any of these problematic possibilities occurs the stack is left unchanged.
-    //    CODE.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack.
-    //    CODE.YANKDUP: Pushes a copy of an indexed item "deep" in the stack onto the top of the stack, without removing the deep item. The index is taken from the INTEGER stack.
     
     
     //  CODE.APPEND: Pushes the result of appending the top two pieces of code. If one of the pieces of code is a single instruction or literal (that is, something not surrounded by parentheses) then it is surrounded by parentheses first.
@@ -295,6 +295,22 @@ extension PushInterpreter {
     //  CODE.SWAP: Swaps the top two pieces of CODE.
     func code_swap() {
         codeStack.swap()
+    }
+
+    //  CODE.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack.
+    func code_yank() {
+        if intStack.length() > 0 {
+            let d = intStack.pop()!.value as Int
+            codeStack.yank(d)
+        }
+    }
+
+    //  CODE.YANKDUP: Pushes a copy of an indexed item "deep" in the stack onto the top of the stack, without removing the deep item. The index is taken from the INTEGER stack.
+    func code_yankDup() {
+        if intStack.length() > 0 {
+            let d = intStack.pop()!.value as Int
+            codeStack.yankDup(d)
+        }
     }
 
     

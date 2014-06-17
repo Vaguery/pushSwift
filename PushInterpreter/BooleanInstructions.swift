@@ -25,7 +25,9 @@ extension PushInterpreter {
             "bool_pop" : {self.bool_pop()},
          "bool_rotate" : {self.bool_rotate()},
           "bool_shove" : {self.bool_shove()},
-           "bool_swap" : {self.bool_swap()}
+           "bool_swap" : {self.bool_swap()},
+           "bool_yank" : {self.bool_yank()},
+        "bool_yankDup" : {self.bool_yankDup()}
         ]
         
         for (k,v) in boolInstructions {
@@ -41,8 +43,6 @@ extension PushInterpreter {
     //  (comments are quotes from http://faculty.hampshire.edu/lspector/push3-description.html where available) 
     
     //  BOOLEAN.RAND: Pushes a random BOOLEAN.
-    //  BOOLEAN.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack.
-    //  BOOLEAN.YANKDUP: Pushes a copy of an indexed item "deep" in the stack onto the top of the stack, without removing the deep item. The index is taken from the INTEGER stack.
 
     
     //  (skipped)
@@ -156,6 +156,23 @@ extension PushInterpreter {
     func bool_swap() {
         boolStack.swap()
     }
+
+    //  BOOLEAN.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack.
+    func bool_yank() {
+        if intStack.length() > 0 {
+            let d = intStack.pop()!.value as Int
+            boolStack.yank(d)
+        }
+    }
+    
+    //  BOOLEAN.YANKDUP: Pushes a copy of an indexed item "deep" in the stack onto the top of the stack, without removing the deep item. The index is taken from the INTEGER stack.
+    func bool_yankDup() {
+        if intStack.length() > 0 {
+            let d = intStack.pop()!.value as Int
+            boolStack.yankDup(d)
+        }
+    }
+
 
 
 }
