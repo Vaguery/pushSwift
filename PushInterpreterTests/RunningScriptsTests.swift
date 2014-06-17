@@ -10,7 +10,16 @@ import XCTest
 import PushInterpreter
 
 class RunningScriptsTests: XCTestCase {
+    override func setUp() {
+        super.setUp()
+        // Put setup code here. This method is called before the invocation of each test method in the class.
+    }
     
+    override func tearDown() {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
+    }
+
     func testReset() {
         let s = "1 F 2.3 T foo 4.5 -9.9 6 F F T bar baz zotz"
         var pi = PushInterpreter()

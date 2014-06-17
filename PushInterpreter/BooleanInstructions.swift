@@ -39,11 +39,7 @@ extension PushInterpreter {
     ///////////////////////
     // boolean instructions
     
-    //  (pending)
-    //  (comments are quotes from http://faculty.hampshire.edu/lspector/push3-description.html where available) 
-    
-    //  BOOLEAN.RAND: Pushes a random BOOLEAN.
-
+    //  (comments are quotes from http://faculty.hampshire.edu/lspector/push3-description.html where available)
     
     //  (skipped)
     
@@ -51,6 +47,7 @@ extension PushInterpreter {
     //  not implemented; see int_isPositive()
     //  BOOLEAN.FROMFLOAT: Pushes FALSE if the top FLOAT is 0.0, or TRUE otherwise.
     //  not implemented; see float_isPositive()
+    //  BOOLEAN.RAND: Pushes a random BOOLEAN.
 
 
     

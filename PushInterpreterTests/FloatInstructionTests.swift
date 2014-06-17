@@ -10,7 +10,16 @@ import XCTest
 import PushInterpreter
 
 class FloatInstructionTests: XCTestCase {
+    override func setUp() {
+        super.setUp()
+        // Put setup code here. This method is called before the invocation of each test method in the class.
+    }
     
+    override func tearDown() {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
+    }
+
     func test_FloatAbs() {
         let myPI = PushInterpreter(script:"9.5 float_abs -1.25 float_abs")
         myPI.run()
@@ -37,6 +46,14 @@ class FloatInstructionTests: XCTestCase {
         myPI.run()
         XCTAssertTrue(myPI.floatStack.description == "[ 3.0 2.0 1.0 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
     }
+    
+    
+    func test_FloatFlush() {
+        let myPI = PushInterpreter(script:"1.0 2.0 3.0 float_flush")
+        myPI.run()
+        XCTAssertTrue(myPI.floatStack.description == "[ ]", "Didn't expect stack to be \(myPI.floatStack.description)")
+    }
+
 
     
     func test_FloatFromBool() {

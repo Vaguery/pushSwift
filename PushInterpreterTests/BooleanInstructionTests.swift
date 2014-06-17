@@ -10,7 +10,16 @@ import XCTest
 import PushInterpreter
 
 class BooleanInstructionTests: XCTestCase {
-        
+    override func setUp() {
+        super.setUp()
+        // Put setup code here. This method is called before the invocation of each test method in the class.
+    }
+    
+    override func tearDown() {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
+    }
+
     
     func test_BoolAnd() {
         let myPI = PushInterpreter(script:"F F bool_and F T bool_and T F bool_and T T bool_and")

@@ -10,7 +10,16 @@ import XCTest
 import PushInterpreter
 
 class IntegerInstructionTests: XCTestCase {
+    override func setUp() {
+        super.setUp()
+        // Put setup code here. This method is called before the invocation of each test method in the class.
+    }
     
+    override func tearDown() {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
+    }
+
 
     func test_IntAdd() {
         let myPI = PushInterpreter(script:"2 3 int_add")

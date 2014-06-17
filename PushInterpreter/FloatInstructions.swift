@@ -16,6 +16,7 @@ extension PushInterpreter {
            "float_archive" : {self.float_archive()},
             "float_define" : {self.float_define()},
               "float_flip" : {self.float_flip()},
+             "float_flush" : {self.float_flush()},
           "float_fromBool" : {self.float_fromBool()},
        "float_greaterThan" : {self.float_greaterThan()},
         "float_isPositive" : {self.float_isPositive()},
@@ -45,7 +46,6 @@ extension PushInterpreter {
     //    FLOAT.=: Pushes TRUE onto the BOOLEAN stack if the top two items are equal, or FALSE otherwise.
     //    FLOAT.COS: Pushes the cosine of the top item.
     //    FLOAT.DUP: Duplicates the top item on the FLOAT stack. Does not pop its argument (which, if it did, would negate the effect of the duplication!).
-    //    FLOAT.FLUSH: Empties the FLOAT stack.
     //    FLOAT.FROMINTEGER: Pushes a floating point version of the top INTEGER.
     //    FLOAT.MAX: Pushes the maximum of the top two items.
     //    FLOAT.MIN: Pushes the minimum of the top two items.
@@ -91,6 +91,12 @@ extension PushInterpreter {
         floatStack.flip()
     }
     
+    
+    //  FLOAT.FLUSH: Empties the FLOAT stack.
+    func float_flush() {
+        floatStack.clear()
+    }
+
     
     
     //  FLOAT.FROMBOOLEAN: Pushes 1.0 if the top BOOLEAN is TRUE, or 0.0 if the top BOOLEAN is FALSE.

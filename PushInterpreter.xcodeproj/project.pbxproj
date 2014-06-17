@@ -38,10 +38,18 @@
 		A9B17AC2194B293C003F2048 /* MiscellaneousInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B17AC1194B293C003F2048 /* MiscellaneousInstructions.swift */; };
 		A9B17AC4194B2AB1003F2048 /* BooleanInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B17AC3194B2AB1003F2048 /* BooleanInstructions.swift */; };
 		A9CAE67B19432BC0006E5A9B /* InterpreterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CAE67A19432BC0006E5A9B /* InterpreterTests.swift */; };
+		A9E1F5CF195051590082B18F /* PushInterpreter_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E1F5CE195051590082B18F /* PushInterpreter_Tests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		A961B512193F9EEA004289EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A961B4F7193F9EE9004289EF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A961B4FE193F9EE9004289EF;
+			remoteInfo = PushInterpreter;
+		};
+		A9E1F5D0195051590082B18F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A961B4F7193F9EE9004289EF /* Project object */;
 			proxyType = 1;
@@ -57,7 +65,7 @@
 		A919F02B194B6C4D0097AFBB /* FloatInstructionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatInstructionTests.swift; sourceTree = "<group>"; };
 		A919F02D194B76670097AFBB /* NameInstructions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameInstructions.swift; sourceTree = "<group>"; };
 		A919F02F194B77A90097AFBB /* NameInstructionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameInstructionTests.swift; sourceTree = "<group>"; };
-		A922134D194B558100AFE086 /* CodeInstructions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeInstructions.swift; sourceTree = "<group>"; };
+		A922134D194B558100AFE086 /* CodeInstructions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeInstructions.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		A922134F194B568100AFE086 /* CodeInstructionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeInstructionTests.swift; sourceTree = "<group>"; };
 		A9418FA41948FFE700C5E731 /* RunningScriptsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunningScriptsTests.swift; sourceTree = "<group>"; };
 		A9418FA619492C4E00C5E731 /* IntegerInstructionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegerInstructionTests.swift; sourceTree = "<group>"; };
@@ -92,6 +100,9 @@
 		A9B17AC1194B293C003F2048 /* MiscellaneousInstructions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiscellaneousInstructions.swift; sourceTree = "<group>"; };
 		A9B17AC3194B2AB1003F2048 /* BooleanInstructions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooleanInstructions.swift; sourceTree = "<group>"; };
 		A9CAE67A19432BC0006E5A9B /* InterpreterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterpreterTests.swift; sourceTree = "<group>"; };
+		A9E1F5CA195051590082B18F /* PushInterpreter Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "PushInterpreter Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9E1F5CD195051590082B18F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A9E1F5CE195051590082B18F /* PushInterpreter_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushInterpreter_Tests.swift; sourceTree = "<group>"; };
 		A9E525E91945557D004E2F87 /* Enumerations.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Enumerations.playground; path = PushInterpreter/Enumerations.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,6 +115,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		A961B50E193F9EEA004289EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9E1F5C7195051590082B18F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -142,6 +160,7 @@
 				A989247D1943D4AD000C11D6 /* README.markdown */,
 				A961B501193F9EE9004289EF /* PushInterpreter */,
 				A961B514193F9EEA004289EF /* PushInterpreterTests */,
+				A9E1F5CB195051590082B18F /* PushInterpreter Tests */,
 				A961B500193F9EE9004289EF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -151,6 +170,7 @@
 			children = (
 				A961B4FF193F9EE9004289EF /* PushInterpreter.app */,
 				A961B511193F9EEA004289EF /* PushInterpreterTests.xctest */,
+				A9E1F5CA195051590082B18F /* PushInterpreter Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -209,6 +229,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		A9E1F5CB195051590082B18F /* PushInterpreter Tests */ = {
+			isa = PBXGroup;
+			children = (
+				A9E1F5CE195051590082B18F /* PushInterpreter_Tests.swift */,
+				A9E1F5CC195051590082B18F /* Supporting Files */,
+			);
+			path = "PushInterpreter Tests";
+			sourceTree = "<group>";
+		};
+		A9E1F5CC195051590082B18F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A9E1F5CD195051590082B18F /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -247,6 +284,24 @@
 			productReference = A961B511193F9EEA004289EF /* PushInterpreterTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		A9E1F5C9195051590082B18F /* PushInterpreter Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A9E1F5D4195051590082B18F /* Build configuration list for PBXNativeTarget "PushInterpreter Tests" */;
+			buildPhases = (
+				A9E1F5C6195051590082B18F /* Sources */,
+				A9E1F5C7195051590082B18F /* Frameworks */,
+				A9E1F5C8195051590082B18F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A9E1F5D1195051590082B18F /* PBXTargetDependency */,
+			);
+			name = "PushInterpreter Tests";
+			productName = "PushInterpreter Tests";
+			productReference = A9E1F5CA195051590082B18F /* PushInterpreter Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -260,6 +315,10 @@
 						CreatedOnToolsVersion = 6.0;
 					};
 					A961B510193F9EEA004289EF = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = A961B4FE193F9EE9004289EF;
+					};
+					A9E1F5C9195051590082B18F = {
 						CreatedOnToolsVersion = 6.0;
 						TestTargetID = A961B4FE193F9EE9004289EF;
 					};
@@ -280,6 +339,7 @@
 			targets = (
 				A961B4FE193F9EE9004289EF /* PushInterpreter */,
 				A961B510193F9EEA004289EF /* PushInterpreterTests */,
+				A9E1F5C9195051590082B18F /* PushInterpreter Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -295,6 +355,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		A961B50F193F9EEA004289EF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9E1F5C8195051590082B18F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -347,6 +414,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A9E1F5C6195051590082B18F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9E1F5CF195051590082B18F /* PushInterpreter_Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -354,6 +429,11 @@
 			isa = PBXTargetDependency;
 			target = A961B4FE193F9EE9004289EF /* PushInterpreter */;
 			targetProxy = A961B512193F9EEA004289EF /* PBXContainerItemProxy */;
+		};
+		A9E1F5D1195051590082B18F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A961B4FE193F9EE9004289EF /* PushInterpreter */;
+			targetProxy = A9E1F5D0195051590082B18F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -506,6 +586,42 @@
 			};
 			name = Release;
 		};
+		A9E1F5D2195051590082B18F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PushInterpreter.app/Contents/MacOS/PushInterpreter";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "PushInterpreter Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				METAL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Debug;
+		};
+		A9E1F5D3195051590082B18F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PushInterpreter.app/Contents/MacOS/PushInterpreter";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "PushInterpreter Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				METAL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -535,6 +651,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		A9E1F5D4195051590082B18F /* Build configuration list for PBXNativeTarget "PushInterpreter Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A9E1F5D2195051590082B18F /* Debug */,
+				A9E1F5D3195051590082B18F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

@@ -10,7 +10,16 @@ import XCTest
 import PushInterpreter
 
 class CodeInstructionTests: XCTestCase {
+    override func setUp() {
+        super.setUp()
+        // Put setup code here. This method is called before the invocation of each test method in the class.
+    }
     
+    override func tearDown() {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
+    }
+
     func test_CodeAppend() {
         let myPI = PushInterpreter(script:"code_quote ( 1 2 ) code_quote foo code_append")
         myPI.run()
@@ -45,7 +54,6 @@ class CodeInstructionTests: XCTestCase {
     }
 
 
-    
     func test_CodeDefine() {
         let myPI = PushInterpreter(script:"foo code_quote bar code_define foo foo foo")
         myPI.run()
@@ -53,6 +61,14 @@ class CodeInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.nameStack.description == "[ \"bar\" \"bar\" \"bar\" ]", "Didn't expect stack to be \(myPI.nameStack.description)")
     }
 
+    
+    func test_CodeDefinition() {
+        let myPI = PushInterpreter(script:"foo foo 1 int_define code_definition")
+        myPI.run()
+        XCTAssertTrue(myPI.bindings.count > 0, "Expected \(myPI.bindings) to include foo")
+        XCTAssertTrue(myPI.nameStack.description == "[ ]", "Didn't expect stack to be \(myPI.nameStack.description)")
+        XCTAssertTrue(myPI.codeStack.description == "[ ( 1 ) ]", "Didn't expect stack to be \(myPI.codeStack.description)")
+    }
     
     func test_CodeDepth() {
         let myPI = PushInterpreter(script:"code_quote 1 code_depth")
