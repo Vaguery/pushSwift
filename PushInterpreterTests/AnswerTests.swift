@@ -43,10 +43,22 @@ class AnswerTests: XCTestCase {
         let a1 = PushAnswer(length: 20, commands: [], otherTokens: ["(",")"], commandRatio: 0.0)
         XCTAssertTrue(a1.template.count == 20, "didn't expect tokens to be \(a1.template)")
     }
+    
+    // TODO: These need to be better tests of what's being checked
+    func test_defaultTokenListComesFromPushInterpreter() {
+        let a1 = PushAnswer(length:10)
+        XCTAssertTrue(a1.template.count == 10, "didn't expect tokens to be \(a1.template)")
+    }
+    
+    func test_defaultTokensCanBeOverridden() {
+        let a1 = PushAnswer(length:10,commands:["foo"],otherTokens:["x"])
+        XCTAssertTrue(a1.template.count == 10, "didn't expect tokens to be \(a1.template)")
+    }
+    
+    func test_defaultRatioBeOverridden() {
+        let a1 = PushAnswer(length:10,commands:["foo"],otherTokens:["x"],commandRatio:0.0)
+        XCTAssertTrue(a1.template.count == 10, "didn't expect tokens to be \(a1.template)")
+    }
 
-//    func test_defaultCommandListComesFromPushInterpreter() {
-//        let a1 = PushAnswer(length: 20, commands: [], otherTokens: [], commandRatio: 1.0)
-//        XCTAssertTrue(a1.template.count == 20, "didn't expect tokens to be \(a1.template)")
-//
-//    }
+
 }

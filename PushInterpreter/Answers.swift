@@ -43,22 +43,38 @@ class PushAnswer {
     var scores = Dictionary<String,Double>()
     var template = String[]()
     var script : String = ""
-    var literals : Dictionary<String,String>
+    var literals:Dictionary<String,String>
+    var myInstructions:String[] = []
+    var myInterpreter:PushInterpreter
     
-    var myInterpreter = PushInterpreter()
     
-    init(length:Int,commands:String[],otherTokens:String[],commandRatio:Double) {
+    init(length:Int,
+        commands:String[]=[],
+        otherTokens:String[]=["(",")","«int»","«bool»","«float»"],
+        commandRatio:Double=0.5) {
+        
+        myInterpreter = PushInterpreter()
+        myInstructions = []
+            
+        if commands.count == 0 {
+            myInstructions = myInterpreter.activePushInstructions
+        } else {
+            myInstructions = commands
+        }
+            
         literals = Dictionary<String,String>()
         
         // build script template
         template = []
         for i in 0..length {
-            if randomDouble() < commandRatio {
-                let idx = randomIndexFromArray(commands)
-                template += commands[idx]
-            } else {
+            if (randomDouble() < commandRatio) && (myInstructions.count > 0) {
+                let idx = randomIndexFromArray(myInstructions)
+                template += myInstructions[idx]
+            } else if otherTokens.count > 0 {
                 let idx = randomIndexFromArray(otherTokens)
                 template += otherTokens[idx]
+            } else {
+                template += "noop"
             }
         }
         
