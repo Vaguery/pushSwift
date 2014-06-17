@@ -38,10 +38,16 @@
 		A9B17AC2194B293C003F2048 /* MiscellaneousInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B17AC1194B293C003F2048 /* MiscellaneousInstructions.swift */; };
 		A9B17AC4194B2AB1003F2048 /* BooleanInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B17AC3194B2AB1003F2048 /* BooleanInstructions.swift */; };
 		A9CAE67B19432BC0006E5A9B /* InterpreterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CAE67A19432BC0006E5A9B /* InterpreterTests.swift */; };
-		A9E1F5CF195051590082B18F /* PushInterpreter_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E1F5CE195051590082B18F /* PushInterpreter_Tests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		A90FD0C51950647400B9672D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A961B4F7193F9EE9004289EF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A961B4FE193F9EE9004289EF;
+			remoteInfo = PushInterpreter;
+		};
 		A961B512193F9EEA004289EF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A961B4F7193F9EE9004289EF /* Project object */;
@@ -101,8 +107,6 @@
 		A9B17AC3194B2AB1003F2048 /* BooleanInstructions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooleanInstructions.swift; sourceTree = "<group>"; };
 		A9CAE67A19432BC0006E5A9B /* InterpreterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterpreterTests.swift; sourceTree = "<group>"; };
 		A9E1F5CA195051590082B18F /* PushInterpreter Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "PushInterpreter Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A9E1F5CD195051590082B18F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A9E1F5CE195051590082B18F /* PushInterpreter_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushInterpreter_Tests.swift; sourceTree = "<group>"; };
 		A9E525E91945557D004E2F87 /* Enumerations.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Enumerations.playground; path = PushInterpreter/Enumerations.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -160,7 +164,6 @@
 				A989247D1943D4AD000C11D6 /* README.markdown */,
 				A961B501193F9EE9004289EF /* PushInterpreter */,
 				A961B514193F9EEA004289EF /* PushInterpreterTests */,
-				A9E1F5CB195051590082B18F /* PushInterpreter Tests */,
 				A961B500193F9EE9004289EF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -229,23 +232,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		A9E1F5CB195051590082B18F /* PushInterpreter Tests */ = {
-			isa = PBXGroup;
-			children = (
-				A9E1F5CE195051590082B18F /* PushInterpreter_Tests.swift */,
-				A9E1F5CC195051590082B18F /* Supporting Files */,
-			);
-			path = "PushInterpreter Tests";
-			sourceTree = "<group>";
-		};
-		A9E1F5CC195051590082B18F /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				A9E1F5CD195051590082B18F /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -296,6 +282,7 @@
 			);
 			dependencies = (
 				A9E1F5D1195051590082B18F /* PBXTargetDependency */,
+				A90FD0C61950647400B9672D /* PBXTargetDependency */,
 			);
 			name = "PushInterpreter Tests";
 			productName = "PushInterpreter Tests";
@@ -418,13 +405,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9E1F5CF195051590082B18F /* PushInterpreter_Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		A90FD0C61950647400B9672D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A961B4FE193F9EE9004289EF /* PushInterpreter */;
+			targetProxy = A90FD0C51950647400B9672D /* PBXContainerItemProxy */;
+		};
 		A961B513193F9EEA004289EF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A961B4FE193F9EE9004289EF /* PushInterpreter */;
@@ -659,6 +650,7 @@
 				A9E1F5D3195051590082B18F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

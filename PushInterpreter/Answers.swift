@@ -15,8 +15,73 @@ func randomIndexFromArray(array:AnyObject[]) -> Int {
 }
 
 
+func randomDouble() -> Double {
+    return Double(drand48())
+}
 
-class Answer : PushInterpreter {
+
+func randomIntegerERC() -> Int {
+    return Int(arc4random_uniform(UInt32(100))) - 50
+}
+
+
+func randomBooleanERC() -> Bool {
+    let flip = arc4random_uniform(UInt32(2))
+    return flip == 0 ? true : false
+}
+
+func randomFloatERC() -> Double {
+    let numerator = Int(arc4random_uniform(UInt32(12800))) - 6400
+    let denominator = 128.0
+    return Double(numerator) / denominator
+}
+
+
+
+
+class PushAnswer {
+    var scores = Dictionary<String,Double>()
+    var template = String[]()
+    var script : String = ""
+    var literals : Dictionary<String,String>
     
+    var myInterpreter = PushInterpreter()
     
+    init(length:Int,commands:String[],otherTokens:String[],commandRatio:Double) {
+        literals = Dictionary<String,String>()
+        
+        // build script template
+        template = []
+        for i in 0..length {
+            if randomDouble() < commandRatio {
+                let idx = randomIndexFromArray(commands)
+                template += commands[idx]
+            } else {
+                let idx = randomIndexFromArray(otherTokens)
+                template += otherTokens[idx]
+            }
+        }
+        
+        // build script
+        script = ""
+        for token in template {
+            switch token {
+                case "«int»":
+                    let val = randomIntegerERC()
+                    let name = "int_\(literals.count)"
+                    literals[name] = "\(val)"
+                case "«bool»":
+                    let valAsString = randomBooleanERC() ? "T" : "F"
+                    let name = "bool_\(literals.count)"
+                    literals[name] = valAsString
+                case "«float»":
+                    let val = randomFloatERC()
+                    let name = "float_\(literals.count)"
+                    literals[name] = "\(val)"
+                default:
+                    script += "\(token) "
+            }
+        }
+        
+    }
 }
