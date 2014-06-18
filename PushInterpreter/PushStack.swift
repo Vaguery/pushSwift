@@ -27,7 +27,6 @@ class PushStack:Printable {
     
     
     func dup() {
-        items.unshare()
         if items.count > 0 {
             let duped = self.items[items.count - 1]
             self.push(duped.clone())
