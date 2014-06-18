@@ -16,6 +16,7 @@ extension PushInterpreter {
                "exec_define" : {self.exec_define()},
                 "exec_depth" : {self.exec_depth()},
                   "exec_dup" : {self.exec_dup()},
+                "exec_equal" : {self.exec_equal()},
                  "exec_flip" : {self.exec_flip()},
                 "exec_flush" : {self.exec_flush()},
                    "exec_if" : {self.exec_if()},
@@ -43,7 +44,6 @@ extension PushInterpreter {
     // via http://faculty.hampshire.edu/lspector/push3-description.html
     //
     // (pending)
-    //    EXEC.=: Pushes TRUE if the top two items on the EXEC stack are equal, or FALSE otherwise.
     //    EXEC.DO*COUNT: An iteration instruction that performs a loop (the body of which is taken from the EXEC stack) the number of times indicated by the INTEGER argument, pushing an index (which runs from zero to one less than the number of iterations) onto the INTEGER stack prior to each execution of the loop body. This is similar to CODE.DO*COUNT except that it takes its code argument from the EXEC stack. This should be implemented as a macro that expands into a call to EXEC.DO*RANGE. EXEC.DO*COUNT takes a single INTEGER argument (the number of times that the loop will be executed) and a single EXEC argument (the body of the loop). If the provided INTEGER argument is negative or zero then this becomes a NOOP. Otherwise it expands into:
     //    ( 0 <1 - IntegerArg> EXEC.DO*RANGE <ExecArg> )
     //    EXEC.DO*RANGE: An iteration instruction that executes the top item on the EXEC stack a number of times that depends on the top two integers, while also pushing the loop counter onto the INTEGER stack for possible access during the execution of the body of the loop. This is similar to CODE.DO*COUNT except that it takes its code argument from the EXEC stack. The top integer is the "destination index" and the second integer is the "current index." First the code and the integer arguments are saved locally and popped. Then the integers are compared. If the integers are equal then the current index is pushed onto the INTEGER stack and the code (which is the "body" of the loop) is pushed onto the EXEC stack for subsequent execution. If the integers are not equal then the current index will still be pushed onto the INTEGER stack but two items will be pushed onto the EXEC stack -- first a recursive call to EXEC.DO*RANGE (with the same code and destination index, but with a current index that has been either incremented or decremented by 1 to be closer to the destination index) and then the body code. Note that the range is inclusive of both endpoints; a call with integer arguments 3 and 5 will cause its body to be executed 3 times, with the loop counter having the values 3, 4, and 5. Note also that one can specify a loop that "counts down" by providing a destination index that is less than the specified current index.
@@ -79,6 +79,15 @@ extension PushInterpreter {
     //  EXEC.DUP: Duplicates the top item on the EXEC stack. Does not pop its argument (which, if it did, would negate the effect of the duplication!). This may be thought of as a "DO TWICE" instruction.
     func exec_dup() {
         execStack.dup()
+    }
+    
+    //  EXEC.=: Pushes TRUE if the top two items on the EXEC stack are equal, or FALSE otherwise.
+    func exec_equal() {
+        if execStack.length() > 1 {
+            let describe2 = execStack.pop()!.description
+            let describe1 = execStack.pop()!.description
+            boolStack.push(PushPoint.Boolean((describe1 == describe2)))
+        }
     }
     
     

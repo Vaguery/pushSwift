@@ -25,6 +25,8 @@ extension PushInterpreter {
        "float_greaterThan" : {self.float_greaterThan()},
         "float_isPositive" : {self.float_isPositive()},
           "float_lessThan" : {self.float_lessThan()},
+               "float_max" : {self.float_max()},
+               "float_min" : {self.float_min()},
                "float_mod" : {self.float_mod()},
                "float_pop" : {self.float_pop()},
             "float_rotate" : {self.float_rotate()},
@@ -50,8 +52,6 @@ extension PushInterpreter {
     //    FLOAT.-: Pushes the difference of the top two items; that is, the second item minus the top item.
     //    FLOAT./: Pushes the quotient of the top two items; that is, the second item divided by the top item. If the top item is zero this acts as a NOOP.
     //    FLOAT.COS: Pushes the cosine of the top item.
-    //    FLOAT.MAX: Pushes the maximum of the top two items.
-    //    FLOAT.MIN: Pushes the minimum of the top two items.
     //    FLOAT.RAND: Pushes a newly generated random FLOAT that is greater than or equal to MIN-RANDOM-FLOAT and less than or equal to MAX-RANDOM-FLOAT.
     //    FLOAT.SIN: Pushes the sine of the top item.
     //    FLOAT.TAN: Pushes the tangent of the top item.
@@ -164,6 +164,24 @@ extension PushInterpreter {
             let arg2 = floatStack.pop()!.value as Double
             let arg1 = floatStack.pop()!.value as Double
             boolStack.push(PushPoint.Boolean(arg1 < arg2))
+        }
+    }
+
+    //  FLOAT.MAX: Pushes the maximum of the top two items.
+    func float_max() {
+        if floatStack.length() > 1 {
+            let arg2 = floatStack.pop()!.value as Double
+            let arg1 = floatStack.pop()!.value as Double
+            floatStack.push(PushPoint.Float(max(arg1,arg2)))
+        }
+    }
+    
+    //  FLOAT.MIN: Pushes the minimum of the top two items.
+    func float_min() {
+        if floatStack.length() > 1 {
+            let arg2 = floatStack.pop()!.value as Double
+            let arg1 = floatStack.pop()!.value as Double
+            floatStack.push(PushPoint.Float(min(arg1,arg2)))
         }
     }
 

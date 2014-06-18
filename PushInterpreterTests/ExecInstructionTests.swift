@@ -48,6 +48,13 @@ class ExecInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.boolStack.description == "[ T T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
     }
     
+    func test_ExecEqual() {
+        let myPI = PushInterpreter(script:"exec_equal T T exec_equal ( ( 1 2 ) 3 ) ( ( 1 2 ) 3 ) exec_equal ( ( 1 2 ) 3 ) ( ( ( 1 ) 2 ) 3 )")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ T T F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
+
+    
     
     func test_ExecFlip() {
         let myPI = PushInterpreter(script:"exec_flip 1 2 3 4")

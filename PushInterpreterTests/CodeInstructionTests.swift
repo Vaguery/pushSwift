@@ -138,6 +138,11 @@ class CodeInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.intStack.description == "[ 2 1 2 0 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
 
+    func test_CodeList() {
+        let myPI = PushInterpreter(script:"code_quote 2 code_quote ( 3 4 ) code_list")
+        myPI.run()
+        XCTAssertTrue(myPI.codeStack.description == "[ ( ( 2 ) ( 3 4 ) ) ]", "Didn't expect stack to be \(myPI.codeStack.description)")
+    }
 
     
     func test_CodePop() {

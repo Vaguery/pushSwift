@@ -107,6 +107,20 @@ class FloatInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.boolStack.description == "[ T F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
     }
     
+    func test_FloatMax() {
+        let myPI = PushInterpreter(script:"1.5 1.125 float_max -11.0 3.125 float_max 0.0 4.25 float_max 3.25 0.0 float_max")
+        myPI.run()
+        XCTAssertTrue(myPI.floatStack.description == "[ 1.5 3.125 4.25 3.25 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
+    }
+
+    
+    func test_FloatMin() {
+        let myPI = PushInterpreter(script:"1.5 1.125 float_min -11.0 3.125 float_min 0.0 4.25 float_min 3.25 0.0 float_min")
+        myPI.run()
+        XCTAssertTrue(myPI.floatStack.description == "[ 1.125 -11.0 0.0 0.0 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
+    }
+
+    
     func test_FloatMod() {
         let myPI = PushInterpreter(script:"1.5 1.125 float_mod -11.0 3.125 float_mod 0.0 4.2625 float_mod 3.25 0.0 float_mod")
         myPI.run()
