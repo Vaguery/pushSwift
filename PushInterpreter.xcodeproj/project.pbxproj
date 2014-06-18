@@ -79,7 +79,6 @@
 		A947D5C01941EE610009118D /* PushParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushParserTests.swift; sourceTree = "<group>"; };
 		A947D5C2194245F30009118D /* PushCodePointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushCodePointTests.swift; sourceTree = "<group>"; };
 		A94FB229194F030600677E51 /* Answers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answers.swift; sourceTree = "<group>"; };
-		A94FB22B194F055000677E51 /* Randomness.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Randomness.playground; path = PushInterpreter/Randomness.playground; sourceTree = "<group>"; };
 		A961B4FF193F9EE9004289EF /* PushInterpreter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PushInterpreter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A961B503193F9EE9004289EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A961B504193F9EE9004289EF /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -89,16 +88,12 @@
 		A961B511193F9EEA004289EF /* PushInterpreterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PushInterpreterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A961B516193F9EEA004289EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A961B517193F9EEA004289EF /* PushInterpreterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushInterpreterTests.swift; sourceTree = "<group>"; };
-		A969257D19488A9C000F056E /* BlockCapture.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = BlockCapture.playground; path = "PushInterpreter/playgrounds-and-sketches/BlockCapture.playground"; sourceTree = "<group>"; };
 		A989247D1943D4AD000C11D6 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
 		A98EAB76194DC48A00FD675E /* AnswerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerTests.swift; sourceTree = "<group>"; };
-		A993AE9B194081C1001F0C0A /* StackClass.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = StackClass.playground; path = PushInterpreter/StackClass.playground; sourceTree = "<group>"; };
-		A9988A1C19468EE300EA42F8 /* RegularExpressions.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = RegularExpressions.playground; path = PushInterpreter/RegularExpressions.playground; sourceTree = "<group>"; };
 		A99A19A51951ACE7003DDBE9 /* Issues.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Issues.markdown; sourceTree = "<group>"; };
 		A99C337D194B2C1000F70094 /* BooleanInstructionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooleanInstructionTests.swift; sourceTree = "<group>"; };
 		A99C337F194B374800F70094 /* RangeInstructionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeInstructionTests.swift; sourceTree = "<group>"; };
 		A99C3381194B3A9700F70094 /* RangeInstructions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeInstructions.swift; sourceTree = "<group>"; };
-		A9A4B1BD194B100F0045291C /* ClosureFiddle.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = ClosureFiddle.playground; path = PushInterpreter/ClosureFiddle.playground; sourceTree = "<group>"; };
 		A9A838D91947E35C004414E3 /* PushPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushPoint.swift; sourceTree = "<group>"; };
 		A9A838DB1947E3A5004414E3 /* PushInterpreter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushInterpreter.swift; sourceTree = "<group>"; };
 		A9A838DD1947E4C1004414E3 /* PushStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushStack.swift; sourceTree = "<group>"; };
@@ -107,7 +102,6 @@
 		A9B17AC1194B293C003F2048 /* MiscellaneousInstructions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiscellaneousInstructions.swift; sourceTree = "<group>"; };
 		A9B17AC3194B2AB1003F2048 /* BooleanInstructions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooleanInstructions.swift; sourceTree = "<group>"; };
 		A9CAE67A19432BC0006E5A9B /* InterpreterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterpreterTests.swift; sourceTree = "<group>"; };
-		A9E525E91945557D004E2F87 /* Enumerations.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Enumerations.playground; path = PushInterpreter/Enumerations.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,7 +130,6 @@
 				A922134D194B558100AFE086 /* CodeInstructions.swift */,
 				A919F024194B679F0097AFBB /* ExecInstructions.swift */,
 				A919F029194B6B400097AFBB /* FloatInstructions.swift */,
-				A99A19A51951ACE7003DDBE9 /* Issues.markdown */,
 				A9B17ABF194B27D0003F2048 /* IntegerInstructions.swift */,
 				A9B17AC1194B293C003F2048 /* MiscellaneousInstructions.swift */,
 				A919F02D194B76670097AFBB /* NameInstructions.swift */,
@@ -148,12 +141,6 @@
 		A961B4F6193F9EE9004289EF = {
 			isa = PBXGroup;
 			children = (
-				A9988A1C19468EE300EA42F8 /* RegularExpressions.playground */,
-				A9E525E91945557D004E2F87 /* Enumerations.playground */,
-				A993AE9B194081C1001F0C0A /* StackClass.playground */,
-				A9A4B1BD194B100F0045291C /* ClosureFiddle.playground */,
-				A94FB22B194F055000677E51 /* Randomness.playground */,
-				A969257D19488A9C000F056E /* BlockCapture.playground */,
 				A989247D1943D4AD000C11D6 /* README.markdown */,
 				A961B501193F9EE9004289EF /* PushInterpreter */,
 				A961B514193F9EEA004289EF /* PushInterpreterTests */,
@@ -184,6 +171,7 @@
 		A961B502193F9EE9004289EF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A99A19A51951ACE7003DDBE9 /* Issues.markdown */,
 				A919F028194B6AEA0097AFBB /* Instructions */,
 				A9A838DD1947E4C1004414E3 /* PushStack.swift */,
 				A9A838D91947E35C004414E3 /* PushPoint.swift */,
