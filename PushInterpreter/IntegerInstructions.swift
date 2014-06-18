@@ -47,13 +47,8 @@ extension PushInterpreter {
     
     ////////////////
     // int functions
-    
-    
-    //  (pending)
-    //  (comments are quotes from http://faculty.hampshire.edu/lspector/push3-description.html where available)
     //
-    //    INTEGER.RAND: Pushes a newly generated random INTEGER that is greater than or equal to MIN-RANDOM-INTEGER and less than or equal to MAX-RANDOM-INTEGER.
-    //    INTEGER.SHOVE: Inserts the second INTEGER "deep" in the stack, at the position indexed by the top INTEGER. The index position is calculated after the index is removed.
+    //  (comments are quotes from http://faculty.hampshire.edu/lspector/push3-description.html where available)
     
     
     

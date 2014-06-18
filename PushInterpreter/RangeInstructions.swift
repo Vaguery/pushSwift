@@ -49,16 +49,6 @@ extension PushInterpreter {
     // (ranges are not a feature of Push 3.0, so all these are new)
     
     
-    // range_stepBy() : moves first bound N closer to second, unless identical, where N is an Int; will not cross start and end; if N < 0, the first bound gets farther away; if a == b, destroys the Range
-    // range count_by() : moves first bound N closer to second, unless identical, where N is an Int; if N < 0, the first bound moves away form the second; will not cross start and end; if a == b, destroys the Range after pushing Int(a)
-    // range_split() : pops (a..b) and an Int; if the Int (x) lies within (a..b), produces (a..x) and (x..b)
-    // range_median() : pops (a..b), pushes Int(a+b/2)
-    // range_contract() : pops (a..b), pushes new Range with both extremes 1 step closer; destroys Range if a==b
-    // range_contractBy() : pops (a..b) and an Int N, pushes new Range with both extremes N steps closer; if N < 0, both extremes move apart by N each; destroys Range if a==b
-    // range_isOverlapping() : pops two ranges; pushes T if either overlaps the other at all, regardless of direction of either
-    // range_isSubset() : pops two ranges; pushes T if they are both the same direction, AND one is entirely within the other
-    // range_shift() : pops a range and an Int; adds the int to both extremes
-    // range_scale() : pops a range and an Int; multiples the int by both extremes
     
     
     //  range_archive()

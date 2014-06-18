@@ -38,17 +38,8 @@ extension PushInterpreter {
     
     ///////////////////////
     // boolean instructions
-    
+    //
     //  (comments are quotes from http://faculty.hampshire.edu/lspector/push3-description.html where available)
-    
-    //  (skipped)
-    
-    //  BOOLEAN.FROMINTEGER: Pushes FALSE if the top INTEGER is 0, or TRUE otherwise.
-    //  not implemented; see int_isPositive()
-    //  BOOLEAN.FROMFLOAT: Pushes FALSE if the top FLOAT is 0.0, or TRUE otherwise.
-    //  not implemented; see float_isPositive()
-    //  BOOLEAN.RAND: Pushes a random BOOLEAN.
-
 
     
     //  BOOLEAN.AND: Pushes the logical AND of the top two BOOLEANs.

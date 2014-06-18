@@ -40,10 +40,7 @@ extension PushInterpreter {
     // name instructions
     // via http://faculty.hampshire.edu/lspector/push3-description.html
     //
-    // (pending)
 
-//        NAME.QUOTE: Sets a flag indicating that the next name encountered will be pushed onto the NAME stack (and not have its associated value pushed onto the EXEC stack), regardless of whether or not it has a definition. Upon encountering such a name and pushing it onto the NAME stack the flag will be cleared (whether or not the pushed name had a definition).
-//        NAME.RANDBOUNDNAME: Pushes a randomly selected NAME that already has a definition.
 
     
     //  name_archive()
