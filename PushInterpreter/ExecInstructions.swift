@@ -23,8 +23,10 @@ extension PushInterpreter {
                     "exec_k" : {self.exec_k()},
                   "exec_pop" : {self.exec_pop()}, 
                "exec_rotate" : {self.exec_rotate()},
+                    "exec_s" : {self.exec_s()},
                 "exec_shove" : {self.exec_shove()},
                  "exec_swap" : {self.exec_swap()},
+                    "exec_y" : {self.exec_y()},
                  "exec_yank" : {self.exec_yank()},
               "exec_yankDup" : {self.exec_yankDup()}
         ]
@@ -46,8 +48,6 @@ extension PushInterpreter {
     //    EXEC.DO*RANGE: An iteration instruction that executes the top item on the EXEC stack a number of times that depends on the top two integers, while also pushing the loop counter onto the INTEGER stack for possible access during the execution of the body of the loop. This is similar to CODE.DO*COUNT except that it takes its code argument from the EXEC stack. The top integer is the "destination index" and the second integer is the "current index." First the code and the integer arguments are saved locally and popped. Then the integers are compared. If the integers are equal then the current index is pushed onto the INTEGER stack and the code (which is the "body" of the loop) is pushed onto the EXEC stack for subsequent execution. If the integers are not equal then the current index will still be pushed onto the INTEGER stack but two items will be pushed onto the EXEC stack -- first a recursive call to EXEC.DO*RANGE (with the same code and destination index, but with a current index that has been either incremented or decremented by 1 to be closer to the destination index) and then the body code. Note that the range is inclusive of both endpoints; a call with integer arguments 3 and 5 will cause its body to be executed 3 times, with the loop counter having the values 3, 4, and 5. Note also that one can specify a loop that "counts down" by providing a destination index that is less than the specified current index.
     //    EXEC.DO*TIMES: Like EXEC.DO*COUNT but does not push the loop counter. This should be implemented as a macro that expands into EXEC.DO*RANGE, similarly to the implementation of EXEC.DO*COUNT, except that a call to INTEGER.POP should be tacked on to the front of the loop body code in the call to EXEC.DO*RANGE. This call to INTEGER.POP will remove the loop counter, which will have been pushed by EXEC.DO*RANGE, prior to the execution of the loop body.
     //    EXEC.IF: If the top item of the BOOLEAN stack is TRUE then this removes the second item on the EXEC stack, leaving the first item to be executed. If it is false then it removes the first item, leaving the second to be executed. This is similar to CODE.IF except that it operates on the EXEC stack. This acts as a NOOP unless there are at least two items on the EXEC stack and one item on the BOOLEAN stack.
-    //    EXEC.S: The Push implementation of the "S combinator". Pops 3 items from the EXEC stack, which we will call A, B, and C (with A being the first one popped). Then pushes a list containing B and C back onto the EXEC stack, followed by another instance of C, followed by another instance of A.
-    //    EXEC.Y: The Push implementation of the "Y combinator". Inserts beneath the top item of the EXEC stack a new item of the form "( EXEC.Y <TopItem> )".
     
     
     //  exec_archive()
@@ -113,9 +113,10 @@ extension PushInterpreter {
     
     // EXEC.K: The Push implementation of the "K combinator". Removes the second item on the EXEC stack.
     func exec_k() {
-        let d = execStack.length()
-        if d > 1 {
-            execStack.items.removeAtIndex(d-2)
+        if execStack.length() > 1 {
+            let keep = execStack.pop()!
+            let discard = execStack.pop()!
+            execStack.push(keep)
         }
     }
     
@@ -128,6 +129,18 @@ extension PushInterpreter {
     func exec_rotate() {
         execStack.rotate()
     }
+    
+    
+    //  EXEC.S: The Push implementation of the "S combinator". Pops 3 items from the EXEC stack, which we will call A, B, and C (with A being the first one popped). Then pushes a list containing B and C back onto the EXEC stack, followed by another instance of C, followed by another instance of A.
+    func exec_s() {
+        if execStack.length() > 2 {
+            let (a,b,c) = (execStack.pop()!,execStack.pop()!,execStack.pop()!)
+            execStack.push(PushPoint.Block([b,c.clone()]))
+            execStack.push(c)
+            execStack.push(a)
+        }
+    }
+
     
     //  EXEC.SHOVE: Inserts the top EXEC item "deep" in the stack, at the position indexed by the top INTEGER. This may be thought of as a "DO LATER" instruction.
     func exec_shove() {
@@ -142,6 +155,18 @@ extension PushInterpreter {
     func exec_swap() {
         execStack.swap()
     }
+    
+    
+    //  EXEC.Y: The Push implementation of the "Y combinator". Inserts beneath the top item of the EXEC stack a new item of the form "( EXEC.Y <TopItem> )".
+    func exec_y() {
+        if execStack.length() > 0 {
+            let forever = execStack.pop()!
+            execStack.push(PushPoint.Block(
+                [PushPoint.Instruction("exec_y"),forever.clone()]))
+            execStack.push(forever)
+        }
+    }
+
     
     //  EXEC.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack. This may be thought of as a "DO SOONER" instruction.
     func exec_yank() {

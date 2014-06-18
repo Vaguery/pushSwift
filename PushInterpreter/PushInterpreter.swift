@@ -16,6 +16,7 @@ class PushInterpreter {
     var script:String = ""
     var program:PushPoint = PushPoint.Block([])
     var steps = 0
+    var stepLimit = 5000
     var allPushInstructions:Dictionary<String,(Void->Void)>
     var activePushInstructions:String[]
 
@@ -215,7 +216,9 @@ class PushInterpreter {
     }
     
     func run() {
-        while execStack.length() > 0 {
+        steps = 0
+        while execStack.length() > 0  && steps <= stepLimit {
+            steps += 1
             self.step()
         }
     }

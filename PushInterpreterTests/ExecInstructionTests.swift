@@ -93,6 +93,14 @@ class ExecInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.intStack.description == "[ 3 1 2 4 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
     
+    func test_ExecS() {
+        let myPI = PushInterpreter(script:"exec_s 1 2 3 4 5")
+        myPI.step()  // unwraps program
+        myPI.step()
+        XCTAssertTrue(myPI.execStack.description == "[ 5 4 ( 2 3 ) 3 1 ]", "Didn't expect stack to be \(myPI.execStack.description)")
+    }
+
+    
     func test_ExecShove() {
         let myPI = PushInterpreter(script:"3 exec_shove 1 2 3 4 5 6")
         myPI.run()
@@ -105,6 +113,15 @@ class ExecInstructionTests: XCTestCase {
         myPI.run()
         XCTAssertTrue(myPI.intStack.description == "[ 2 1 3 4 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
+    
+    func test_ExecY() {
+        let myPI = PushInterpreter(script:"1 2 exec_y 3 4")
+        myPI.stepLimit = 20
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 1 2 3 3 3 3 3 3 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+        XCTAssertTrue(myPI.execStack.description == "[ 4 3 :exec_y ]", "Didn't expect stack to be \(myPI.execStack.description)")
+    }
+
     
     func test_ExecYank() {
         let myPI = PushInterpreter(script:"2 exec_yank 1 2 3 4 5 6 7")

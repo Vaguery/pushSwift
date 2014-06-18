@@ -70,4 +70,14 @@ class RunningScriptsTests: XCTestCase {
         XCTAssertTrue(pi.boolStack.description == "[ F T F F T ]", "Didn't expect stack to be \(pi.boolStack.description)")
 
     }
+    
+    
+    func test_InterpreterStepLimit() {
+        let pi = PushInterpreter(script: "1 2 3 4 5 6 7 8 9 10")
+        pi.stepLimit = 4
+        pi.run()
+        XCTAssertTrue(pi.steps == 5, "Didn't expect interpreter stop at the start of step #\(pi.steps)")
+        XCTAssertTrue(pi.execStack.length() == 6, "Didn't expect to find \(pi.execStack.length()) tokens left on the exec stack")
+
+    }
 }
