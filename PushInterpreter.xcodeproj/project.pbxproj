@@ -75,7 +75,6 @@
 		A922134F194B568100AFE086 /* CodeInstructionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeInstructionTests.swift; sourceTree = "<group>"; };
 		A9418FA41948FFE700C5E731 /* RunningScriptsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunningScriptsTests.swift; sourceTree = "<group>"; };
 		A9418FA619492C4E00C5E731 /* IntegerInstructionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegerInstructionTests.swift; sourceTree = "<group>"; };
-		A942C1D81946CA83004A2C69 /* Wrestling.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Wrestling.playground; path = ../Wrestling.playground; sourceTree = "<group>"; };
 		A947D5C01941EE610009118D /* PushParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushParserTests.swift; sourceTree = "<group>"; };
 		A947D5C2194245F30009118D /* PushCodePointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushCodePointTests.swift; sourceTree = "<group>"; };
 		A94FB229194F030600677E51 /* Answers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answers.swift; sourceTree = "<group>"; };
@@ -147,7 +146,6 @@
 			isa = PBXGroup;
 			children = (
 				A9988A1C19468EE300EA42F8 /* RegularExpressions.playground */,
-				A942C1D81946CA83004A2C69 /* Wrestling.playground */,
 				A9E525E91945557D004E2F87 /* Enumerations.playground */,
 				A993AE9B194081C1001F0C0A /* StackClass.playground */,
 				A9A4B1BD194B100F0045291C /* ClosureFiddle.playground */,

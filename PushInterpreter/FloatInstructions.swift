@@ -15,14 +15,21 @@ extension PushInterpreter {
                "float_abs" : {self.float_abs()},
            "float_archive" : {self.float_archive()},
             "float_define" : {self.float_define()},
+             "float_depth" : {self.float_depth()},
+               "float_dup" : {self.float_dup()},
+             "float_equal" : {self.float_equal()},
               "float_flip" : {self.float_flip()},
              "float_flush" : {self.float_flush()},
           "float_fromBool" : {self.float_fromBool()},
+           "float_fromInt" : {self.float_fromInt()},
        "float_greaterThan" : {self.float_greaterThan()},
         "float_isPositive" : {self.float_isPositive()},
           "float_lessThan" : {self.float_lessThan()},
+               "float_mod" : {self.float_mod()},
+               "float_pop" : {self.float_pop()},
             "float_rotate" : {self.float_rotate()},
              "float_shove" : {self.float_shove()},
+              "float_swap" : {self.float_swap()},
               "float_yank" : {self.float_yank()},
            "float_yankDup" : {self.float_yankDup()}
         ]
@@ -38,22 +45,15 @@ extension PushInterpreter {
     // via http://faculty.hampshire.edu/lspector/push3-description.html
     //
     // (pending)
-    //    FLOAT.%: Pushes the second stack item modulo the top stack item. If the top item is zero this acts as a NOOP. The modulus is computed as the remainder of the quotient, where the quotient has first been truncated toward negative infinity. (This is taken from the definition for the generic MOD function in Common Lisp, which is described for example at http://www.lispworks.com/reference/HyperSpec/Body/f_mod_r.htm.)
     //    FLOAT.*: Pushes the product of the top two items.
     //    FLOAT.+: Pushes the sum of the top two items.
     //    FLOAT.-: Pushes the difference of the top two items; that is, the second item minus the top item.
     //    FLOAT./: Pushes the quotient of the top two items; that is, the second item divided by the top item. If the top item is zero this acts as a NOOP.
-    //    FLOAT.=: Pushes TRUE onto the BOOLEAN stack if the top two items are equal, or FALSE otherwise.
     //    FLOAT.COS: Pushes the cosine of the top item.
-    //    FLOAT.DUP: Duplicates the top item on the FLOAT stack. Does not pop its argument (which, if it did, would negate the effect of the duplication!).
-    //    FLOAT.FROMINTEGER: Pushes a floating point version of the top INTEGER.
     //    FLOAT.MAX: Pushes the maximum of the top two items.
     //    FLOAT.MIN: Pushes the minimum of the top two items.
-    //    FLOAT.POP: Pops the FLOAT stack.
     //    FLOAT.RAND: Pushes a newly generated random FLOAT that is greater than or equal to MIN-RANDOM-FLOAT and less than or equal to MAX-RANDOM-FLOAT.
     //    FLOAT.SIN: Pushes the sine of the top item.
-    //    FLOAT.STACKDEPTH: Pushes the stack depth onto the INTEGER stack.
-    //    FLOAT.SWAP: Swaps the top two BOOLEANs.
     //    FLOAT.TAN: Pushes the tangent of the top item.
     
     
@@ -85,6 +85,27 @@ extension PushInterpreter {
         }
     }
     
+    //  FLOAT.STACKDEPTH: Pushes the stack depth onto the INTEGER stack.
+    func float_depth() {
+        intStack.push(PushPoint.Integer(floatStack.length()))
+    }
+    
+    
+    //  FLOAT.DUP: Duplicates the top item on the FLOAT stack. Does not pop its argument (which, if it did, would negate the effect of the duplication!).
+    func float_dup() {
+        floatStack.dup()
+    }
+    
+    
+    //  FLOAT.=: Pushes TRUE onto the BOOLEAN stack if the top two items are equal, or FALSE otherwise.
+    func float_equal() {
+        if floatStack.length() > 1 {
+            let arg2 = floatStack.pop()!.value as Double
+            let arg1 = floatStack.pop()!.value as Double
+            boolStack.push(PushPoint.Boolean(arg1==arg2))
+        }
+    }
+    
     
     //  float_flip()
     func float_flip() {
@@ -107,6 +128,15 @@ extension PushInterpreter {
             floatStack.push(PushPoint.Float(out))
         }
     }
+    
+    //  FLOAT.FROMINTEGER: Pushes a floating point version of the top INTEGER.
+    func float_fromInt() {
+        if intStack.length() > 0 {
+            let val = intStack.pop()!.value as Int
+            floatStack.push(PushPoint.Float(Double(val)))
+        }
+    }
+
     
     
     //  FLOAT.>: Pushes TRUE onto the BOOLEAN stack if the second item is greater than the top item, or FALSE otherwise.
@@ -137,6 +167,25 @@ extension PushInterpreter {
         }
     }
 
+    
+    //  FLOAT.%: Pushes the second stack item modulo the top stack item. If the top item is zero this acts as a NOOP. The modulus is computed as the remainder of the quotient, where the quotient has first been truncated toward negative infinity. (This is taken from the definition for the generic MOD function in Common Lisp, which is described for example at http://www.lispworks.com/reference/HyperSpec/Body/f_mod_r.htm.)
+    func float_mod() {
+        if floatStack.length() > 1 {
+            let arg2 = floatStack.pop()!.value as Double
+            let arg1 = floatStack.pop()!.value as Double
+            if arg2 != 0.0 {
+                floatStack.push(PushPoint.Float(arg1 % arg2))
+            } // otherwise nothing happens
+        }
+    }
+
+    
+    //  FLOAT.POP: Pops the FLOAT stack.
+    func float_pop() {
+        if floatStack.length() > 0 {
+            let discard = floatStack.pop()!
+        } // and throw it away
+    }
 
     
     //  FLOAT.ROT: Rotates the top three items on the FLOAT stack, pulling the third item out and pushing it on top. This is equivalent to "2 FLOAT.YANK".
@@ -151,6 +200,11 @@ extension PushInterpreter {
             let d = intStack.pop()!.value as Int
             floatStack.shove(d)
         }
+    }
+    
+    //  FLOAT.SWAP: Swaps the top two FLOATs.
+    func float_swap() {
+        floatStack.swap()
     }
 
     //  FLOAT.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack.

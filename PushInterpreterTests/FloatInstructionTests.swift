@@ -40,6 +40,25 @@ class FloatInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.floatStack.description == "[ 4.5 4.5 4.5 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
     }
     
+    func test_FloatDepth() {
+        let myPI = PushInterpreter(script:"1.0 2.0 3.0 4.0 float_depth")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 4 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
+
+    
+    func test_FloatDup() {
+        let myPI = PushInterpreter(script:"3.5 float_dup")
+        myPI.run()
+        XCTAssertTrue(myPI.floatStack.description == "[ 3.5 3.5 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
+    }
+
+    func test_FloatEqual() {
+        let myPI = PushInterpreter(script:"3.17 3.17 float_equal 1.0 2.0 float_equal")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ T F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
+
     
     func test_FloatFlip() {
         let myPI = PushInterpreter(script:"1.0 2.0 3.0 float_flip")
@@ -62,6 +81,13 @@ class FloatInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.floatStack.description == "[ 0.0 1.0 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
     }
     
+    func test_FloatFromInt() {
+        let myPI = PushInterpreter(script:"-1881 float_fromInt")
+        myPI.run()
+        XCTAssertTrue(myPI.floatStack.description == "[ -1881.0 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
+    }
+
+    
     func test_FloatGreaterThan() {
         let myPI = PushInterpreter(script:"1.0 -2.0 float_greaterThan 3.0 3.0 float_greaterThan")
         myPI.run()
@@ -80,6 +106,20 @@ class FloatInstructionTests: XCTestCase {
         myPI.run()
         XCTAssertTrue(myPI.boolStack.description == "[ T F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
     }
+    
+    func test_FloatMod() {
+        let myPI = PushInterpreter(script:"1.5 1.125 float_mod -11.0 3.125 float_mod 0.0 4.2625 float_mod 3.25 0.0 float_mod")
+        myPI.run()
+        XCTAssertTrue(myPI.floatStack.description == "[ 0.375 -1.625 0.0 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
+    }
+
+
+    func test_FloatPop() {
+        let myPI = PushInterpreter(script:"1.0 2.0 3.0 float_pop")
+        myPI.run()
+        XCTAssertTrue(myPI.floatStack.description == "[ 1.0 2.0 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
+    }
+    
 
     
     func test_FloatRotate() {
@@ -96,6 +136,13 @@ class FloatInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.floatStack.description == "[ 1.0 2.0 5.0 3.0 4.0 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
     }
     
+    func test_FloatSwap() {
+        let myPI = PushInterpreter(script:"1.0 2.0 3.0 4.0 5.0 float_swap")
+        myPI.run()
+        XCTAssertTrue(myPI.floatStack.description == "[ 1.0 2.0 3.0 5.0 4.0 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
+    }
+
+    
     func test_FloatYank() {
         let myPI = PushInterpreter(script:"2 1.5 2.5 3.5 4.5 5.5 float_yank")
         myPI.run()
@@ -108,7 +155,5 @@ class FloatInstructionTests: XCTestCase {
         myPI.run()
         XCTAssertTrue(myPI.floatStack.description == "[ 1.5 2.5 3.5 4.5 5.5 3.5 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
     }
-
-
     
 }
