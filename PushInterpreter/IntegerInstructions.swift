@@ -23,6 +23,7 @@ extension PushInterpreter {
                    "int_flip" : {self.int_flip()},
                   "int_flush" : {self.int_flush()},
                "int_fromBool" : {self.int_fromBool()},
+              "int_fromFloat" : {self.int_fromFloat()},
             "int_greaterThan" : {self.int_greaterThan()},
              "int_isPositive" : {self.int_isPositive()},
                "int_lessThan" : {self.int_lessThan()},
@@ -51,7 +52,6 @@ extension PushInterpreter {
     //  (pending)
     //  (comments are quotes from http://faculty.hampshire.edu/lspector/push3-description.html where available)
     //
-    //    INTEGER.FROMFLOAT: Pushes the result of truncating the top FLOAT.
     //    INTEGER.RAND: Pushes a newly generated random INTEGER that is greater than or equal to MIN-RANDOM-INTEGER and less than or equal to MAX-RANDOM-INTEGER.
     //    INTEGER.SHOVE: Inserts the second INTEGER "deep" in the stack, at the position indexed by the top INTEGER. The index position is calculated after the index is removed.
     
@@ -86,7 +86,6 @@ extension PushInterpreter {
             self.bind(name, point: point)
         }
     }
-
     
     
     //  INTEGER.STACKDEPTH: Pushes the stack depth onto the INTEGER stack (thereby increasing it!).
@@ -163,6 +162,15 @@ extension PushInterpreter {
         }
     }
     
+    
+    //  INTEGER.FROMFLOAT: Pushes the result of truncating the top FLOAT.
+    func int_fromFloat() {
+        if floatStack.length() > 0 {
+            let val = floatStack.pop()!.value as Double
+            intStack.push(PushPoint.Integer(Int(trunc(val))))
+        }
+    }
+
     
     //  INTEGER.>: Pushes TRUE onto the BOOLEAN stack if the second item is greater than the top item, or FALSE otherwise.
     

@@ -93,6 +93,13 @@ class IntegerInstructionTests: XCTestCase {
         myPI.run()
         XCTAssertTrue(myPI.intStack.description == "[ 1 0 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
+    
+    
+    func test_IntFromFloat() {
+        let myPI = PushInterpreter(script:"4.7 int_fromFloat -712.1  int_fromFloat")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 4 -712 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
 
     
     func test_IntGreaterThan() {
