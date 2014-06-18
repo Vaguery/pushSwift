@@ -18,6 +18,7 @@ extension PushInterpreter {
                   "exec_dup" : {self.exec_dup()},
                  "exec_flip" : {self.exec_flip()},
                 "exec_flush" : {self.exec_flush()},
+                   "exec_if" : {self.exec_if()},
               "exec_isBlock" : {self.exec_isBlock()},
             "exec_isLiteral" : {self.exec_isLiteral()},
                     "exec_k" : {self.exec_k()},
@@ -47,7 +48,6 @@ extension PushInterpreter {
     //    ( 0 <1 - IntegerArg> EXEC.DO*RANGE <ExecArg> )
     //    EXEC.DO*RANGE: An iteration instruction that executes the top item on the EXEC stack a number of times that depends on the top two integers, while also pushing the loop counter onto the INTEGER stack for possible access during the execution of the body of the loop. This is similar to CODE.DO*COUNT except that it takes its code argument from the EXEC stack. The top integer is the "destination index" and the second integer is the "current index." First the code and the integer arguments are saved locally and popped. Then the integers are compared. If the integers are equal then the current index is pushed onto the INTEGER stack and the code (which is the "body" of the loop) is pushed onto the EXEC stack for subsequent execution. If the integers are not equal then the current index will still be pushed onto the INTEGER stack but two items will be pushed onto the EXEC stack -- first a recursive call to EXEC.DO*RANGE (with the same code and destination index, but with a current index that has been either incremented or decremented by 1 to be closer to the destination index) and then the body code. Note that the range is inclusive of both endpoints; a call with integer arguments 3 and 5 will cause its body to be executed 3 times, with the loop counter having the values 3, 4, and 5. Note also that one can specify a loop that "counts down" by providing a destination index that is less than the specified current index.
     //    EXEC.DO*TIMES: Like EXEC.DO*COUNT but does not push the loop counter. This should be implemented as a macro that expands into EXEC.DO*RANGE, similarly to the implementation of EXEC.DO*COUNT, except that a call to INTEGER.POP should be tacked on to the front of the loop body code in the call to EXEC.DO*RANGE. This call to INTEGER.POP will remove the loop counter, which will have been pushed by EXEC.DO*RANGE, prior to the execution of the loop body.
-    //    EXEC.IF: If the top item of the BOOLEAN stack is TRUE then this removes the second item on the EXEC stack, leaving the first item to be executed. If it is false then it removes the first item, leaving the second to be executed. This is similar to CODE.IF except that it operates on the EXEC stack. This acts as a NOOP unless there are at least two items on the EXEC stack and one item on the BOOLEAN stack.
     
     
     //  exec_archive()
@@ -92,6 +92,17 @@ extension PushInterpreter {
     func exec_flush() {
         execStack.clear()
     }
+    
+    //  EXEC.IF: If the top item of the BOOLEAN stack is TRUE then this removes the second item on the EXEC stack, leaving the first item to be executed. If it is false then it removes the first item, leaving the second to be executed. This is similar to CODE.IF except that it operates on the EXEC stack. This acts as a NOOP unless there are at least two items on the EXEC stack and one item on the BOOLEAN stack.
+    func exec_if() {
+        if execStack.length() > 1 && boolStack.length() > 0 {
+            let choice = boolStack.pop()!.value as Bool
+            let arg2 = execStack.pop()!
+            let arg1 = execStack.pop()!
+            choice ? execStack.push(arg1) : execStack.push(arg2)
+        }
+    }
+
     
     //  exec_isBlock() is not part of the Push 3.0 spec
     func exec_isBlock() {

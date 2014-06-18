@@ -21,6 +21,7 @@ extension PushInterpreter {
          "code_definition" : {self.code_definition()},
               "code_depth" : {self.code_depth()},
                 "code_dup" : {self.code_dup()},
+                 "code_if" : {self.code_if()},
                "code_flip" : {self.code_flip()},
               "code_flush" : {self.code_flush()},
            "code_fromBool" : {self.code_fromBool()},
@@ -71,7 +72,6 @@ extension PushInterpreter {
     //    CODE.DO*RANGE: An iteration instruction that executes the top item on the CODE stack a number of times that depends on the top two integers, while also pushing the loop counter onto the INTEGER stack for possible access during the execution of the body of the loop. The top integer is the "destination index" and the second integer is the "current index." First the code and the integer arguments are saved locally and popped. Then the integers are compared. If the integers are equal then the current index is pushed onto the INTEGER stack and the code (which is the "body" of the loop) is pushed onto the EXEC stack for subsequent execution. If the integers are not equal then the current index will still be pushed onto the INTEGER stack but two items will be pushed onto the EXEC stack -- first a recursive call to CODE.DO*RANGE (with the same code and destination index, but with a current index that has been either incremented or decremented by 1 to be closer to the destination index) and then the body code. Note that the range is inclusive of both endpoints; a call with integer arguments 3 and 5 will cause its body to be executed 3 times, with the loop counter having the values 3, 4, and 5. Note also that one can specify a loop that "counts down" by providing a destination index that is less than the specified current index.
     //    CODE.DO*TIMES: Like CODE.DO*COUNT but does not push the loop counter. This should be implemented as a macro that expands into CODE.DO*RANGE, similarly to the implementation of CODE.DO*COUNT, except that a call to INTEGER.POP should be tacked on to the front of the loop body code in the call to CODE.DO*RANGE. This call to INTEGER.POP will remove the loop counter, which will have been pushed by CODE.DO*RANGE, prior to the execution of the loop body.
     //    CODE.EXTRACT: Pushes the sub-expression of the top item of the CODE stack that is indexed by the top item of the INTEGER stack. The indexing here counts "points," where each parenthesized expression and each literal/instruction is considered a point, and it proceeds in depth first order. The entire piece of code is at index 0; if it is a list then the first item in the list is at index 1, etc. The integer used as the index is taken modulo the number of points in the overall expression (and its absolute value is taken in case it is negative) to ensure that it is within the meaningful range.
-    //    CODE.IF: If the top item of the BOOLEAN stack is TRUE this recursively executes the second item of the CODE stack; otherwise it recursively executes the first item of the CODE stack. Either way both elements of the CODE stack (and the BOOLEAN value upon which the decision was made) are popped.
     //    CODE.INSERT: Pushes the result of inserting the second item of the CODE stack into the first item, at the position indexed by the top item of the INTEGER stack (and replacing whatever was there formerly). The indexing is computed as in CODE.EXTRACT.
     //    CODE.LIST: Pushes a list of the top two items of the CODE stack onto the CODE stack.
     //    CODE.MEMBER: Pushes TRUE onto the BOOLEAN stack if the second item of the CODE stack is a member of the first item (which is coerced to a list if necessary). Pushes FALSE onto the BOOLEAN stack otherwise.
@@ -249,6 +249,18 @@ extension PushInterpreter {
         codeStack.flip()
     }
     
+    
+    //  CODE.IF: If the top item of the BOOLEAN stack is TRUE this recursively executes the second item of the CODE stack; otherwise it recursively executes the first item of the CODE stack. Either way both elements of the CODE stack (and the BOOLEAN value upon which the decision was made) are popped.
+    func code_if() {
+        if codeStack.length() > 1 && boolStack.length() > 0 {
+            let choice = boolStack.pop()!.value as Bool
+            let arg2 = codeStack.pop()!
+            let arg1 = codeStack.pop()!
+            choice ? execStack.push(arg1) : execStack.push(arg2)
+        }
+    }
+    
+
     // code_isEmpty() is not part of Push 3.0 specification
     func code_isEmpty() {
         if codeStack.length() > 0 {

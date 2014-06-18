@@ -101,7 +101,12 @@ class CodeInstructionTests: XCTestCase {
         myPI.run()
         XCTAssertTrue(myPI.codeStack.description == "[ ( 3.5 ) ( F ) ( -10 ) ( \"foo\" ) ( (4..9) ) ]", "Didn't expect stack to be \(myPI.codeStack.description)")
     }
-
+    
+    func test_CodeIf() {
+        let myPI = PushInterpreter(script:"code_quote 1 code_quote 2 F code_quote 3 code_quote 4 T code_if code_if")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 3 2 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
 
     func test_CodeIsAtom() {
         let myPI = PushInterpreter(script:"code_isAtom code_isAtom")

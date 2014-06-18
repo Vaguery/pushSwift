@@ -69,7 +69,6 @@ class FloatInstructionTests: XCTestCase {
     }
 
 
-
     func test_FloatIsPositive() {
         let myPI = PushInterpreter(script:"9.5 float_isPositive -1.25 float_isPositive")
         myPI.run()

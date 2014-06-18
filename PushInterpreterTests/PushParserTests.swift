@@ -80,7 +80,7 @@ class PushParserTests: XCTestCase {
             var myPoint:PushPoint = myInterpreter.programPointFromToken(t)
             let f:Double = myPoint.value as Double
             let correct_number = t.bridgeToObjectiveC().floatValue
-            XCTAssertNotNil(f as? Double, "Should have returned a PushPoint.Float")
+            XCTAssertNotNil(f, "Should have returned a PushPoint.Float")
             XCTAssertTrue(f == correct_number, "Float literal somehow changed while being parsed")
         }
     }

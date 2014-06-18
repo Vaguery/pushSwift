@@ -61,6 +61,12 @@ class ExecInstructionTests: XCTestCase {
         myPI.run()
         XCTAssertTrue(myPI.intStack.description == "[ 1 2 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
+    
+    func test_ExecIf() {
+        let myPI = PushInterpreter(script:" F exec_if 1 2 T exec_if 3 4")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 1 4 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
 
     
     func test_ExecIsBlock() {
