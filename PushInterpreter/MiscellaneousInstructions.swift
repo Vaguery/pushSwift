@@ -12,7 +12,7 @@ extension PushInterpreter {
     func loadMiscellaneousInstructions() {
         
         let miscInstructions = [
-            "noop" : {self.noop()}
+            "noop" : self.noop
         ]
         
         for (k,v) in miscInstructions {

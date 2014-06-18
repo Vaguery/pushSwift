@@ -13,20 +13,20 @@ extension PushInterpreter {
     func loadNameInstructions() {
         
         let nameInstructions = [
-               "name_archive" : {self.name_archive()},
-                 "name_depth" : {self.name_depth()},
-                   "name_dup" : {self.name_dup()},
-                  "name_flip" : {self.name_flip()},
-                 "name_flush" : {self.name_flush()},
-               "name_isEqual" : {self.name_isEqual()},
-            "name_isAssigned" : {self.name_isAssigned()},
-                   "name_new" : {self.name_new()},
-                   "name_pop" : {self.name_pop()},
-                 "name_rotate": {self.name_rotate()},
-                 "name_shove" : {self.name_shove()},
-                  "name_swap" : {self.name_swap()},
-                  "name_yank" : {self.name_yank()},
-               "name_yankDup" : {self.name_yankDup()}
+               "name_archive" : self.name_archive,
+                 "name_depth" : self.name_depth,
+                   "name_dup" : self.name_dup,
+                  "name_flip" : self.name_flip,
+                 "name_flush" : self.name_flush,
+               "name_isEqual" : self.name_isEqual,
+            "name_isAssigned" : self.name_isAssigned,
+                   "name_new" : self.name_new,
+                   "name_pop" : self.name_pop,
+                 "name_rotate": self.name_rotate,
+                 "name_shove" : self.name_shove,
+                  "name_swap" : self.name_swap,
+                  "name_yank" : self.name_yank,
+               "name_yankDup" : self.name_yankDup
         ]
         
         for (k,v) in nameInstructions {

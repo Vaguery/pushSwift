@@ -12,25 +12,25 @@ extension PushInterpreter {
     func loadExecInstructions() {
         
         let execInstructions = [
-              "exec_archive" : {self.exec_archive()},
-               "exec_define" : {self.exec_define()},
-                "exec_depth" : {self.exec_depth()},
-                  "exec_dup" : {self.exec_dup()},
-                "exec_equal" : {self.exec_equal()},
-                 "exec_flip" : {self.exec_flip()},
-                "exec_flush" : {self.exec_flush()},
-                   "exec_if" : {self.exec_if()},
-              "exec_isBlock" : {self.exec_isBlock()},
-            "exec_isLiteral" : {self.exec_isLiteral()},
-                    "exec_k" : {self.exec_k()},
-                  "exec_pop" : {self.exec_pop()}, 
-               "exec_rotate" : {self.exec_rotate()},
-                    "exec_s" : {self.exec_s()},
-                "exec_shove" : {self.exec_shove()},
-                 "exec_swap" : {self.exec_swap()},
-                    "exec_y" : {self.exec_y()},
-                 "exec_yank" : {self.exec_yank()},
-              "exec_yankDup" : {self.exec_yankDup()}
+              "exec_archive" : self.exec_archive,
+               "exec_define" : self.exec_define,
+                "exec_depth" : self.exec_depth,
+                  "exec_dup" : self.exec_dup,
+                "exec_equal" : self.exec_equal,
+                 "exec_flip" : self.exec_flip,
+                "exec_flush" : self.exec_flush,
+                   "exec_if" : self.exec_if,
+              "exec_isBlock" : self.exec_isBlock,
+            "exec_isLiteral" : self.exec_isLiteral,
+                    "exec_k" : self.exec_k,
+                  "exec_pop" : self.exec_pop,
+               "exec_rotate" : self.exec_rotate,
+                    "exec_s" : self.exec_s,
+                "exec_shove" : self.exec_shove,
+                 "exec_swap" : self.exec_swap,
+                    "exec_y" : self.exec_y,
+                 "exec_yank" : self.exec_yank,
+              "exec_yankDup" : self.exec_yankDup
         ]
         
         for (k,v) in execInstructions {
@@ -52,6 +52,7 @@ extension PushInterpreter {
             execStack.items.insert(arg, atIndex: 0)
         }
     }
+    
 
     
     //  EXEC.DEFINE: Defines the name on top of the NAME stack as an instruction that will push the top item of the EXEC stack back onto the EXEC stack.

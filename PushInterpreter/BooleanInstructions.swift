@@ -12,22 +12,22 @@ extension PushInterpreter {
     func loadBooleanInstructions() {
         
         let boolInstructions = [
-            "bool_and" : {self.bool_and()},
-        "bool_archive" : {self.bool_archive()},
-          "bool_depth" : {self.bool_depth()},
-         "bool_define" : {self.bool_define()},
-            "bool_dup" : {self.bool_dup()},
-          "bool_equal" : {self.bool_equal()},
-           "bool_flip" : {self.bool_flip()},
-          "bool_flush" : {self.bool_flush()},
-            "bool_not" : {self.bool_not()},
-             "bool_or" : {self.bool_or()},
-            "bool_pop" : {self.bool_pop()},
-         "bool_rotate" : {self.bool_rotate()},
-          "bool_shove" : {self.bool_shove()},
-           "bool_swap" : {self.bool_swap()},
-           "bool_yank" : {self.bool_yank()},
-        "bool_yankDup" : {self.bool_yankDup()}
+            "bool_and" : self.bool_and,
+        "bool_archive" : self.bool_archive,
+          "bool_depth" : self.bool_depth,
+         "bool_define" : self.bool_define,
+            "bool_dup" : self.bool_dup,
+          "bool_equal" : self.bool_equal,
+           "bool_flip" : self.bool_flip,
+          "bool_flush" : self.bool_flush,
+            "bool_not" : self.bool_not,
+             "bool_or" : self.bool_or,
+            "bool_pop" : self.bool_pop,
+         "bool_rotate" : self.bool_rotate,
+          "bool_shove" : self.bool_shove,
+           "bool_swap" : self.bool_swap,
+           "bool_yank" : self.bool_yank,
+        "bool_yankDup" : self.bool_yankDup
         ]
         
         for (k,v) in boolInstructions {

@@ -17,7 +17,7 @@ class PushInterpreter {
     var program:PushPoint = PushPoint.Block([])
     var steps = 0
     var stepLimit = 5000
-    var allPushInstructions:Dictionary<String,(Void->Void)>
+    var allPushInstructions:Dictionary<String,Void->Void>
     var activePushInstructions:String[]
 
     var bindings = Dictionary<String,PushPoint>(minimumCapacity: 0)
@@ -33,7 +33,7 @@ class PushInterpreter {
     
     init() {
         script = ""
-        allPushInstructions = Dictionary<String,(Void->Void)>(minimumCapacity: 0)
+        allPushInstructions = Dictionary<String,Void->Void>(minimumCapacity: 0)
         activePushInstructions = String[]()
         self.loadActiveInstructions()
         self.program = PushPoint.Block(PushPoint[]())
@@ -41,7 +41,7 @@ class PushInterpreter {
     }
     init(script:String) {
         self.script = script
-        allPushInstructions = Dictionary<String,(Void->Void)>(minimumCapacity: 0)
+        allPushInstructions = Dictionary<String,Void->Void>(minimumCapacity: 0)
         activePushInstructions = String[]()
         self.loadActiveInstructions()
         self.program = PushPoint.Block(PushPoint[]())
