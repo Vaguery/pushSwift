@@ -34,6 +34,13 @@ class CodeInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.boolStack.description == "[ F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
     }
 
+    func test_CodeBegin() {
+        let myPI = PushInterpreter(script:"code_quote 1 code_quote 22 code_quote 333 code_quote 4444 code_begin")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 4444 333 22 1 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
+    
+
     
     func test_CodeCar() {
         let myPI = PushInterpreter(script:"code_quote F code_car code_quote ( 2 3 ) code_car")
@@ -51,6 +58,14 @@ class CodeInstructionTests: XCTestCase {
         let myPI = PushInterpreter(script:"code_quote F code_quote ( 1 2 3 ) code_cons")
         myPI.run()
         XCTAssertTrue(myPI.codeStack.description == "[ ( ( 1 2 3 ) F ) ]", "Didn't expect stack to be \(myPI.codeStack.description)")
+    }
+    
+    
+    func test_CodeCountWithRange() {
+        let myPI = PushInterpreter(script:"code_quote 999 3 range_fromZero code_countWithRange")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 999 0 999 1 999 2 999 3 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+
     }
 
 
@@ -75,6 +90,30 @@ class CodeInstructionTests: XCTestCase {
         myPI.run()
         XCTAssertTrue(myPI.intStack.description == "[ 1 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
+    
+    
+    func test_CodeDo() {
+        let myPI = PushInterpreter(script:"code_quote 999 3 4 5 code_do")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 3 4 5 999 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+        
+    }
+
+    
+    func test_CodeDoTimes() {
+        let myPI = PushInterpreter(script:"code_quote 999 2 code_doTimes code_quote 888 1 code_doTimes code_quote 777 -12 code_doTimes")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 999 999 888 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
+
+    
+    func test_CodeDoWithRange() {
+        let myPI = PushInterpreter(script:"code_quote 999 -5 range_fromZero code_doWithRange")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 999 999 999 999 999 999 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+        
+    }
+
 
     
     func test_CodeDup() {

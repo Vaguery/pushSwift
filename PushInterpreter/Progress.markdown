@@ -1,25 +1,36 @@
-# Issues, Changes and Things To Do
+# Progress: Issues, Changes and Things To Do
+
+The language implemented here is based closely on [Push 3](http://faculty.hampshire.edu/lspector/push3-description.html), though there are some substantial differences, outlined below.
 
 ## Differences from Push 3.0
 
-- did not implement `BOOLEAN.FROMINTEGER`; instead uses `int_isPositive()` to return a `bool` value when an integer is greater than or equal to 0
-- did not implement `BOOLEAN.FROMFLOAT`; instead uses `float_isPositive()`
-- did not implement `CODE.INSTRUCTIONS`
-- did not implement `CODE.NOOP`
-- Ranges
-- `EXEC.DO*RANGE`
-  - Was in Push 3.0: An iteration instruction that executes the top item on the EXEC stack a number of times that depends on the top two integers, while also pushing the loop counter onto the INTEGER stack for possible access during the execution of the body of the loop. This is similar to CODE.DO*COUNT except that it takes its code argument from the EXEC stack. The top integer is the "destination index" and the second integer is the "current index." First the code and the integer arguments are saved locally and popped. Then the integers are compared. If the integers are equal then the current index is pushed onto the INTEGER stack and the code (which is the "body" of the loop) is pushed onto the EXEC stack for subsequent execution. If the integers are not equal then the current index will still be pushed onto the INTEGER stack but two items will be pushed onto the EXEC stack -- first a recursive call to EXEC.DO*RANGE (with the same code and destination index, but with a current index that has been either incremented or decremented by 1 to be closer to the destination index) and then the body code. Note that the range is inclusive of both endpoints; a call with integer arguments 3 and 5 will cause its body to be executed 3 times, with the loop counter having the values 3, 4, and 5. Note also that one can specify a loop that "counts down" by providing a destination index that is less than the specified current index.
-  - Now, that's `exec_countWithRange`, which pops a Range item (a..b) and the next Exec stack item `C`. If the range is closed `(a==b)` it will push a to the Int stack and `C` to the exec stack. If the range is not closed `(a!=b)`, it pushes the block `( C a (a_stepped..b) :exec_countWithRange C )` to the exec stack, which will (1) execute `C`, (2) push the counter `a` to the Int stack, (3) push the incremented range to the Range stack, and (4) repeat the cycle (until the range is closed).
-- `CODE.DO*RANGE`
-  - Was in Push 3.0: An iteration instruction that executes the top item on the CODE stack a number of times that depends on the top two integers, while also pushing the loop counter onto the INTEGER stack for possible access during the execution of the body of the loop. The top integer is the "destination index" and the second integer is the "current index." First the code and the integer arguments are saved locally and popped. Then the integers are compared. If the integers are equal then the current index is pushed onto the INTEGER stack and the code (which is the "body" of the loop) is pushed onto the EXEC stack for subsequent execution. If the integers are not equal then the current index will still be pushed onto the INTEGER stack but two items will be pushed onto the EXEC stack -- first a recursive call to CODE.DO*RANGE (with the same code and destination index, but with a current index that has been either incremented or decremented by 1 to be closer to the destination index) and then the body code. Note that the range is inclusive of both endpoints; a call with integer arguments 3 and 5 will cause its body to be executed 3 times, with the loop counter having the values 3, 4, and 5. Note also that one can specify a loop that "counts down" by providing a destination index that is less than the specified current index.
-  - That is now `code_countWithRange()`, which pops a Range (a..b), and a code item C. If the Range is closed (a==b) it pushes the code item onto the exec stack; otherwise, it pushes `( C a (a_stepped..b) :exec_countWithRange C )`.
+### Push 3 instructions that will not be implemented
 
+- `BOOLEAN.FROMINTEGER`; instead uses `int_isPositive()` to return a `bool` value when an integer is greater than or equal to 0
+- `BOOLEAN.FROMFLOAT`; instead uses `float_isPositive()`
+- `CODE.INSTRUCTIONS`
+- `CODE.NOOP`; instead use `noop()`
+- `CODE.DO`
 
+### Iteration and recursion
 
-## New functionality
+- `EXEC.DO*COUNT -> exec_countWithRange()`: In this implementation, the Push 3 instruction has become `exec_countWithRange()`, which: pops a `Range` item `(a..b)` and the next Exec stack item `C`. If the range is closed `(a==b)` it will push `a` to the `Int` stack and `C` to the `Exec` stack. If the range is not closed `(a!=b)`, it pushes the block `( C a (a_stepped..b) :exec_countWithRange C )` to the `Exec` stack, which will
+   1. execute `C`, 
+   2. push the counter `a` to the `Int` stack,
+   3. push the incremented range to the `Range` stack, and
+   4. repeat the cycle (until the range is closed).
+- `EXEC.DO*RANGE -> exec_doWithRange()`: In this implementation, the Push 3 instruction has become `exec_doWithRange`, which: pops a `Range` item `(a..b)` and the next `Exec` stack item `C`. If the range is closed `(a==b)` it will push `C` to the `Exec` stack. If the range is not closed `(a!=b)`, it pushes the block `( C (a_stepped..b) :exec_countWithRange C )` to the exec stack, which will
+   1. execute `C`, 
+   2. push the incremented range to the `Range` stack, and
+   3. repeat the cycle (until the range is closed).
+- `EXEC.DO*TIMES -> exec_doTimes()` : pops an `Int` `N`, and creates a new range `(0..N)`, which it pushes to the `Range` stack. Then it pushes `exec_doRange()` to the `Exec` stack.
+- `CODE.DO*RANGE -> code_doWithRange()`, `CODE.DO*COUNT -> code_countWithRange` and `CODE.DO*TIMES -> code_doTimes()` are analogous to the `Exec` instructions with similar names; indeed, they're implemented as macros invoking those instructions
+- `CODE.DO* -> code_do()` : pops an item from the Code stack and pushes it onto the Exec stack
+- `code_begin()` : (did not exist in Push 3) This instruction pops the top `Code` item `C` and pushes the macro `( C :code_begin )` onto the `Exec` stack. In other words, it will (unless interruped by some other instructions it encounters along the way) execute every item on the `Code` stack in turn.
 
-### To Do:
+### Ranges
 
+- `code_fromRange`: wraps a `Range` and pushes it onto the `Code` stack
 - `range_stepBy()`: moves first bound N closer to second, unless identical, where N is an Int; will not cross start and end; if `N < 0`, the first bound gets farther away; if a == b, destroys the Range
 - `range_count_by()` : moves first bound `N` closer to second, unless identical, where `N` is an Int; if `N < 0`, the first bound moves away form the second; will not cross start and end; if a == b, destroys the Range after pushing `Int(a)`
 - `range_split()` : pops `(a..b)` and an Int; if the Int `X` lies within `(a..b)`, produces `(a..x)` and `(x..b)`
@@ -31,13 +42,21 @@
 - `range_shift()` : pops a range and an Int; adds the int to both extremes
 - `range_scale()` : pops a range and an Int; multiples the int by both extremes
 
+### instructions not present in Push 3
+
+- `bool_archive`, `code_archive`, `exec_archive`, `int_archive`, `float_archive`, `name_archive` and `range_archive`: these instructions pop an item from the indicated stack, and _unshift_ it onto the _bottom_ of the `Exec` stack. In other words, they move it (at least for the moment) to the end of execution.
+- `bool_flip`, `code_flip`, `exec_flip`, `int_flip`, `float_flip`, `name_flip` and `range_flip`: invert the entire indicated stack, top-to-bottom
+- `code_isEmpty`: pushes a `Bool` depending on whether the top `Code` item is an empty block or contains anything at all
+- `exec_isBlock`,`exec_isLiteral`: pushes a `Bool` with value depending on whether the next `Exec` item contains a literal (Int, Float, Name Bool) or is a block (even if empty code)
+- `float_abs`: absolute value of the top `Float` item is pushed to `Float` stack
+- `float_isPositive`
+- `int_divmod`: pops two `Int` values `A` and `B`, and pushes `A / B` and `A % B` onto the `Int` stack
+- `int_isPositive`
+- `name_isAssigned` : pushes a `Bool` with value depending on whether the top name has a bound definition at the moment or not
+- `name_unbind` : pops a `Name` item and erases the definition associated with it from the current interpreter state (if any)
 
 
-## Push 3.0 instruction coverage
-
-### To Do:
-
-(comments are quotes from http://faculty.hampshire.edu/lspector/push3-description.html where available)
+##  To Do:
 
 
 - `BOOLEAN.RAND`
@@ -48,11 +67,6 @@
   2. Initialize the result to zero.
   3. For each unique item increment the result by the difference between the number of occurrences of the item in the two pieces of code.
   4. Push the result.
-- `CODE.DO`: Recursively invokes the interpreter on the program on top of the CODE stack. After evaluation the CODE stack is popped; normally this pops the program that was just executed, but if the expression itself manipulates the stack then this final pop may end up popping something else.
-- `CODE.DO*`: Like CODE.DO but pops the stack before, rather than after, the recursive execution.
-- `CODE.DO*COUNT`: An iteration instruction that performs a loop (the body of which is taken from the CODE stack) the number of times indicated by the INTEGER argument, pushing an index (which runs from zero to one less than the number of iterations) onto the INTEGER stack prior to each execution of the loop body. This should be implemented as a macro that expands into a call to CODE.DO*RANGE. CODE.DO*COUNT takes a single INTEGER argument (the number of times that the loop will be executed) and a single CODE argument (the body of the loop). If the provided INTEGER argument is negative or zero then this becomes a NOOP. Otherwise it expands into:
-  ( 0 <1 - IntegerArg> CODE.QUOTE <CodeArg> CODE.DO*RANGE )
-- `CODE.DO*TIMES`: Like CODE.DO*COUNT but does not push the loop counter. This should be implemented as a macro that expands into CODE.DO*RANGE, similarly to the implementation of CODE.DO*COUNT, except that a call to INTEGER.POP should be tacked on to the front of the loop body code in the call to CODE.DO*RANGE. This call to INTEGER.POP will remove the loop counter, which will have been pushed by CODE.DO*RANGE, prior to the execution of the loop body.
 - `CODE.EXTRACT`: Pushes the sub-expression of the top item of the CODE stack that is indexed by the top item of the INTEGER stack. The indexing here counts "points," where each parenthesized expression and each literal/instruction is considered a point, and it proceeds in depth first order. The entire piece of code is at index 0; if it is a list then the first item in the list is at index 1, etc. The integer used as the index is taken modulo the number of points in the overall expression (and its absolute value is taken in case it is negative) to ensure that it is within the meaningful range.
 - `CODE.INSERT`: Pushes the result of inserting the second item of the CODE stack into the first item, at the position indexed by the top item of the INTEGER stack (and replacing whatever was there formerly). The indexing is computed as in CODE.EXTRACT.
 - `CODE.MEMBER`: Pushes TRUE onto the BOOLEAN stack if the second item of the CODE stack is a member of the first item (which is coerced to a list if necessary). Pushes FALSE onto the BOOLEAN stack otherwise.
@@ -63,8 +77,6 @@
 - `CODE.RAND`: Pushes a newly-generated random program onto the CODE stack. The limit for the size of the expression is taken from the INTEGER stack; to ensure that it is in the appropriate range this is taken modulo the value of the MAX-POINTS-IN-RANDOM-EXPRESSIONS parameter and the absolute value of the result is used.
 - `CODE.SIZE`: Pushes the number of "points" in the top piece of CODE onto the INTEGER stack. Each instruction, literal, and pair of parentheses counts as a point.
 - `CODE.SUBST`: Pushes the result of substituting the third item on the code stack for the second item in the first item. As of this writing this is implemented only in the Lisp implementation, within which it relies on the Lisp "subst" function. As such, there are several problematic possibilities; for example "dotted-lists" can result in certain cases with empty-list arguments. If any of these problematic possibilities occurs the stack is left unchanged.
-- `EXEC.DO*COUNT`: An iteration instruction that performs a loop (the body of which is taken from the EXEC stack) the number of times indicated by the INTEGER argument, pushing an index (which runs from zero to one less than the number of iterations) onto the INTEGER stack prior to each execution of the loop body. This is similar to CODE.DO*COUNT except that it takes its code argument from the EXEC stack. This should be implemented as a macro that expands into a call to EXEC.DO*RANGE. EXEC.DO*COUNT takes a single INTEGER argument (the number of times that the loop will be executed) and a single EXEC argument (the body of the loop). If the provided INTEGER argument is negative or zero then this becomes a NOOP. Otherwise it expands into: `( 0 <1 - IntegerArg> EXEC.DO*RANGE <ExecArg> )`
-- `EXEC.DO*TIMES`: Like EXEC.DO*COUNT but does not push the loop counter. This should be implemented as a macro that expands into EXEC.DO*RANGE, similarly to the implementation of EXEC.DO*COUNT, except that a call to INTEGER.POP should be tacked on to the front of the loop body code in the call to EXEC.DO*RANGE. This call to INTEGER.POP will remove the loop counter, which will have been pushed by EXEC.DO*RANGE, prior to the execution of the loop body.
 - `FLOAT.*`: Pushes the product of the top two items.
 - `FLOAT.+`: Pushes the sum of the top two items.
 - `FLOAT.-`: Pushes the difference of the top two items; that is, the second item minus the top item.
@@ -77,3 +89,9 @@
 - `INTEGER.SHOVE`: Inserts the second INTEGER "deep" in the stack, at the position indexed by the top INTEGER. The index position is calculated after the index is removed.
 - `NAME.QUOTE`: Sets a flag indicating that the next name encountered will be pushed onto the NAME stack (and not have its associated value pushed onto the EXEC stack), regardless of whether or not it has a definition. Upon encountering such a name and pushing it onto the NAME stack the flag will be cleared (whether or not the pushed name had a definition).
 - `NAME.RANDBOUNDNAME`: Pushes a randomly selected NAME that already has a definition.
+
+## Differences in "PushGP" implementation
+
+### Answers are not programs
+
+Answers (prospective solutions to a target problem) have multiple 

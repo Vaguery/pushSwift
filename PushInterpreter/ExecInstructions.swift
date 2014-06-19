@@ -16,6 +16,7 @@ extension PushInterpreter {
        "exec_countWithRange" : self.exec_countWithRange,
                "exec_define" : self.exec_define,
                 "exec_depth" : self.exec_depth,
+              "exec_doTimes" : self.exec_doTimes,
           "exec_doWithRange" : self.exec_doWithRange,
                   "exec_dup" : self.exec_dup,
                 "exec_equal" : self.exec_equal,
@@ -74,6 +75,7 @@ extension PushInterpreter {
         intStack.push(PushPoint.Integer(d))
     }
     
+    
     // exec_countWithRange() `( C a (a_stepped..b) :exec_countWithRange C )`
     func exec_countWithRange() {
         if execStack.length() > 0 && rangeStack.length() > 0 {
@@ -82,7 +84,7 @@ extension PushInterpreter {
             
             
             if a == b {
-                intStack.push(PushPoint.Integer(a))
+                execStack.push(PushPoint.Integer(a))
                 execStack.push(do_this)
             } else {
                 let newA = (a < b ? a + 1 : a - 1)
@@ -94,6 +96,28 @@ extension PushInterpreter {
                     do_this]
                 execStack.push(PushPoint.Block(block))
             }
+        }
+    }
+    
+    
+    // exec_doTimes() pops int b, pushes `( C (1..b) :exec_doWithRange C )`
+    func exec_doTimes() {
+        if execStack.length() > 0 && intStack.length() > 0 {
+            var count = intStack.pop()!.value as Int
+            let do_this = execStack.pop()!
+
+            if count == 1 {
+                execStack.push(do_this)
+            } else if count < 1 {
+                // do nothing
+            } else {
+                let block:PushPoint[] = [
+                    do_this.clone(),
+                    PushPoint.Range(2,count),
+                    PushPoint.Instruction("exec_doWithRange"),
+                    do_this]
+                execStack.push(PushPoint.Block(block))
+            } // otherwise don't do it at all
         }
     }
     

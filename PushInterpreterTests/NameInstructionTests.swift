@@ -101,6 +101,13 @@ class NameInstructionTests: XCTestCase {
         myPI.run()
         XCTAssertTrue(myPI.nameStack.description == "[ \"foo\" \"baz\" \"bar\" ]", "Didn't expect stack to be \(myPI.nameStack.description)")
     }
+    
+    func test_NameUnbind() {
+        let myPI = PushInterpreter(script:"foo foo 4 int_define foo name_unbind foo foo foo")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 4 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
+
 
     func test_NameYank() {
         let myPI = PushInterpreter(script:"a b c d e -22 name_yank")

@@ -14,12 +14,17 @@ extension PushInterpreter {
         let codeInstructions = [
              "code_append" : self.code_append,
             "code_archive" : self.code_archive,
+              "code_begin" : self.code_begin,
                 "code_car" : self.code_car,
                "code_cons" : self.code_cons,
                 "code_cdr" : self.code_cdr,
+     "code_countWithRange" : self.code_countWithRange,
              "code_define" : self.code_define,
          "code_definition" : self.code_definition,
               "code_depth" : self.code_depth,
+                 "code_do" : self.code_do,
+            "code_doTimes" : self.code_doTimes,
+        "code_doWithRange" : self.code_doWithRange,
                 "code_dup" : self.code_dup,
                  "code_if" : self.code_if,
                "code_flip" : self.code_flip,
@@ -73,6 +78,19 @@ extension PushInterpreter {
     }
     
     
+    // code_begin()
+    func code_begin() {
+        if codeStack.length() > 0 {
+            let do_this = codeStack.pop()!
+            let block = [
+                do_this,
+                PushPoint.Instruction("code_begin")
+            ]
+            execStack.push(PushPoint.Block(block))
+        }
+    }
+    
+    
     //  CODE.CAR: Pushes the first item of the list on top of the CODE stack. For example, if the top piece of code is "( A B )" then this pushes "A" (after popping the argument). If the code on top of the stack is not a list then this has no effect. The name derives from the similar Lisp function; a more generic name would be "FIRST".
     func code_car() {
         if codeStack.length() > 0 {
@@ -107,9 +125,32 @@ extension PushInterpreter {
             }
         }
     }
-
-
     
+    
+    // code_countWithRange() `( C a (a_stepped..b) :exec_countWithRange C )`
+    func code_countWithRange() {
+        if codeStack.length() > 0 && rangeStack.length() > 0 {
+            let (a,b) = rangeStack.pop()!.value as (Int,Int)
+            let do_this = codeStack.pop()!
+            
+            
+            if a == b {
+                execStack.push(PushPoint.Integer(a))
+                execStack.push(do_this)
+            } else {
+                let newA = (a < b ? a + 1 : a - 1)
+                let block:PushPoint[] = [
+                    do_this.clone(),
+                    PushPoint.Integer(a),
+                    PushPoint.Range(newA,b),
+                    PushPoint.Instruction("exec_countWithRange"),
+                    do_this]
+                execStack.push(PushPoint.Block(block))
+            }
+        }
+    }
+
+
     //  CODE.DEFINE: Defines the name on top of the NAME stack as an instruction that will push the top item of the CODE stack onto the EXEC stack.
     func code_define() {
         if codeStack.length() > 0 && nameStack.length() > 0 {
@@ -137,6 +178,58 @@ extension PushInterpreter {
         let d = codeStack.length()
         intStack.push(PushPoint.Integer(d))
     }
+    
+    //  code_do()
+    func code_do() {
+        if codeStack.length() > 0 {
+            let do_this = codeStack.pop()!
+            execStack.push(do_this)
+        }
+    }
+    
+    
+    // code_doTimes() pops int b, pushes `( C (1..b) :exec_doWithRange C )`
+    func code_doTimes() {
+        if codeStack.length() > 0 && intStack.length() > 0 {
+            var count = intStack.pop()!.value as Int
+            let do_this = codeStack.pop()!
+            
+            if count == 1 {
+                execStack.push(do_this)
+            } else if count < 1 {
+                // do nothing
+            } else {
+                let block:PushPoint[] = [
+                    do_this.clone(),
+                    PushPoint.Range(2,count),
+                    PushPoint.Instruction("exec_doWithRange"),
+                    do_this]
+                execStack.push(PushPoint.Block(block))
+            } // otherwise don't do it at all
+        }
+    }
+
+
+    // code_doWithRange()
+    func code_doWithRange() {
+        if codeStack.length() > 0 && rangeStack.length() > 0 {
+            let (a,b) = rangeStack.pop()!.value as (Int,Int)
+            let do_this = codeStack.pop()!
+            
+            if a == b {
+                execStack.push(do_this)
+            } else {
+                let newA = (a < b ? a + 1 : a - 1)
+                let block:PushPoint[] = [
+                    do_this.clone(),
+                    PushPoint.Range(newA,b),
+                    PushPoint.Instruction("exec_doWithRange"),
+                    do_this]
+                execStack.push(PushPoint.Block(block))
+            }
+        }
+    }
+    
     
     //  CODE.DUP: Duplicates the top item on the CODE stack. Does not pop its argument (which, if it did, would negate the effect of the duplication!).
     func code_dup() {

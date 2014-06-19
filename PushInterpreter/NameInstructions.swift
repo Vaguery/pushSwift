@@ -25,6 +25,7 @@ extension PushInterpreter {
                  "name_rotate": self.name_rotate,
                  "name_shove" : self.name_shove,
                   "name_swap" : self.name_swap,
+                "name_unbind" : self.name_unbind,
                   "name_yank" : self.name_yank,
                "name_yankDup" : self.name_yankDup
         ]
@@ -127,6 +128,14 @@ extension PushInterpreter {
     //  NAME.SWAP: Swaps the top two NAMEs.
     func name_swap() {
         nameStack.swap()
+    }
+    
+    //  name_unbind(): deletes the stored value associated with the name (if any)
+    func name_unbind() {
+        if nameStack.length() > 0 {
+            let forget_this = nameStack.pop()!.value as String
+            self.bindings[forget_this] = nil
+        }
     }
 
     //  NAME.YANK: Removes an indexed item from "deep" in the stack and pushes it on top of the stack. The index is taken from the INTEGER stack.
