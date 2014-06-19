@@ -49,6 +49,14 @@ class ExecInstructionTests: XCTestCase {
         myPI.run()
         XCTAssertTrue(myPI.intStack.description == "[ 4 1 2 3 4 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
+    
+    func test_ExecDoWithRange() {
+        let myPI = PushInterpreter(script:"3 range_fromZero exec_doWithRange F 9 9 range_fromInts exec_doWithRange T")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ F F F F T ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+        XCTAssertTrue(myPI.intStack.description == "[ ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
+
 
     
     func test_ExecDup() {

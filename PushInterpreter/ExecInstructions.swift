@@ -16,6 +16,7 @@ extension PushInterpreter {
        "exec_countWithRange" : self.exec_countWithRange,
                "exec_define" : self.exec_define,
                 "exec_depth" : self.exec_depth,
+          "exec_doWithRange" : self.exec_doWithRange,
                   "exec_dup" : self.exec_dup,
                 "exec_equal" : self.exec_equal,
                  "exec_flip" : self.exec_flip,
@@ -95,6 +96,29 @@ extension PushInterpreter {
             }
         }
     }
+    
+    
+    // exec_doWithRange() `( C (a_stepped..b) :exec_countWithRange C )`
+    func exec_doWithRange() {
+        if execStack.length() > 0 && rangeStack.length() > 0 {
+            let (a,b) = rangeStack.pop()!.value as (Int,Int)
+            let do_this = execStack.pop()!
+            
+            
+            if a == b {
+                execStack.push(do_this)
+            } else {
+                let newA = (a < b ? a + 1 : a - 1)
+                let block:PushPoint[] = [
+                    do_this.clone(),
+                    PushPoint.Range(newA,b),
+                    PushPoint.Instruction("exec_doWithRange"),
+                    do_this]
+                execStack.push(PushPoint.Block(block))
+            }
+        }
+    }
+
     
     
     //  EXEC.DUP: Duplicates the top item on the EXEC stack. Does not pop its argument (which, if it did, would negate the effect of the duplication!). This may be thought of as a "DO TWICE" instruction.
