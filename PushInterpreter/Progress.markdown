@@ -31,16 +31,29 @@ The language implemented here is based closely on [Push 3](http://faculty.hampsh
 ### Ranges
 
 - `code_fromRange`: wraps a `Range` and pushes it onto the `Code` stack
-- `range_stepBy()`: moves first bound N closer to second, unless identical, where N is an Int; will not cross start and end; if `N < 0`, the first bound gets farther away; if a == b, destroys the Range
-- `range_count_by()` : moves first bound `N` closer to second, unless identical, where `N` is an Int; if `N < 0`, the first bound moves away form the second; will not cross start and end; if a == b, destroys the Range after pushing `Int(a)`
-- `range_split()` : pops `(a..b)` and an Int; if the Int `X` lies within `(a..b)`, produces `(a..x)` and `(x..b)`
-- `range_median()` : pops `(a..b)`, pushes `Int(a+b/2)`
-- `range_contract()` : pops `(a..b)`, pushes new Range with both extremes 1 step closer; destroys Range if `a==b`
-- `range_contractBy()` : pops `(a..b)` and an Int `N`, pushes new Range with both extremes `N` steps closer; if `N < 0`, both extremes move apart by `N` each; destroys Range if `a==b`
-- `range_isOverlapping()` : pops two ranges; pushes Boolean `T` if either overlaps the other at all, regardless of direction of either
-- `range_isSubset()` : pops two ranges; pushes Boolean `T` if they are both the same direction, AND one is entirely within the other
-- `range_shift()` : pops a range and an Int; adds the int to both extremes
-- `range_scale()` : pops a range and an Int; multiples the int by both extremes
+- `range_archive`: see above
+- `range_count` : pops a `Range` item `(a..b)`; if `a<b` it pushes `(a+1..b)` to the `Range` stack and `a` to the `Int` stack; if `a==b` it pushes `a` to the `Int` stack; if `a>b` it pushes `(a-1..b)` to the `Range` stack and `a` to the `Int` stack
+- `range_define`: assigns the range to the top `Name` value
+- `range_dup` : pushes a copy of the top `Range` (without popping it)
+- `range_flip` : inverts the `Range` stack
+- `range_fromEnds` : pops two `Range` items `(a..b)` and `(c..d)`; pushes `(b..d)`
+- `range_fromInner` : pops two `Range` items `(a..b)` and `(c..d)`; pushes `(b..c)`
+- `range_fromInts` : pops two `Int` items, `a` and `b`, and pushes `(a..b)`
+- `range_fromOuter` : pops two `Range` items `(a..b)` and `(c..d)`; pushes `(a..d)`
+- `range_fromStarts` : pops two `Range` items `(a..b)` and `(c..d)`; pushes `(a..c)`
+- `range_fromZero` : pops an `Int` `N` and pushes `(0..N)`
+- `range_isClosed` : pushes `T` if the start and end of the popped `Range` are identical
+- `range_isUpward` : pushes `T` if the start of the popped `Range` is less than its end
+- `range_mix` : pops two `Range` items `(a..b)` and `(c..d)`, pushes `(a..d)` and `(c..b)`
+- `range_reverse` : pops `Range` `(a..b)` and pushes `(b..a)`
+- `range_rotate` : equivalent of Push 3 `*_rotate` functions
+- `range_shove` : equivalent of Push 3 `*_shove` functions
+- `range_size` : pops `Range` `(a..b)` and pushes an `Int` equal to the number of steps, including the start and end
+- `range_step` : pops `Range` `(a..b)`; if `a<b` it pushes `(a+1..b)` to the `Range` stack; if `a==b` it does nothing; if `a>b` it pushes `(a-1..b)` to the `Range` stack 
+- `range_swap` : equivalent of Push 3 `*_swap` functions
+- `range_unstep` : pops `Range` `(a..b)`; if `a<b` it pushes `(a-1..b)` to the `Range` stack; if `a==b` it does nothing; if `a>b` it pushes `(a+1..b)` to the `Range` stack 
+- `range_yank` : equivalent of Push 3 `*_yank` functions
+- `range_yankDup` : equivalent of Push 3 `*_yankDup` functions
 
 ### instructions not present in Push 3
 
@@ -54,10 +67,24 @@ The language implemented here is based closely on [Push 3](http://faculty.hampsh
 - `int_isPositive`
 - `name_isAssigned` : pushes a `Bool` with value depending on whether the top name has a bound definition at the moment or not
 - `name_unbind` : pops a `Name` item and erases the definition associated with it from the current interpreter state (if any)
+- all the `Range` things
 
 
 ##  To Do:
 
+- `range_stepBy()`: moves first bound N closer to second, unless identical, where N is an Int; will not cross start and end; if `N < 0`, the first bound gets farther away; if a == b, destroys the Range
+- `range_count_by()` : moves first bound `N` closer to second, unless identical, where `N` is an Int; if `N < 0`, the first bound moves away form the second; will not cross start and end; if a == b, destroys the Range after pushing `Int(a)`
+- `range_split()` : pops `(a..b)` and an Int; if the Int `X` lies within `(a..b)`, produces `(a..x)` and `(x..b)`
+- `range_median()` : pops `(a..b)`, pushes `Int(a+b/2)`
+- `range_contract()` : pops `(a..b)`, pushes new Range with both extremes 1 step closer; destroys Range if `a==b`
+- `range_contractBy()` : pops `(a..b)` and an Int `N`, pushes new Range with both extremes `N` steps closer; if `N < 0`, both extremes move apart by `N` each; destroys Range if `a==b`
+- `range_isOverlapping()` : pops two ranges; pushes Boolean `T` if either overlaps the other at all, regardless of direction of either
+- `range_isSubset()` : pops two ranges; pushes Boolean `T` if they are both the same direction, AND one is entirely within the other
+- `range_shift()` : pops a range and an Int; adds the int to both extremes
+- `range_scale()` : pops a range and an Int; multiples the int by both extremes
+
+
+### Push 3 instructions
 
 - `BOOLEAN.RAND`
 - `CODE.CONTAINER`: Pushes the "container" of the second CODE stack item within the first CODE stack item onto the CODE stack. If second item contains the first anywhere (i.e. in any nested list) then the container is the smallest sub-list that contains but is not equal to the first instance. For example, if the top piece of code is "( B ( C ( A ) ) ( D ( A ) ) )" and the second piece of code is "( A )" then this pushes ( C ( A ) ). Pushes an empty list if there is no such container.
@@ -90,8 +117,8 @@ The language implemented here is based closely on [Push 3](http://faculty.hampsh
 - `NAME.QUOTE`: Sets a flag indicating that the next name encountered will be pushed onto the NAME stack (and not have its associated value pushed onto the EXEC stack), regardless of whether or not it has a definition. Upon encountering such a name and pushing it onto the NAME stack the flag will be cleared (whether or not the pushed name had a definition).
 - `NAME.RANDBOUNDNAME`: Pushes a randomly selected NAME that already has a definition.
 
-## Differences in "PushGP" implementation
+## Things that may be unfamiliar in the "genetic programming" implementation...
 
-### Answers are not programs
-
-Answers (prospective solutions to a target problem) have multiple 
+- Answers (prospective solutions to a target problem) have multiple "genomes": there is the `template`, which is an array of string tokens that includes all the instructions, parentheses (see below), but only placeholders for literals (`«int»`, `«bool»`, `«float»`); there is the `script`, which is obtained by replacing the placeholders with unique `name` identifiers (in numerical order of appearance); there are the `bindings`, which is a collection of `name` bindings associated with all the literal values in the script; and finally there is the `program`, which is condensed down into a single tree contained in a single `PushPoint`.
+- Templates and scripts can contain `(` and `)` tokens in arbitrary order and number. When the parser transforms the script into a program in left-to-right order, it ignores extra `)` tokens, and interprets every `(` as the opening of a new block (subtree) which is closed by a following `)`, or at the end of the tokens.
+- All Answers are expected to have multiobjective scores in all situations
