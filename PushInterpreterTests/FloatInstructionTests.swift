@@ -36,6 +36,13 @@ class FloatInstructionTests: XCTestCase {
         myPI.run()
         XCTAssertTrue(myPI.floatStack.description == "[ 2.0 3.0 1.0 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
     }
+    
+    func test_FloatCosine() {  // admittedly not a very thorough test
+        let myPI = PushInterpreter(script:"0.0 float_cosine")
+        myPI.run()
+        XCTAssertTrue(myPI.floatStack.description == "[ 1.0 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
+    }
+
 
     func test_FloatDefine() {
         let myPI = PushInterpreter(script:"foo 4.5 float_define foo foo foo")
@@ -167,6 +174,13 @@ class FloatInstructionTests: XCTestCase {
         myPI.run()
         XCTAssertTrue(myPI.floatStack.description == "[ 1.0 2.0 5.0 3.0 4.0 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
     }
+    
+    func test_FloatSine() {  // admittedly not a very thorough test
+        let myPI = PushInterpreter(script:"0.0 float_sine")
+        myPI.run()
+        XCTAssertTrue(myPI.floatStack.description == "[ 0.0 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
+    }
+
     
     func test_FloatSubtract() {
         let myPI = PushInterpreter(script:"1.5 2.5 float_subtract 22.0 -11.5 float_subtract")

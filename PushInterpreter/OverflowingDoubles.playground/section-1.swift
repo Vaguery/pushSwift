@@ -11,3 +11,5 @@ let x = NSDecimalNumber(string: "188128188")
 let y = x.decimalNumberByRaisingToPower(3)
 
 NSDecimalNumber.maximumDecimalNumber()
+
+cos(3.14)

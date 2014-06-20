@@ -60,4 +60,13 @@ class AnswerTests: XCTestCase {
         XCTAssertTrue(a1.template.count == 10, "didn't expect tokens to be \(a1.template)")
     }
 
+    // unwise things
+    
+//    func test_manyScripts() {
+//        for i in 1..10 {
+//            var guy = PushAnswer(length:30)
+//            var myPI = PushInterpreter(script:guy.script)
+//        }
+//    }
+    
 }

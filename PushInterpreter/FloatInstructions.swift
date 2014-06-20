@@ -15,6 +15,7 @@ extension PushInterpreter {
                "float_abs" : self.float_abs,
                "float_add" : self.float_add,
            "float_archive" : self.float_archive,
+            "float_cosine" : self.float_cosine,
             "float_define" : self.float_define,
              "float_depth" : self.float_depth,
             "float_divide" : self.float_divide,
@@ -34,6 +35,7 @@ extension PushInterpreter {
                "float_pop" : self.float_pop,
             "float_rotate" : self.float_rotate,
              "float_shove" : self.float_shove,
+              "float_sine" : self.float_sine,
           "float_subtract" : self.float_subtract,
               "float_swap" : self.float_swap,
               "float_yank" : self.float_yank,
@@ -79,6 +81,16 @@ extension PushInterpreter {
             execStack.items.insert(arg, atIndex: 0)
         }
     }
+    
+    
+    //  `FLOAT.COS`: Pushes the cosine of the top item.
+    func float_cosine() {
+        if floatStack.length() > 0 {
+            let arg = floatStack.pop()!.value as Double
+            execStack.push(PushPoint.Float(cos(arg)))
+        }
+    }
+
 
     
     
@@ -246,6 +258,15 @@ extension PushInterpreter {
         }
     }
     
+    //  `FLOAT.SIN`: Pushes the sine of the top item.
+    func float_sine() {
+        if floatStack.length() > 0 {
+            let arg = floatStack.pop()!.value as Double
+            execStack.push(PushPoint.Float(sin(arg)))
+        }
+    }
+
+
     //  `FLOAT.-`: Pushes the difference of the top two items; that is, the second item minus the top item.
     func float_subtract() {
         if floatStack.length() > 1 {

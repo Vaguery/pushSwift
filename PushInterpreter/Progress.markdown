@@ -16,6 +16,8 @@ The language implemented here is based closely on [Push 3](http://faculty.hampsh
 - `CODE.INSTRUCTIONS`
 - `CODE.NOOP`; instead use `noop()`
 - `CODE.DO`
+- `CODE.NULL`; instead use `code_isEmpty()`
+
 
 ### Iteration and recursion
 
@@ -92,7 +94,6 @@ The language implemented here is based closely on [Push 3](http://faculty.hampsh
 
 ### Push 3 instructions
 
-- `BOOLEAN.RAND`
 - `CODE.CONTAINER`: Pushes the "container" of the second CODE stack item within the first CODE stack item onto the CODE stack. If second item contains the first anywhere (i.e. in any nested list) then the container is the smallest sub-list that contains but is not equal to the first instance. For example, if the top piece of code is "( B ( C ( A ) ) ( D ( A ) ) )" and the second piece of code is "( A )" then this pushes ( C ( A ) ). Pushes an empty list if there is no such container.
 - `CODE.CONTAINS`: Pushes TRUE on the BOOLEAN stack if the second CODE stack item contains the first CODE stack item anywhere (e.g. in a sub-list).
 - `CODE.DISCREPANCY`: Pushes a measure of the discrepancy between the top two CODE stack items onto the INTEGER stack. This will be zero if the top two items are equivalent, and will be higher the 'more different' the items are from one another. The calculation is as follows
@@ -105,18 +106,20 @@ The language implemented here is based closely on [Push 3](http://faculty.hampsh
 - `CODE.MEMBER`: Pushes TRUE onto the BOOLEAN stack if the second item of the CODE stack is a member of the first item (which is coerced to a list if necessary). Pushes FALSE onto the BOOLEAN stack otherwise.
 - `CODE.NTH`: Pushes the nth element of the expression on top of the CODE stack (which is coerced to a list first if necessary). If the expression is an empty list then the result is an empty list. N is taken from the INTEGER stack and is taken modulo the length of the expression into which it is indexing.
 - `CODE.NTHCDR`: Pushes the nth "CDR" (in the Lisp sense) of the expression on top of the CODE stack (which is coerced to a list first if necessary). If the expression is an empty list then the result is an empty list. N is taken from the INTEGER stack and is taken modulo the length of the expression into which it is indexing. A "CDR" of a list is the list without its first element.
-- `CODE.NULL`: Pushes TRUE onto the BOOLEAN stack if the top item of the CODE stack is an empty list, or FALSE otherwise.
 - `CODE.POSITION`: Pushes onto the INTEGER stack the position of the second item on the CODE stack within the first item (which is coerced to a list if necessary). Pushes -1 if no match is found.
-- `CODE.RAND`: Pushes a newly-generated random program onto the CODE stack. The limit for the size of the expression is taken from the INTEGER stack; to ensure that it is in the appropriate range this is taken modulo the value of the MAX-POINTS-IN-RANDOM-EXPRESSIONS parameter and the absolute value of the result is used.
 - `CODE.SIZE`: Pushes the number of "points" in the top piece of CODE onto the INTEGER stack. Each instruction, literal, and pair of parentheses counts as a point.
 - `CODE.SUBST`: Pushes the result of substituting the third item on the code stack for the second item in the first item. As of this writing this is implemented only in the Lisp implementation, within which it relies on the Lisp "subst" function. As such, there are several problematic possibilities; for example "dotted-lists" can result in certain cases with empty-list arguments. If any of these problematic possibilities occurs the stack is left unchanged.
-- `FLOAT.COS`: Pushes the cosine of the top item.
-- `FLOAT.RAND`: Pushes a newly generated random FLOAT that is greater than or equal to MIN-RANDOM-FLOAT and less than or equal to MAX-RANDOM-FLOAT.
-- `FLOAT.SIN`: Pushes the sine of the top item.
 - `FLOAT.TAN`: Pushes the tangent of the top item.
-- `INTEGER.RAND`: Pushes a newly generated random INTEGER that is greater than or equal to MIN-RANDOM-INTEGER and less than or equal to MAX-RANDOM-INTEGER.
 - `NAME.QUOTE`: Sets a flag indicating that the next name encountered will be pushed onto the NAME stack (and not have its associated value pushed onto the EXEC stack), regardless of whether or not it has a definition. Upon encountering such a name and pushing it onto the NAME stack the flag will be cleared (whether or not the pushed name had a definition).
+
+### Randomness
+- `BOOLEAN.RAND`
+- `CODE.RAND`: Pushes a newly-generated random program onto the CODE stack. The limit for the size of the expression is taken from the INTEGER stack; to ensure that it is in the appropriate range this is taken modulo the value of the MAX-POINTS-IN-RANDOM-EXPRESSIONS parameter and the absolute value of the result is used.
+- `FLOAT.RAND`: Pushes a newly generated random FLOAT that is greater than or equal to MIN-RANDOM-FLOAT and less than or equal to MAX-RANDOM-FLOAT.
+- `INTEGER.RAND`: Pushes a newly generated random INTEGER that is greater than or equal to MIN-RANDOM-INTEGER and less than or equal to MAX-RANDOM-INTEGER.
 - `NAME.RANDBOUNDNAME`: Pushes a randomly selected NAME that already has a definition.
+- `range_random()`
+
 
 ## Things that may be unexpected in this implementation...
 
@@ -133,6 +136,7 @@ The language implemented here is based closely on [Push 3](http://faculty.hampsh
   - `float_mod` (divide by zero, underflow)
   - `float_multiply` (overflow, underflow)
   - `float_subtract` (overflow)
+  - `float_tan` (overflow)
   - `int_add` (overflow)
   - `int_div` (divide by zero)
   - `int_divmod` (divide by zero)
