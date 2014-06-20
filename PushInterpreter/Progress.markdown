@@ -4,6 +4,29 @@ The language implemented here is based closely on [Push 3](http://faculty.hampsh
 
 ## Differences from Push 3.0
 
+### Fundamental differences
+
+- The `Range` type was not part of Push 3. A `Range` is a tuple of two `Int` values, representing the start and end of a contiguous block of integers, inclusive. So for example `(6..9)` represents the contiguous set of integers `(6,7,8,9)`. `Range` instances are used primarily for bounds checking, iteration, and all the godawful stuff genetic programming can come up with.
+- Borrowing an interesting idea from the [Swift language itself](https://developer.apple.com/library/prerelease/ios/documentation/swift/conceptual/swift_programming_language/BasicOperators.html), _all_ arithmetic operations on `Int`, `Float` and `Range` values will by default be _non-overflowing_: they will fail if the result of an operation would overflow or divide by zero. This is in a sense an extension of the idea of [Protected Division](http://books.google.com/books?id=Bhtxo60BV0EC&lpg=PA82&ots=9paQewd5SR&dq=protected%20division%20koza&pg=PA82#v=onepage&q=protected%20division%20koza&f=false) commonly used in symbolic regression applications, but extended beyond `Div0` errors to include bit over- and underflow. Situations where this might crop up include the execution of
+  - `float_add` (overflow)
+  - `float_divide` (underflow, overflow)
+  - `float_fromInt` (overflow)
+  - `float_mod` (divide by zero, underflow)
+  - `float_multiply` (overflow, underflow)
+  - `float_subtract` (overflow)
+  - `int_add` (overflow)
+  - `int_div` (divide by zero)
+  - `int_divmod` (divide by zero)
+  - `int_fromFloat` (overflow from large `Float` values)
+  - `int_mod` (divide by zero)
+  - `int_multiply` (overflow)
+  - `int_subtract` (overflow)
+  - `range_shift` (overflow)
+  - `range_scale` (overflow)
+  
+However _this behavior can be turned off_ either externally, or by the program itself. The instructions `push_allowOverflows()` and `push_noOverflows()` are responsible for setting this state. When overflows are permitted, the normal 64-bit arithmetic results will occur: adding 1 to the maximum `Integer` value will wrap around to a negative value, dividing a minimum-resolution `Double` by 2.0 will return 0.0, and so on. In this state, division by zero errors will return 0 (or 0.0, as appropriate for the type).
+
+
 ### Push 3 instructions that will not be implemented
 
 - `BOOLEAN.FROMINTEGER`; instead uses `int_isPositive()` to return a `bool` value when an integer is greater than or equal to 0
@@ -70,7 +93,8 @@ The language implemented here is based closely on [Push 3](http://faculty.hampsh
 - `name_isAssigned` : pushes a `Bool` with value depending on whether the top name has a bound definition at the moment or not
 - `name_unbind` : pops a `Name` item and erases the definition associated with it from the current interpreter state (if any)
 - all the `Range` things
-
+- `push_allowOverflows()`
+- `push_noOverflows()`
 
 ##  To Do:
 
@@ -116,7 +140,7 @@ The language implemented here is based closely on [Push 3](http://faculty.hampsh
 - `NAME.QUOTE`: Sets a flag indicating that the next name encountered will be pushed onto the NAME stack (and not have its associated value pushed onto the EXEC stack), regardless of whether or not it has a definition. Upon encountering such a name and pushing it onto the NAME stack the flag will be cleared (whether or not the pushed name had a definition).
 - `NAME.RANDBOUNDNAME`: Pushes a randomly selected NAME that already has a definition.
 
-## Things that may be unfamiliar in the "genetic programming" implementation...
+## Things that may be unexpected in this implementation...
 
 - Answers (prospective solutions to a target problem) have multiple "genomes": there is the `template`, which is an array of string tokens that includes all the instructions, parentheses (see below), but only placeholders for literals (`«int»`, `«bool»`, `«float»`); there is the `script`, which is obtained by replacing the placeholders with unique `name` identifiers (in numerical order of appearance); there are the `bindings`, which is a collection of `name` bindings associated with all the literal values in the script; and finally there is the `program`, which is condensed down into a single tree contained in a single `PushPoint`.
 - Templates and scripts can contain `(` and `)` tokens in arbitrary order and number. When the parser transforms the script into a program in left-to-right order, it ignores extra `)` tokens, and interprets every `(` as the opening of a new block (subtree) which is closed by a following `)`, or at the end of the tokens.

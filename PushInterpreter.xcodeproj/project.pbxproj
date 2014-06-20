@@ -94,6 +94,7 @@
 		A99C337D194B2C1000F70094 /* BooleanInstructionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooleanInstructionTests.swift; sourceTree = "<group>"; };
 		A99C337F194B374800F70094 /* RangeInstructionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeInstructionTests.swift; sourceTree = "<group>"; };
 		A99C3381194B3A9700F70094 /* RangeInstructions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeInstructions.swift; sourceTree = "<group>"; };
+		A9A7AB9E195493DA007D991E /* OverflowingDoubles.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = OverflowingDoubles.playground; sourceTree = "<group>"; };
 		A9A838D91947E35C004414E3 /* PushPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushPoint.swift; sourceTree = "<group>"; };
 		A9A838DB1947E3A5004414E3 /* PushInterpreter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushInterpreter.swift; sourceTree = "<group>"; };
 		A9A838DD1947E4C1004414E3 /* PushStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushStack.swift; sourceTree = "<group>"; };
@@ -172,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				A99A19A51951ACE7003DDBE9 /* Progress.markdown */,
+				A9A7AB9E195493DA007D991E /* OverflowingDoubles.playground */,
 				A919F028194B6AEA0097AFBB /* Instructions */,
 				A9A838DD1947E4C1004414E3 /* PushStack.swift */,
 				A9A838D91947E35C004414E3 /* PushPoint.swift */,
