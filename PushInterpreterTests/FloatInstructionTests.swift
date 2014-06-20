@@ -46,6 +46,12 @@ class FloatInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.intStack.description == "[ 4 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
 
+    func test_FloatDivide() {
+        let myPI = PushInterpreter(script:"1.0 2.0 float_divide 3.0 0.0 float_divide -4.0 0.5 float_divide")
+        myPI.run()
+        XCTAssertTrue(myPI.floatStack.description == "[ 0.5 -8.0 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
+    }
+
     
     func test_FloatDup() {
         let myPI = PushInterpreter(script:"3.5 float_dup")

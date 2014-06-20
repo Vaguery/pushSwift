@@ -107,7 +107,6 @@ The language implemented here is based closely on [Push 3](http://faculty.hampsh
 - `FLOAT.*`: Pushes the product of the top two items.
 - `FLOAT.+`: Pushes the sum of the top two items.
 - `FLOAT.-`: Pushes the difference of the top two items; that is, the second item minus the top item.
-- `FLOAT./`: Pushes the quotient of the top two items; that is, the second item divided by the top item. If the top item is zero this acts as a NOOP.
 - `FLOAT.COS`: Pushes the cosine of the top item.
 - `FLOAT.RAND`: Pushes a newly generated random FLOAT that is greater than or equal to MIN-RANDOM-FLOAT and less than or equal to MAX-RANDOM-FLOAT.
 - `FLOAT.SIN`: Pushes the sine of the top item.

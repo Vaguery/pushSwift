@@ -16,6 +16,7 @@ extension PushInterpreter {
            "float_archive" : self.float_archive,
             "float_define" : self.float_define,
              "float_depth" : self.float_depth,
+            "float_divide" : self.float_divide,
                "float_dup" : self.float_dup,
              "float_equal" : self.float_equal,
               "float_flip" : self.float_flip,
@@ -79,6 +80,17 @@ extension PushInterpreter {
     //  FLOAT.STACKDEPTH: Pushes the stack depth onto the INTEGER stack.
     func float_depth() {
         intStack.push(PushPoint.Integer(floatStack.length()))
+    }
+    
+    //  `FLOAT./`: Pushes the quotient of the top two items; that is, the second item divided by the top item. If the top item is zero this acts as a NOOP.
+    func float_divide() {
+        if floatStack.length() > 1 {
+            let arg2 = floatStack.pop()!.value as Double
+            let arg1 = floatStack.pop()!.value as Double
+            if arg2 != 0.0 {
+                floatStack.push(PushPoint.Float(arg1/arg2))
+            }
+        }
     }
     
     

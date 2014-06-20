@@ -58,7 +58,7 @@ extension PushInterpreter {
         if intStack.length() > 1 {
             let v1 = intStack.pop()!.value as Int
             let v2 = intStack.pop()!.value as Int
-            let sum = PushPoint.Integer(v1+v2)
+            let sum = PushPoint.Integer(v1 + v2)
             intStack.push(sum)
         }
     }
@@ -261,7 +261,6 @@ extension PushInterpreter {
     
     
     //  INTEGER.-: Pushes the difference of the top two items; that is, the second item minus the top item.
-    
     func int_subtract() {
         if intStack.length() > 1 {
             let arg2 = intStack.pop()!.value as Int
