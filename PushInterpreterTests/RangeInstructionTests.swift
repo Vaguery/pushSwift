@@ -34,10 +34,14 @@ class RangeInstructionTests: XCTestCase {
         myPI.run()
         XCTAssertTrue(myPI.rangeStack.description == "[ (2..2) (3..-2) ]", "Didn't expect stack to be \(myPI.rangeStack.description)")
         XCTAssertTrue(myPI.intStack.description == "[ 1 4 5 ]", "Didn't expect stack to be \(myPI.intStack.description)")
-
     }
 
-
+    func test_RangeCountBy() {
+        let myPI = PushInterpreter(script:"-5 10 range_fromInts 3 range_countBy 4 -21 range_fromInts -5 range_countBy 5 5 range_fromInts 2 range_countBy 100 110 range_fromInts 200 range_countBy")
+        myPI.run()
+        XCTAssertTrue(myPI.rangeStack.description == "[ (-2..10) (-1..-21) ]", "Didn't expect stack to be \(myPI.rangeStack.description)")
+        XCTAssertTrue(myPI.intStack.description == "[ -5 4 5 100 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
     
     func test_RangeDefine() {
         let myPI = PushInterpreter(script:"foo 1 2 range_fromInts range_define foo foo foo")
@@ -51,7 +55,6 @@ class RangeInstructionTests: XCTestCase {
         myPI.run()
         XCTAssertTrue(myPI.rangeStack.description == "[ (0..1) (0..2) (0..2) ]", "Didn't expect stack to be \(myPI.rangeStack.description)")
     }
-
 
     func test_RangeFlip() {
         let myPI = PushInterpreter(script:"1 range_fromZero 2 range_fromZero 3 range_fromZero range_flip")
@@ -152,6 +155,11 @@ class RangeInstructionTests: XCTestCase {
     }
 
     
+    func test_RangeStepBy() {
+        let myPI = PushInterpreter(script:"1 10 range_fromInts 3 range_stepBy 4 -21 range_fromInts -5 range_stepBy 5 5 range_fromInts 2 range_stepBy 100 110 range_fromInts 200 range_stepBy")
+        myPI.run()
+        XCTAssertTrue(myPI.rangeStack.description == "[ (4..10) (-1..-21) ]", "Didn't expect stack to be \(myPI.rangeStack.description)")
+    }
     
     
     func test_RangeSwap() {

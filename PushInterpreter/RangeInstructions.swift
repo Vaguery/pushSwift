@@ -14,6 +14,7 @@ extension PushInterpreter {
         let rangeInstructions = [
              "range_archive" : self.range_archive,
                "range_count" : self.range_count,
+             "range_countBy" : self.range_countBy,
               "range_define" : self.range_define,
                  "range_dup" : self.range_dup,
                 "range_flip" : self.range_flip,
@@ -31,6 +32,7 @@ extension PushInterpreter {
                "range_shove" : self.range_shove,
                 "range_size" : self.range_size,
                 "range_step" : self.range_step,
+              "range_stepBy" : self.range_stepBy,
                 "range_swap" : self.range_swap,
               "range_unstep" : self.range_unstep,
                 "range_yank" : self.range_yank,
@@ -67,6 +69,25 @@ extension PushInterpreter {
             } else if start > end {
                 rangeStack.push(PushPoint.Range(start-1,end))
             }  // and if they match, it dies
+        }
+    }
+    
+    // range_countBy() : moves first bound `N` closer to second, unless identical, where `N` is an Int; if `N < 0`, the first bound moves away form the second; will not cross start and end; if `a == b` (or they cross), it destroys the Range after pushing `Int(a)`
+    func range_countBy() {
+        if rangeStack.length() > 0 && intStack.length() > 0 {
+            let (start,end) = rangeStack.pop()!.value as (Int,Int)
+            let delta = intStack.pop()!.value as Int
+            
+            intStack.push(PushPoint.Integer(start))
+
+            if start == end {return}
+            
+            let newStart = start + delta
+            if (start < end && newStart < end) {
+                rangeStack.push(PushPoint.Range(newStart,end))
+            } else if (start > end && newStart > end) {
+                rangeStack.push(PushPoint.Range(newStart,end))
+            }
         }
     }
 
@@ -208,7 +229,6 @@ extension PushInterpreter {
         }
     }
     
-
     
     // range_step() : moves the first bound one closer to the second, unless identical; if a == b, destroys the Range
     func range_step() {
@@ -221,6 +241,24 @@ extension PushInterpreter {
             }  // and if they match, it dies
         }
     }
+    
+    
+    // range_stepBy() : moves first bound `N` closer to second, unless identical, where `N` is an `Int`; will not cross start and end; if `N < 0`, the first bound gets farther away; if `a == b` (or crosses), destroys the `Range`
+    func range_stepBy() {
+        if rangeStack.length() > 0 && intStack.length() > 0 {
+            let (start,end) = rangeStack.pop()!.value as (Int,Int)
+            let delta = intStack.pop()!.value as Int
+            if start == end {return}
+
+            let newStart = start + delta
+            if (start < end && newStart < end) {
+                rangeStack.push(PushPoint.Range(newStart,end))
+            } else if (start > end && newStart > end) {
+                rangeStack.push(PushPoint.Range(newStart,end))
+            }
+        }
+    }
+
 
     
     //  range_swap() : exchanges the top two items on the range stack

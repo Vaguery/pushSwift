@@ -33,6 +33,7 @@ The language implemented here is based closely on [Push 3](http://faculty.hampsh
 - `code_fromRange`: wraps a `Range` and pushes it onto the `Code` stack
 - `range_archive`: see above
 - `range_count` : pops a `Range` item `(a..b)`; if `a<b` it pushes `(a+1..b)` to the `Range` stack and `a` to the `Int` stack; if `a==b` it pushes `a` to the `Int` stack; if `a>b` it pushes `(a-1..b)` to the `Range` stack and `a` to the `Int` stack
+- `range_count_by` : moves first bound `N` closer to second, unless identical, where `N` is an Int; if `N < 0`, the first bound moves away form the second; will not cross start and end; if `a == b`, destroys the Range after pushing `Int(a)`
 - `range_define`: assigns the range to the top `Name` value
 - `range_dup` : pushes a copy of the top `Range` (without popping it)
 - `range_flip` : inverts the `Range` stack
@@ -50,6 +51,7 @@ The language implemented here is based closely on [Push 3](http://faculty.hampsh
 - `range_shove` : equivalent of Push 3 `*_shove` functions
 - `range_size` : pops `Range` `(a..b)` and pushes an `Int` equal to the number of steps, including the start and end
 - `range_step` : pops `Range` `(a..b)`; if `a<b` it pushes `(a+1..b)` to the `Range` stack; if `a==b` it does nothing; if `a>b` it pushes `(a-1..b)` to the `Range` stack 
+- `range_stepBy` : moves first bound `N` steps closer to second, unless identical, where `N` is the popped `Int`; will not cross start and end; if `N < 0`, then the first bound gets farther away ("unsteps"); if `a == b` (or crosses), it destroys the `Range`
 - `range_swap` : equivalent of Push 3 `*_swap` functions
 - `range_unstep` : pops `Range` `(a..b)`; if `a<b` it pushes `(a-1..b)` to the `Range` stack; if `a==b` it does nothing; if `a>b` it pushes `(a+1..b)` to the `Range` stack 
 - `range_yank` : equivalent of Push 3 `*_yank` functions
@@ -72,9 +74,7 @@ The language implemented here is based closely on [Push 3](http://faculty.hampsh
 
 ##  To Do:
 
-- `range_stepBy()`: moves first bound N closer to second, unless identical, where N is an Int; will not cross start and end; if `N < 0`, the first bound gets farther away; if a == b, destroys the Range
-- `range_count_by()` : moves first bound `N` closer to second, unless identical, where `N` is an Int; if `N < 0`, the first bound moves away form the second; will not cross start and end; if a == b, destroys the Range after pushing `Int(a)`
-- `range_split()` : pops `(a..b)` and an Int; if the Int `X` lies within `(a..b)`, produces `(a..x)` and `(x..b)`
+- `range_splitAt()` : pops `(a..b)` and an Int; if the Int `X` lies within `(a..b)`, produces `(a..x)` and `(x..b)`
 - `range_median()` : pops `(a..b)`, pushes `Int(a+b/2)`
 - `range_contract()` : pops `(a..b)`, pushes new Range with both extremes 1 step closer; destroys Range if `a==b`
 - `range_contractBy()` : pops `(a..b)` and an Int `N`, pushes new Range with both extremes `N` steps closer; if `N < 0`, both extremes move apart by `N` each; destroys Range if `a==b`
