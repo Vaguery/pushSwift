@@ -13,6 +13,7 @@ extension PushInterpreter {
         
         let floatInstructions = [
                "float_abs" : self.float_abs,
+               "float_add" : self.float_add,
            "float_archive" : self.float_archive,
             "float_define" : self.float_define,
              "float_depth" : self.float_depth,
@@ -29,9 +30,11 @@ extension PushInterpreter {
                "float_max" : self.float_max,
                "float_min" : self.float_min,
                "float_mod" : self.float_mod,
+          "float_multiply" : self.float_multiply,
                "float_pop" : self.float_pop,
             "float_rotate" : self.float_rotate,
              "float_shove" : self.float_shove,
+          "float_subtract" : self.float_subtract,
               "float_swap" : self.float_swap,
               "float_yank" : self.float_yank,
            "float_yankDup" : self.float_yankDup
@@ -57,6 +60,17 @@ extension PushInterpreter {
         }
     }
     
+    
+    //  `FLOAT.+`: Pushes the sum of the top two items.
+    func float_add() {
+        if floatStack.length() > 1 {
+            let arg2 = floatStack.pop()!.value as Double
+            let arg1 = floatStack.pop()!.value as Double
+            floatStack.push(PushPoint.Float(arg1 + arg2))
+        }
+    }
+    
+
     
     //  float_archive()
     func float_archive() {
@@ -200,6 +214,15 @@ extension PushInterpreter {
         }
     }
 
+    //  `FLOAT.*`: Pushes the product of the top two items.
+    func float_multiply() {
+        if floatStack.length() > 1 {
+            let arg2 = floatStack.pop()!.value as Double
+            let arg1 = floatStack.pop()!.value as Double
+            floatStack.push(PushPoint.Float(arg1 * arg2))
+        }
+    }
+
     
     //  FLOAT.POP: Pops the FLOAT stack.
     func float_pop() {
@@ -222,6 +245,16 @@ extension PushInterpreter {
             floatStack.shove(d)
         }
     }
+    
+    //  `FLOAT.-`: Pushes the difference of the top two items; that is, the second item minus the top item.
+    func float_subtract() {
+        if floatStack.length() > 1 {
+            let arg2 = floatStack.pop()!.value as Double
+            let arg1 = floatStack.pop()!.value as Double
+            floatStack.push(PushPoint.Float(arg1 - arg2))
+        }
+    }
+
     
     //  FLOAT.SWAP: Swaps the top two FLOATs.
     func float_swap() {

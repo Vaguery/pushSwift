@@ -33,6 +33,7 @@ extension PushInterpreter {
                "int_multiply" : self.int_multiply,
                     "int_pop" : self.int_pop,
                  "int_rotate" : self.int_rotate,
+                  "int_shove" : self.int_shove,
                "int_subtract" : self.int_subtract,
                    "int_swap" : self.int_swap,
                    "int_yank" : self.int_yank,
@@ -256,6 +257,15 @@ extension PushInterpreter {
     //  INTEGER.ROT: Rotates the top three items on the INTEGER stack, pulling the third item out and pushing it on top. This is equivalent to "2 INTEGER.YANK".
     func int_rotate() {
         intStack.rotate()
+    }
+    
+    
+    //  `INTEGER.SHOVE`: Inserts the second INTEGER "deep" in the stack, at the position indexed by the top INTEGER. The index position is calculated after the index is removed.
+    func int_shove() {
+        if intStack.length() > 1 {
+            let how_far = intStack.pop()!.value as Int
+            intStack.shove(how_far)
+        }
     }
 
     

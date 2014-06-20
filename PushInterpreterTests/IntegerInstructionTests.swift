@@ -160,6 +160,12 @@ class IntegerInstructionTests: XCTestCase {
         XCTAssertTrue(myPI.intStack.description == "[ 2 3 1 ]", "Didn't expect stack to be \(myPI.intStack.description)")
     }
 
+    func test_IntShove() {
+        let myPI = PushInterpreter(script:"1 2 3 4 5 6 7 8 9 2 int_shove")
+        myPI.run()
+        XCTAssertTrue(myPI.intStack.description == "[ 1 2 9 3 4 5 6 7 8 ]", "Didn't expect stack to be \(myPI.intStack.description)")
+    }
+
 
     
     func test_IntSubtract() {

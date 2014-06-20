@@ -12,6 +12,7 @@ To learn some TDD habits in XCode, and explore Apple's new Swift language. Which
 
 - 6 June 2014: Just barely started.
 - 14 June 2014: Push interpreter built, most trivial instructions running and tested. No I/O or UI at all, so it only runs in XCode under test. About to start building an `Answer` class, which will be the genetic programming "individuals".
+- 20 June 2014: Most of Push 3 instructions and `Range` type are done; considering how to handle arithmetic overflow
 
 ## Features
 
@@ -25,7 +26,6 @@ To learn some TDD habits in XCode, and explore Apple's new Swift language. Which
   - `exec_map` and `code_map` instructions, which execute code over entire stacks full of arguments
   - more stack manipulation instructions, including `*_flip` (which reverses a stack), `*_double` (which clones the entire stack onto itself) and `*_archive` which pushes an item onto the _bottom_ of the `exec` stack
   - some interpreter state variations, like `push_nopop` which leaves arguments on the origin stacks
-  - (possibly) buffered output: a stack that receives all pushed items when the interpreter is in `push_buffer` mode, then dumps them all onto the `exec` stack when it leaves `push_buffer` mode. After a running interpreter executes `push_buffer`, every `push` event is redirected to an empty `buffer` stack. When a subsequent `push_buffer` instruction toggles the state again (or any of several other commands), the buffer contents are moved to the top of the `exec` stack as a single code block.
 
 ## Goals
 

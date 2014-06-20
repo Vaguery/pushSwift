@@ -60,5 +60,4 @@ class AnswerTests: XCTestCase {
         XCTAssertTrue(a1.template.count == 10, "didn't expect tokens to be \(a1.template)")
     }
 
-
 }

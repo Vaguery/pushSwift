@@ -12,11 +12,9 @@ import PushInterpreter
 class FloatInstructionTests: XCTestCase {
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
 
@@ -24,6 +22,12 @@ class FloatInstructionTests: XCTestCase {
         let myPI = PushInterpreter(script:"9.5 float_abs -1.25 float_abs")
         myPI.run()
         XCTAssertTrue(myPI.floatStack.description == "[ 9.5 1.25 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
+    }
+    
+    func test_FloatAdd() {
+        let myPI = PushInterpreter(script:"1.5 1.125 float_add -0.125 3.125 float_add")
+        myPI.run()
+        XCTAssertTrue(myPI.floatStack.description == "[ 2.625 3.0 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
     }
     
     
@@ -132,6 +136,14 @@ class FloatInstructionTests: XCTestCase {
         myPI.run()
         XCTAssertTrue(myPI.floatStack.description == "[ 0.375 -1.625 0.0 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
     }
+    
+    
+    func test_FloatMultiply() {
+        let myPI = PushInterpreter(script:"1.5 1.125 float_multiply -0.0 3.125 float_multiply")
+        myPI.run()
+        XCTAssertTrue(myPI.floatStack.description == "[ 1.6875 -0.0 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
+    }
+
 
 
     func test_FloatPop() {
@@ -155,6 +167,13 @@ class FloatInstructionTests: XCTestCase {
         myPI.run()
         XCTAssertTrue(myPI.floatStack.description == "[ 1.0 2.0 5.0 3.0 4.0 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
     }
+    
+    func test_FloatSubtract() {
+        let myPI = PushInterpreter(script:"1.5 2.5 float_subtract 22.0 -11.5 float_subtract")
+        myPI.run()
+        XCTAssertTrue(myPI.floatStack.description == "[ -1.0 33.5 ]", "Didn't expect stack to be \(myPI.floatStack.description)")
+    }
+
     
     func test_FloatSwap() {
         let myPI = PushInterpreter(script:"1.0 2.0 3.0 4.0 5.0 float_swap")
