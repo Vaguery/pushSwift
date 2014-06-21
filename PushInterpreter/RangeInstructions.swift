@@ -29,6 +29,9 @@ extension PushInterpreter {
                  "range_mix" : self.range_mix,
              "range_reverse" : self.range_reverse,
               "range_rotate" : self.range_rotate,
+           "range_scaleDown" : self.range_scaleDown,
+             "range_scaleUp" : self.range_scaleUp,
+               "range_shift" : self.range_shift,
                "range_shove" : self.range_shove,
                 "range_size" : self.range_size,
                 "range_step" : self.range_step,
@@ -213,13 +216,37 @@ extension PushInterpreter {
     }
     
     
-    // range_size() : number of steps from a to b, inclusive
-    func range_size() {
-        if rangeStack.length() > 0 {
-            let (start,end) = rangeStack.pop()!.value as (Int,Int)
-            intStack.push(PushPoint.Integer(abs(start-end)))
+    //  `range_scaleDown()` : pops a range and an Int; divides the Int into both extremes; does nothing if the scale Int is 0
+    func range_scaleDown() {
+        if rangeStack.length() > 0 && intStack.length() > 0 {
+            let scale = intStack.pop()!.value as Int
+            let (a,b) = rangeStack.pop()!.value as (Int,Int)
+            if scale != 0 {
+                rangeStack.push(PushPoint.Range(a/scale, b/scale))
+            }
         }
     }
+    
+    
+    //  `range_scaleUp()` : pops a range and an Int; multiplies the Int by both extremes
+    func range_scaleUp() {
+        if rangeStack.length() > 0 && intStack.length() > 0 {
+            let scale = intStack.pop()!.value as Int
+            let (a,b) = rangeStack.pop()!.value as (Int,Int)
+            rangeStack.push(PushPoint.Range(a*scale, b*scale))
+        }
+    }
+
+    
+    //  `range_shift()` : pops a range and an Int; adds the int to both extremes
+    func range_shift() {
+        if rangeStack.length() > 0 && intStack.length() > 0 {
+            let shift = intStack.pop()!.value as Int
+            let (a,b) = rangeStack.pop()!.value as (Int,Int)
+            rangeStack.push(PushPoint.Range(a+shift,b+shift))
+        }
+    }
+    
 
     //  range_shove() : pops an int A and range, and places the range in position (range_stack.count % A)
     func range_shove() {
@@ -229,6 +256,14 @@ extension PushInterpreter {
         }
     }
     
+    
+    // range_size() : number of steps from a to b, inclusive
+    func range_size() {
+        if rangeStack.length() > 0 {
+            let (start,end) = rangeStack.pop()!.value as (Int,Int)
+            intStack.push(PushPoint.Integer(abs(start-end)))
+        }
+    }
     
     // range_step() : moves the first bound one closer to the second, unless identical; if a == b, destroys the Range
     func range_step() {

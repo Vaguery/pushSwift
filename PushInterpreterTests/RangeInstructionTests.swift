@@ -134,6 +134,26 @@ class RangeInstructionTests: XCTestCase {
         myPI.run()
         XCTAssertTrue(myPI.rangeStack.description == "[ (3..4) (5..6) (1..2) ]", "Didn't expect stack to be \(myPI.rangeStack.description)")
     }
+    
+    func test_RangeScaleDown() {
+        let myPI = PushInterpreter(script:"2000 12000 range_fromInts -100 range_scaleDown")
+        myPI.run()
+        XCTAssertTrue(myPI.rangeStack.description == "[ (-20..-120) ]", "Didn't expect stack to be \(myPI.rangeStack.description)")
+    }
+
+    func test_RangeScaleUp() {
+        let myPI = PushInterpreter(script:"7 11 range_fromInts 22 range_scaleUp")
+        myPI.run()
+        XCTAssertTrue(myPI.rangeStack.description == "[ (154..242) ]", "Didn't expect stack to be \(myPI.rangeStack.description)")
+    }
+
+    
+    func test_RangeShift() {
+        let myPI = PushInterpreter(script:"9912 range_fromZero -1112 range_shift")
+        myPI.run()
+        XCTAssertTrue(myPI.rangeStack.description == "[ (-1112..8800) ]", "Didn't expect stack to be \(myPI.rangeStack.description)")
+    }
+
 
     func test_RangeShove() {
         let myPI = PushInterpreter(script:"1 2 range_fromInts 3 4 range_fromInts 5 6 range_fromInts 0 range_shove")
