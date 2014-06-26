@@ -43,7 +43,7 @@ class PushAnswer {
     var scores = Dictionary<String,Double>()
     var template = String[]()
     var script : String = ""
-    var literals:Dictionary<String,String>
+    var literals:Dictionary<String,PushPoint>
     var myInstructions:String[] = []
     var myInterpreter:PushInterpreter
     
@@ -62,7 +62,7 @@ class PushAnswer {
             myInstructions = commands
         }
             
-        literals = Dictionary<String,String>()
+        literals = Dictionary<String,PushPoint>()
         
         // build script template
         template = []
@@ -85,15 +85,18 @@ class PushAnswer {
                 case "«int»":
                     let val = randomIntegerERC()
                     let name = "int_\(literals.count)"
-                    literals[name] = "\(val)"
+                    literals[name] = PushPoint.Integer(val)
+                    script += "\(name) "
                 case "«bool»":
-                    let valAsString = randomBooleanERC() ? "T" : "F"
+                    let val = randomBooleanERC()
                     let name = "bool_\(literals.count)"
-                    literals[name] = valAsString
+                    literals[name] = PushPoint.Boolean(val)
+                    script += "\(name) "
                 case "«float»":
                     let val = randomFloatERC()
                     let name = "float_\(literals.count)"
-                    literals[name] = "\(val)"
+                    literals[name] = PushPoint.Float(val)
+                    script += "\(name) "
                 default:
                     script += "\(token) "
             }

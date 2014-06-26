@@ -52,6 +52,12 @@ class InterpreterTests: XCTestCase {
         XCTAssertTrue(myPI.bindings.count == 0, "Should have no bindings to start out with")
     }
     
+    func test_convenienceInitializerWithBindings() {
+        let myBindings = ["x":PushPoint.Integer(12)]
+        var myPI = PushInterpreter(script:"x x int_add",bindings:myBindings)
+        XCTAssertTrue(myPI.bindings["x"]!.value as Int == 12, "Didn't expect bindings to be \(myPI.bindings)")
+    }
+    
     // Name bindings
     
     func testNameDictionary() {

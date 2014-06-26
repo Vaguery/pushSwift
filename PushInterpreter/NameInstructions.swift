@@ -107,7 +107,7 @@ extension PushInterpreter {
 
     //  NAME.POP: Pops the NAME stack.
     func name_pop() {
-        let discard = nameStack.pop()!
+        let discard = nameStack.pop()
     }
 
     

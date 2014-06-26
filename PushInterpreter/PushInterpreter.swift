@@ -47,6 +47,15 @@ class PushInterpreter {
         self.program = PushPoint.Block(PushPoint[]())
         self.reset()
     }
+    init(script:String, bindings:Dictionary<String,PushPoint>) {
+        self.script = script
+        allPushInstructions = Dictionary<String,Void->Void>(minimumCapacity: 0)
+        activePushInstructions = String[]()
+        self.loadActiveInstructions()
+        self.program = PushPoint.Block(PushPoint[]())
+        self.reset()
+        self.bindings = bindings
+    }
     
     
     func parse(script:String) -> PushPoint[] {

@@ -107,6 +107,13 @@ class IntegerInstructionTests: XCTestCase {
         myPI.run()
         XCTAssertTrue(myPI.boolStack.description == "[ T F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
     }
+    
+        func test_IntIsInRange() {
+        let myPI = PushInterpreter(script:"20 range_fromZero 10 int_isInRange 20 range_fromZero -10 int_isInRange")
+        myPI.run()
+        XCTAssertTrue(myPI.boolStack.description == "[ T F ]", "Didn't expect stack to be \(myPI.boolStack.description)")
+    }
+
 
     func test_IntIsPositive() {
         let myPI = PushInterpreter(script:"9 int_isPositive -1 int_isPositive")

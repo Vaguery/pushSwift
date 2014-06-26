@@ -25,6 +25,7 @@ extension PushInterpreter {
                "int_fromBool" : self.int_fromBool,
               "int_fromFloat" : self.int_fromFloat,
             "int_greaterThan" : self.int_greaterThan,
+              "int_isInRange" : self.int_isInRange,
              "int_isPositive" : self.int_isPositive,
                "int_lessThan" : self.int_lessThan,
                     "int_max" : self.int_max,
@@ -178,6 +179,17 @@ extension PushInterpreter {
         }
     }
     
+    
+    //  int_isInRange() : pops a Range and an Int; pushes a Boolean indicating whether the integer value lies within the range or not
+    func int_isInRange() {
+        if intStack.length() > 0 && rangeStack.length() > 0 {
+            let arg1 = intStack.pop()!.value as Int
+            let (a,b) = rangeStack.pop()!.value as (Int,Int)
+            let b1 = (a <= arg1) && (arg1 <= b)
+            let b2 = (b <= arg1) && (arg1 <= a)
+            boolStack.push(PushPoint.Boolean(b1 || b2))
+        }
+    }
     
     // int_isPositive(): replaces Push 3.0 BOOLEAN.FROMINT
     func int_isPositive() {

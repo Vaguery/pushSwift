@@ -38,6 +38,7 @@ The language implemented here is based closely on [Push 3](http://faculty.hampsh
 ### Ranges
 
 - `code_fromRange`: wraps a `Range` and pushes it onto the `Code` stack
+- `int_isInRange`
 - `range_archive`: see above
 - `range_count` : pops a `Range` item `(a..b)`; if `a<b` it pushes `(a+1..b)` to the `Range` stack and `a` to the `Int` stack; if `a==b` it pushes `a` to the `Int` stack; if `a>b` it pushes `(a-1..b)` to the `Range` stack and `a` to the `Int` stack
 - `range_count_by` : moves first bound `N` closer to second, unless identical, where `N` is an Int; if `N < 0`, the first bound moves away form the second; will not cross start and end; if `a == b`, destroys the Range after pushing `Int(a)`
@@ -55,6 +56,8 @@ The language implemented here is based closely on [Push 3](http://faculty.hampsh
 - `range_mix` : pops two `Range` items `(a..b)` and `(c..d)`, pushes `(a..d)` and `(c..b)`
 - `range_reverse` : pops `Range` `(a..b)` and pushes `(b..a)`
 - `range_rotate` : equivalent of Push 3 `*_rotate` functions
+- `range_scaleDown()` : pops a range and an Int; divides the int into both extremes
+- `range_scaleUp()` : pops a range and an Int; multiplies the int by both extremes
 - `range_shift()` : pops a range and an Int; adds the int to both extremes
 - `range_shove` : equivalent of Push 3 `*_shove` functions
 - `range_size` : pops `Range` `(a..b)` and pushes an `Int` equal to the number of steps, including the start and end
@@ -89,8 +92,6 @@ The language implemented here is based closely on [Push 3](http://faculty.hampsh
 - `range_contractBy()` : pops `(a..b)` and an Int `N`, pushes new Range with both extremes `N` steps closer; if `N < 0`, both extremes move apart by `N` each; destroys Range if `a==b`
 - `range_isOverlapping()` : pops two ranges; pushes Boolean `T` if either overlaps the other at all, regardless of direction of either
 - `range_isSubset()` : pops two ranges; pushes Boolean `T` if they are both the same direction, AND one is entirely within the other
-- `range_scaleUp()` : pops a range and an Int; multiplies the int by both extremes
-- `range_scaleDown()` : pops a range and an Int; divides the int into both extremes
 
 
 ### Push 3 instructions

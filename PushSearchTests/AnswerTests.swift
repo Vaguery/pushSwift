@@ -1,6 +1,6 @@
 //
 //  AnswerTests.swift
-//  PushInterpreter
+//  PushSearchTests
 //
 //  Created by Bill Tozier on 6/15/14.
 //  Copyright (c) 2014 Bill Tozier. All rights reserved.
@@ -23,7 +23,7 @@ class AnswerTests: XCTestCase {
         let a1 = PushAnswer(length: 4, commands: ["a", "b"], otherTokens: ["x"], commandRatio: 0.0)
         XCTAssertTrue(a1.template == ["x", "x", "x", "x"], "didn't expect template to be \(a1.template)")
     }
-
+    
     func test_answerAssociatesValuesWithIntegerERCtokens() {
         let a1 = PushAnswer(length: 4, commands: [], otherTokens: ["«int»"], commandRatio: 0.0)
         XCTAssertTrue(a1.literals.count == 4, "didn't expect literals to be \(a1.literals)")
@@ -38,7 +38,7 @@ class AnswerTests: XCTestCase {
         let a1 = PushAnswer(length: 4, commands: [], otherTokens: ["«float»"], commandRatio: 0.0)
         XCTAssertTrue(a1.literals.count == 4, "didn't expect literals to be \(a1.literals)")
     }
-
+    
     func test_answerInsertsParentheses() {
         let a1 = PushAnswer(length: 20, commands: [], otherTokens: ["(",")"], commandRatio: 0.0)
         XCTAssertTrue(a1.template.count == 20, "didn't expect tokens to be \(a1.template)")
@@ -59,14 +59,5 @@ class AnswerTests: XCTestCase {
         let a1 = PushAnswer(length:10,commands:["foo"],otherTokens:["x"],commandRatio:0.0)
         XCTAssertTrue(a1.template.count == 10, "didn't expect tokens to be \(a1.template)")
     }
-
-    // unwise things
-    
-//    func test_manyScripts() {
-//        for i in 1..10 {
-//            var guy = PushAnswer(length:30)
-//            var myPI = PushInterpreter(script:guy.script)
-//        }
-//    }
     
 }
