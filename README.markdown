@@ -6,7 +6,7 @@ With several amendments.
 
 ## Why
 
-To learn some TDD habits in XCode, and explore Apple's -new- Swift language.
+To learn some TDD habits in XCode, and explore Apple's ~~new~~ Swift language.
 
 ## Status
 
