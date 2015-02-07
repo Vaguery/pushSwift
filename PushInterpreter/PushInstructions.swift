@@ -26,7 +26,7 @@ extension PushInterpreter {
         loadRangeInstructions()
 
         activePushInstructions = []
-        for item in allPushInstructions.keys {activePushInstructions += item}
+        for item in allPushInstructions.keys {activePushInstructions.append(item)}
     }
 
     

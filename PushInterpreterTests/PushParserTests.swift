@@ -78,10 +78,10 @@ class PushParserTests: XCTestCase {
         let tokens = ["771.1", "0.0", "-.99", "+.8888", "4.2e4", "-.1e8"]
         for t in tokens {
             var myPoint:PushPoint = myInterpreter.programPointFromToken(t)
-            let f:Double = myPoint.value as Double
-            let correct_number = t.bridgeToObjectiveC().floatValue
+            let f:Double = (myPoint.value) as Double
+            let correct_number = (t as NSString).doubleValue
             XCTAssertNotNil(f, "Should have returned a PushPoint.Float")
-            XCTAssertTrue(f == correct_number, "Float literal somehow changed while being parsed")
+            XCTAssertEqualWithAccuracy(f,correct_number, 0.00001, "Float literal somehow changed while being parsed")
         }
     }
     

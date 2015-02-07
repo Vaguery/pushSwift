@@ -88,7 +88,7 @@ extension PushInterpreter {
                 execStack.push(do_this)
             } else {
                 let newA = (a < b ? a + 1 : a - 1)
-                let block:PushPoint[] = [
+                let block:[PushPoint] = [
                     do_this.clone(),
                     PushPoint.Integer(a),
                     PushPoint.Range(newA,b),
@@ -111,7 +111,7 @@ extension PushInterpreter {
             } else if count < 1 {
                 // do nothing
             } else {
-                let block:PushPoint[] = [
+                let block:[PushPoint] = [
                     do_this.clone(),
                     PushPoint.Range(2,count),
                     PushPoint.Instruction("exec_doWithRange"),
@@ -133,7 +133,7 @@ extension PushInterpreter {
                 execStack.push(do_this)
             } else {
                 let newA = (a < b ? a + 1 : a - 1)
-                let block:PushPoint[] = [
+                let block:[PushPoint] = [
                     do_this.clone(),
                     PushPoint.Range(newA,b),
                     PushPoint.Instruction("exec_doWithRange"),

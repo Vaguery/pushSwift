@@ -11,54 +11,54 @@ import Foundation
 //////////////////
 // PushInterpreter
 
-class PushInterpreter {
+public class PushInterpreter {
     
-    var script:String = ""
-    var program:PushPoint = PushPoint.Block([])
-    var steps = 0
-    var stepLimit = 5000
-    var allPushInstructions:Dictionary<String,Void->Void>
-    var activePushInstructions:String[]
+    public var script:String = ""
+    public var program:PushPoint = PushPoint.Block([])
+    public var steps = 0
+    public var stepLimit = 5000
+    public var allPushInstructions:Dictionary<String,Void->Void>
+    public var activePushInstructions:[String]
 
-    var bindings = Dictionary<String,PushPoint>(minimumCapacity: 0)
+    public var bindings = Dictionary<String,PushPoint>(minimumCapacity: 0)
     
-    var intStack   : PushStack = PushStack()
-    var rangeStack : PushStack = PushStack()
-    var boolStack  : PushStack = PushStack()
-    var floatStack : PushStack = PushStack()
-    var nameStack  : PushStack = PushStack()
-    var codeStack  : PushStack = PushStack()
-    var execStack  : PushStack = PushStack()
+    public var intStack   : PushStack = PushStack()
+    public var rangeStack : PushStack = PushStack()
+    public var boolStack  : PushStack = PushStack()
+    public var floatStack : PushStack = PushStack()
+    public var nameStack  : PushStack = PushStack()
+    public var codeStack  : PushStack = PushStack()
+    public var execStack  : PushStack = PushStack()
     
     
-    init() {
+    public init() {
         script = ""
         allPushInstructions = Dictionary<String,Void->Void>(minimumCapacity: 0)
-        activePushInstructions = String[]()
+        activePushInstructions = [String]()
         self.loadActiveInstructions()
-        self.program = PushPoint.Block(PushPoint[]())
+        self.program = PushPoint.Block([PushPoint]())
         self.reset()
     }
-    init(script:String) {
+    public init(script:String) {
         self.script = script
         allPushInstructions = Dictionary<String,Void->Void>(minimumCapacity: 0)
-        activePushInstructions = String[]()
+        activePushInstructions = [String]()
         self.loadActiveInstructions()
-        self.program = PushPoint.Block(PushPoint[]())
+        self.program = PushPoint.Block([PushPoint]())
         self.reset()
     }
-    init(script:String, bindings:Dictionary<String,PushPoint>) {
+    public init(script:String, bindings:Dictionary<String,PushPoint>) {
         self.script = script
         allPushInstructions = Dictionary<String,Void->Void>(minimumCapacity: 0)
-        activePushInstructions = String[]()
+        activePushInstructions = [String]()
         self.loadActiveInstructions()
-        self.program = PushPoint.Block(PushPoint[]())
+        self.program = PushPoint.Block([PushPoint]())
         self.reset()
         self.bindings = bindings
     }
     
     
-    func parse(script:String) -> PushPoint[] {
+    public func parse(script:String) -> [PushPoint] {
         var tokens = script.componentsSeparatedByCharactersInSet(
                 NSCharacterSet.whitespaceAndNewlineCharacterSet()).filter(
                     {(s1:String) -> Bool in return s1 != ""}
@@ -75,8 +75,10 @@ class PushInterpreter {
     func thisLooksLikeAnInteger(s:String) -> Bool {
         var error : NSError?
         let intRegex = NSRegularExpression(
-            pattern: "^([+-])?[0-9]+$", options: nil, error: &error)
-        let probably: Bool = intRegex.numberOfMatchesInString(s, options: nil, range: NSMakeRange(0, countElements(s))) == 1 ? true : false
+            pattern: "^([+-])?[0-9]+$", options: nil, error: &error)!
+        var probably: Bool
+        probably = intRegex.numberOfMatchesInString(s, options: nil,
+            range:NSMakeRange(0, (countElements(s)))) == 1 ? true : false
         return probably
     }
     
@@ -84,55 +86,55 @@ class PushInterpreter {
     func thisLooksLikeAdouble(s:String) -> Bool {
         var error : NSError?
         let intRegex = NSRegularExpression(
-            pattern: "^[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?$", options: nil, error: &error)
+            pattern: "^[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?$", options: nil, error: &error)!
         let probably: Bool = intRegex.numberOfMatchesInString(s, options: nil, range: NSMakeRange(0, countElements(s))) == 1 ? true : false
         return probably
     }
     
     
     func stringToDouble(s:String) -> NSNumber {
-        return s.bridgeToObjectiveC().floatValue
+        return (s as NSString).doubleValue
     }
     
     
-    func pointsFromTokenArray(inout tokens:String[]) -> PushPoint[] {
-        var root_block:PushPoint[] = []
+    public func pointsFromTokenArray(inout tokens:[String]) -> [PushPoint] {
+        var root_block:[PushPoint] = []
         while tokens.count > 0 {
             let this = tokens.removeAtIndex(0)
             switch this {
                 case "(":
                     let subtree = grabBlockFromTokenArray(&tokens)
-                    root_block += PushPoint.Block(subtree)
+                    root_block.append(PushPoint.Block(subtree))
                 case ")":
                     continue // do nothing
                 default:
-                root_block += programPointFromToken(this)
+                root_block.append(programPointFromToken(this))
             }
         }
         return root_block
     }
     
     
-    func grabBlockFromTokenArray(inout tokens:String[]) -> PushPoint[] {
-        var block:PushPoint[] = []
+    func grabBlockFromTokenArray(inout tokens:[String]) -> [PushPoint] {
+        var block:[PushPoint] = []
         
         while tokens.count > 0 {
             let this = tokens.removeAtIndex(0)
             switch this {
                 case "(":
                     let subtree = grabBlockFromTokenArray(&tokens)
-                    block += PushPoint.Block(subtree)
+                    block.append(PushPoint.Block(subtree))
                 case ")":
                     return block // done here
                 default:
-                    block += programPointFromToken(this)
+                    block.append(programPointFromToken(this))
             }
         }
         return block
     }
     
     
-    func programPointFromToken(token:String) -> PushPoint {
+    public func programPointFromToken(token:String) -> PushPoint {
         
         // the easy ones first
         
@@ -158,12 +160,12 @@ class PushInterpreter {
     }
     
     
-    func bind(name:String, point:PushPoint) {
+    public func bind(name:String, point:PushPoint) {
         self.bindings[name] = point
     }
     
     
-    func clear_stacks() {
+    public func clear_stacks() {
         intStack.clear()
         rangeStack.clear()
         boolStack.clear()
@@ -174,27 +176,27 @@ class PushInterpreter {
     }
     
     
-    func stage(new_script:String) {
+    public func stage(new_script:String) {
         self.script = new_script
         self.program = PushPoint.Block(self.parse(self.script))
     }
     
     
-    func reset() {
+    public func reset() {
         clear_stacks()
         stage(self.script)
         execStack.push(program)
     }
 
     
-    func resetWithScript(new_script:String) {
+    public func resetWithScript(new_script:String) {
         clear_stacks()
         stage(new_script)
         execStack.push(program)
     }
     
     
-    func step() {
+    public func step() {
         let next_point:PushPoint? = execStack.pop()
         if let point = next_point {
             switch point {
@@ -224,7 +226,7 @@ class PushInterpreter {
         }
     }
     
-    func run() {
+    public func run() {
         steps = 0
         while execStack.length() > 0  && steps <= stepLimit {
             steps += 1

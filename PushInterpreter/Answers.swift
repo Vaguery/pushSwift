@@ -9,28 +9,27 @@
 import Foundation
 
 
-
-func randomIndexFromArray(array:AnyObject[]) -> Int {
+public func randomIndexFromArray(array:[AnyObject]) -> Int {
     return Int(arc4random_uniform(UInt32(array.count)))
 }
 
 
-func randomDouble() -> Double {
+public func randomDouble() -> Double {
     return Double(drand48())
 }
 
 
-func randomIntegerERC() -> Int {
+public func randomIntegerERC() -> Int {
     return Int(arc4random_uniform(UInt32(100))) - 50
 }
 
 
-func randomBooleanERC() -> Bool {
+public func randomBooleanERC() -> Bool {
     let flip = arc4random_uniform(UInt32(2))
     return flip == 0 ? true : false
 }
 
-func randomFloatERC() -> Double {
+public func randomFloatERC() -> Double {
     let numerator = Int(arc4random_uniform(UInt32(12800))) - 6400
     let denominator = 128.0
     return Double(numerator) / denominator
@@ -39,18 +38,18 @@ func randomFloatERC() -> Double {
 
 
 
-class PushAnswer {
-    var scores = Dictionary<String,Double>()
-    var template = String[]()
-    var script : String = ""
-    var literals:Dictionary<String,PushPoint>
-    var myInstructions:String[] = []
+public class PushAnswer {
+    public var scores = Dictionary<String,Double>()
+    public var template = [String]()
+    public var script : String = ""
+    public var literals:Dictionary<String,PushPoint>
+    public var myInstructions:[String] = []
     var myInterpreter:PushInterpreter
     
     
-    init(length:Int,
-        commands:String[]=[],
-        otherTokens:String[]=["(",")","«int»","«bool»","«float»"],
+    public init(length:Int,
+        commands:[String]=[],
+        otherTokens:[String]=["(",")","«int»","«bool»","«float»"],
         commandRatio:Double=0.5) {
         
         myInterpreter = PushInterpreter()
@@ -66,15 +65,15 @@ class PushAnswer {
         
         // build script template
         template = []
-        for i in 0..length {
+        for i in 0..<length {
             if (randomDouble() < commandRatio) && (myInstructions.count > 0) {
                 let idx = randomIndexFromArray(myInstructions)
-                template += myInstructions[idx]
+                template.append(myInstructions[idx])
             } else if otherTokens.count > 0 {
                 let idx = randomIndexFromArray(otherTokens)
-                template += otherTokens[idx]
+                template.append(otherTokens[idx])
             } else {
-                template += "noop"
+                template.append("noop")
             }
         }
         

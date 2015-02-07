@@ -143,10 +143,10 @@ class StackTests: XCTestCase {
         let s = PushStack()
         s.push(b1)
         s.dup()
-        var tree1 = b1.value as PushPoint[]
+        var tree1 = b1.value as [PushPoint]
         tree1[1] = i3
         
-        let tree2 = s.items[1].value as PushPoint[]
+        let tree2 = s.items[1].value as [PushPoint]
         XCTAssertTrue(tree1[1].value as Int == 9999, "original block should have changed")
         XCTAssertTrue(tree2[1].value as Int == 2, "duplicated block should not have changed")
         XCTAssertFalse(tree1[1].value as Int == tree2[1].value as Int, "Items should be different")

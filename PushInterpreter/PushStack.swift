@@ -11,22 +11,23 @@ import Foundation
 //////////////
 // Push Stacks
 
-class PushStack:Printable {
+public class PushStack:Printable {
     
-    var items:PushPoint[] = []
+    public var items:[PushPoint] = []
     
+    public init() {}
     
-    func clear() {
-        items = PushPoint[]()
+    public func clear() {
+        items = [PushPoint]()
     }
 
     
-    var description:String {
+    public var description:String {
         return items.reduce("[") {$0 + " \($1.description)"} + " ]"
     }
     
     
-    func dup() {
+    public func dup() {
         if items.count > 0 {
             let duped = self.items[items.count - 1]
             self.push(duped.clone())
@@ -34,19 +35,19 @@ class PushStack:Printable {
     }
 
     
-    func flip() {
+    public func flip() {
         if items.count > 1 {
             items = items.reverse()
         }
     }
     
     
-    func length() -> Int {
+    public func length() -> Int {
         return items.count
     }
     
 
-    func pop() -> PushPoint? {
+    public func pop() -> PushPoint? {
         if items.count == 0 {
             return nil
         } else {
@@ -55,11 +56,11 @@ class PushStack:Printable {
     }
     
     
-    func push(item: PushPoint) {
+    public func push(item: PushPoint) {
         items.append(item)
     }
 
-    func rotate() {
+    public func rotate() {
         let c = items.count
         switch c {
         case 0,1:
@@ -77,7 +78,7 @@ class PushStack:Printable {
     }
     
     
-    func shove(new_depth:Int) {
+    public func shove(new_depth:Int) {
         if items.count > 1 {  // if length is 1, nothing will happen!
             var d = new_depth % items.count
             if d < 0 { d = items.count + d}
@@ -87,7 +88,7 @@ class PushStack:Printable {
     }
 
     
-    func swap() {
+    public func swap() {
         if items.count > 1 {
             let old_top = self.pop()
             let old_second = self.pop()
@@ -97,7 +98,7 @@ class PushStack:Printable {
     }
     
     
-    func yank(new_depth:Int) {
+    public func yank(new_depth:Int) {
         if items.count > 1 {  // if length is 1, nothing will happen!
             var d = new_depth % items.count
             if d < 0 { d = items.count + d}
@@ -106,7 +107,7 @@ class PushStack:Printable {
         }
     }
     
-    func yankDup(new_depth:Int) {
+    public func yankDup(new_depth:Int) {
         if items.count > 1 {  // if length is 1, nothing will happen!
             var d = new_depth % items.count
             if d < 0 { d = items.count + d}

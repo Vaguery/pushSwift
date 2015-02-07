@@ -64,7 +64,7 @@ class ProgramPointTests: XCTestCase {
         let myBool = PushPoint.Boolean(false)
         
         let myBlock = PushPoint.Block([myInt,myBool])
-        let subTree = myBlock.value as PushPoint[]
+        let subTree = myBlock.value as [PushPoint]
         XCTAssertTrue(subTree.count == 2, "BlockPoint is missing elements")
         XCTAssertTrue(subTree[0].value as Int == 13, "BlockPoints should only contain PushPoints")
         XCTAssertTrue(subTree[1].value as Bool == false, "BlockPoints should only contain PushPoints")
@@ -72,7 +72,7 @@ class ProgramPointTests: XCTestCase {
 
     func testBlockPointsWorkWithEmptyArrays() {
         let myBlock = PushPoint.Block([])
-        let backOutAgain = myBlock.value as PushPoint[]
+        let backOutAgain = myBlock.value as [PushPoint]
         XCTAssertTrue(backOutAgain.count == 0, "BlockPoint should have no elements")
     }
     

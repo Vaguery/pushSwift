@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Bill Tozier. All rights reserved.
 //
 
+import Cocoa
 import XCTest
 import PushInterpreter
 

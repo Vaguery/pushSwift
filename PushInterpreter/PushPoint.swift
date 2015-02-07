@@ -11,7 +11,7 @@ import Foundation
 /////////////////////////////////////////
 // Code points in parsed Push language...
 
-enum PushPoint:Printable {
+public enum PushPoint:Printable {
     
     case Integer(Int)
     case Range(Int,Int)
@@ -19,10 +19,10 @@ enum PushPoint:Printable {
     case Float(Double)
     case Instruction(String)
     case Name(String)
-    case Block(PushPoint[])
+    case Block([PushPoint])
     
     
-    var value: Any {
+    public var value: Any {
     switch self {
     case let Integer(int):
         return int
@@ -42,7 +42,7 @@ enum PushPoint:Printable {
     }
     
     
-    func isInteger() -> Bool {
+    public func isInteger() -> Bool {
         switch self {
         case .Integer(_):
             return true
@@ -52,7 +52,7 @@ enum PushPoint:Printable {
     }
     
     
-    func isBoolean() -> Bool {
+    public func isBoolean() -> Bool {
         switch self {
         case .Boolean(_):
             return true
@@ -62,7 +62,7 @@ enum PushPoint:Printable {
     }
     
     
-    func isFloat() -> Bool {
+    public func isFloat() -> Bool {
         switch self {
         case .Float(_):
             return true
@@ -72,7 +72,7 @@ enum PushPoint:Printable {
     }
     
     
-    func isName() -> Bool {
+    public func isName() -> Bool {
         switch self {
         case .Name(_):
             return true
@@ -82,7 +82,7 @@ enum PushPoint:Printable {
     }
     
     
-    func isRange() -> Bool {
+    public func isRange() -> Bool {
         switch self {
         case .Range(_,_):
             return true
@@ -92,7 +92,7 @@ enum PushPoint:Printable {
     }
     
     
-    func isInstruction() -> Bool {
+    public func isInstruction() -> Bool {
         switch self {
         case .Instruction(_):
             return true
@@ -101,7 +101,7 @@ enum PushPoint:Printable {
         }
     }
 
-    func isBlock() -> Bool {
+    public func isBlock() -> Bool {
         switch self {
         case .Block(_):
             return true
@@ -111,7 +111,7 @@ enum PushPoint:Printable {
     }
     
     
-    func subtree() -> PushPoint[]? {
+    public func subtree() -> [PushPoint]? {
         switch self {
         case .Block(let array):
             return array
@@ -121,7 +121,7 @@ enum PushPoint:Printable {
     }
     
     
-    var description:String {
+    public var description:String {
         switch self {
         case let Integer(int):
             return "\(int)"
@@ -143,7 +143,7 @@ enum PushPoint:Printable {
 
 
     
-    func clone() -> PushPoint {
+    public func clone() -> PushPoint {
         switch self {
         case let Integer(int):
             return PushPoint.Integer(int)

@@ -20,6 +20,7 @@ class ExecInstructionTests: XCTestCase {
         super.tearDown()
     }
 
+
     func test_ExecArchive() {
         let myPI = PushInterpreter(script:"exec_archive F T T T")
         myPI.run()

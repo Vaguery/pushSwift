@@ -94,7 +94,7 @@ extension PushInterpreter {
     //  CODE.CAR: Pushes the first item of the list on top of the CODE stack. For example, if the top piece of code is "( A B )" then this pushes "A" (after popping the argument). If the code on top of the stack is not a list then this has no effect. The name derives from the similar Lisp function; a more generic name would be "FIRST".
     func code_car() {
         if codeStack.length() > 0 {
-            let arg = codeStack.pop()!.value as PushPoint[]
+            let arg = codeStack.pop()!.value as [PushPoint]
             if arg.count > 1 {
                 let carred = PushPoint.Block([arg[0]])
                 codeStack.push(carred)
@@ -107,7 +107,7 @@ extension PushInterpreter {
     func code_cons() {
         if codeStack.length() > 1 {
             let arg2 = codeStack.pop()! as PushPoint
-            let arg1 = codeStack.pop()!.value as PushPoint[]
+            let arg1 = codeStack.pop()!.value as [PushPoint]
             let consed = [arg2] + arg1
             codeStack.push(PushPoint.Block(consed))
         }
@@ -118,7 +118,7 @@ extension PushInterpreter {
     //  CODE.CDR: Pushes a version of the list from the top of the CODE stack without its first element. For example, if the top piece of code is "( A B )" then this pushes "( B )" (after popping the argument). If the code on top of the stack is not a list then this pushes the empty list ("( )"). The name derives from the similar Lisp function; a more generic name would be "REST".
     func code_cdr() {
         if codeStack.length() > 0 {
-            var arg = codeStack.pop()!.value as PushPoint[]
+            var arg = codeStack.pop()!.value as [PushPoint]
             if arg.count > 1 {
                 let discard = arg.removeAtIndex(0)
                 codeStack.push(PushPoint.Block(arg))
@@ -139,7 +139,7 @@ extension PushInterpreter {
                 execStack.push(do_this)
             } else {
                 let newA = (a < b ? a + 1 : a - 1)
-                let block:PushPoint[] = [
+                let block:[PushPoint] = [
                     do_this.clone(),
                     PushPoint.Integer(a),
                     PushPoint.Range(newA,b),
@@ -199,7 +199,7 @@ extension PushInterpreter {
             } else if count < 1 {
                 // do nothing
             } else {
-                let block:PushPoint[] = [
+                let block:[PushPoint] = [
                     do_this.clone(),
                     PushPoint.Range(2,count),
                     PushPoint.Instruction("exec_doWithRange"),
@@ -220,7 +220,7 @@ extension PushInterpreter {
                 execStack.push(do_this)
             } else {
                 let newA = (a < b ? a + 1 : a - 1)
-                let block:PushPoint[] = [
+                let block:[PushPoint] = [
                     do_this.clone(),
                     PushPoint.Range(newA,b),
                     PushPoint.Instruction("exec_doWithRange"),
@@ -296,7 +296,7 @@ extension PushInterpreter {
     //  CODE.ATOM: Pushes TRUE onto the BOOLEAN stack if the top piece of code is a single instruction or a literal, and FALSE otherwise (that is, if it is something surrounded by parentheses).
     func code_isAtom() {
         if codeStack.length() > 0 {
-            let pts = codeStack.pop()!.value as PushPoint[]
+            let pts = codeStack.pop()!.value as [PushPoint]
             boolStack.push(PushPoint.Boolean(pts.count == 1))
         }
     }
@@ -321,7 +321,7 @@ extension PushInterpreter {
     // code_isEmpty() is not part of Push 3.0 specification
     func code_isEmpty() {
         if codeStack.length() > 0 {
-            let pts = codeStack.pop()!.value as PushPoint[]
+            let pts = codeStack.pop()!.value as [PushPoint]
             boolStack.push(PushPoint.Boolean(pts.count == 0))
         }
     }
@@ -340,7 +340,7 @@ extension PushInterpreter {
     //  CODE.LENGTH: Pushes the length of the top item on the CODE stack onto the INTEGER stack. If the top item is not a list then this pushes a 1. If the top item is a list then this pushes the number of items in the top level of the list; that is, nested lists contribute only 1 to this count, no matter what they contain.
     func code_length() {
         if codeStack.length() > 0 {
-            let arg = codeStack.pop()!.value as PushPoint[]
+            let arg = codeStack.pop()!.value as [PushPoint]
             intStack.push(PushPoint.Integer(arg.count))
         }
     }

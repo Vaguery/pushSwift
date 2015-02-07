@@ -22,7 +22,7 @@ extension PushInterpreter {
             "name_isAssigned" : self.name_isAssigned,
                    "name_new" : self.name_new,
                    "name_pop" : self.name_pop,
-                 "name_rotate": self.name_rotate,
+                "name_rotate" : self.name_rotate,
                  "name_shove" : self.name_shove,
                   "name_swap" : self.name_swap,
                 "name_unbind" : self.name_unbind,
