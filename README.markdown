@@ -2,17 +2,20 @@ pushSwift
 =========
 A Mac desktop genetic programming system using a simple interpreted language based closely on the [PushGP system for genetic programming](http://faculty.hampshire.edu/lspector/push.html) (work by Lee Spector, Maarten Keijzer, Jon Klein, Chris Perry and Tom Helmuth, among others).
 
-With some amendments.
+With several amendments.
 
 ## Why
 
-To learn some TDD habits in XCode, and explore Apple's new Swift language. Which, after a week, means learning an awful lot of little places where Swift gives way to Cocoa... and that's OK.
+To learn some TDD habits in XCode, and explore Apple's -new- Swift language.
 
 ## Status
 
 - 6 June 2014: Just barely started.
 - 14 June 2014: Push interpreter built, most trivial instructions running and tested. No I/O or UI at all, so it only runs in XCode under test. About to start building an `Answer` class, which will be the genetic programming "individuals".
 - 20 June 2014: Most of Push 3 instructions and `Range` type are done; considering how to handle arithmetic overflow
+- 7 February 2015: Finally rolled up my sleeves and repaired a whole slew of compile errors that arose when Swift 1.x was released: these involved access control (which didn't exist when I started), various new bridges to Objective C (ditto), loads of syntax quirks and minor changes (like the `..` operator is now the `...` operator), and so on. Also deleted many little dumb stubs that arose in the process of working with XCode 6 beta before Yosemite was available to me.
+  
+  _Tabula rasa_ for setting up an actual search process, and building this out as a library proper.
 
 ## Features
 
@@ -32,9 +35,10 @@ To learn some TDD habits in XCode, and explore Apple's new Swift language. Which
 - ✅ build a parser that converts Push [dialect] scripts into code points 
 - build an interpreter that executes [most of] the instructions defined in the [Push 3.0 Specification](http://faculty.hampshire.edu/lspector/push3-description.html) and [Clojush](https://github.com/lspector/Clojush)
 - ✅ add a few simple extensions to the basic type structure from our [GPTP conferences](http://vserver1.cscs.lsa.umich.edu/gptp-workshops/) through the years
-  - tag spaces
+  - tag spaces?
   - ✅ Range types
+  - Set and/or collection types
   - implied block structure
-- build a simple desktop [?] app that loads training and test data
-- let the app solve problems locally using modern [Pareto-GP](http://www.evolved-analytics.com/?q=technology/publications) approaches
+- build a simple desktop [?] app that loads training and test data, and runs interactively to produce data logs and results in realtime
+- let the app solve problems locally using modern [Pareto-GP](http://www.evolved-analytics.com/?q=technology/publications) approaches, lexicase selection, and so on
 - maybe some cloud things; you know, for kids
