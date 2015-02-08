@@ -39,10 +39,10 @@ public func randomFloatERC() -> Double {
 
 
 public class PushAnswer {
-    public var scores = Dictionary<String,Double>()
+    public var scores = [NSUUID:Double]()
     public var template = [String]()
     public var script : String = ""
-    public var literals:Dictionary<String,PushPoint>
+    public var literals:[String:PushPoint]
     public var myInstructions:[String] = []
     public let uniqueID = NSUUID()
     public var myInterpreter:PushInterpreter
@@ -62,7 +62,8 @@ public class PushAnswer {
             myInstructions = commands
         }
             
-        literals = Dictionary<String,PushPoint>()
+        literals = [String:PushPoint]()
+        
         
         // build script template
         template = []

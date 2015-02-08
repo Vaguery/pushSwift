@@ -30,6 +30,7 @@
 		A961B50C193F9EEA004289EF /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A961B50A193F9EEA004289EF /* MainMenu.xib */; };
 		A961B518193F9EEA004289EF /* PushInterpreterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A961B517193F9EEA004289EF /* PushInterpreterTests.swift */; };
 		A97E32301A87EAE90002F899 /* Evaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97E322F1A87EAE90002F899 /* Evaluator.swift */; };
+		A97E32321A8800420002F899 /* SimpleEvaluatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97E32311A8800420002F899 /* SimpleEvaluatorTest.swift */; };
 		A99A19A61951ACE7003DDBE9 /* Progress.markdown in Resources */ = {isa = PBXBuildFile; fileRef = A99A19A51951ACE7003DDBE9 /* Progress.markdown */; };
 		A99C337E194B2C1000F70094 /* BooleanInstructionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99C337D194B2C1000F70094 /* BooleanInstructionTests.swift */; };
 		A99C3380194B374800F70094 /* RangeInstructionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99C337F194B374800F70094 /* RangeInstructionTests.swift */; };
@@ -122,6 +123,7 @@
 		A961B516193F9EEA004289EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A961B517193F9EEA004289EF /* PushInterpreterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushInterpreterTests.swift; sourceTree = "<group>"; };
 		A97E322F1A87EAE90002F899 /* Evaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Evaluator.swift; sourceTree = "<group>"; };
+		A97E32311A8800420002F899 /* SimpleEvaluatorTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleEvaluatorTest.swift; sourceTree = "<group>"; };
 		A989247D1943D4AD000C11D6 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
 		A99A19A51951ACE7003DDBE9 /* Progress.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Progress.markdown; sourceTree = "<group>"; };
 		A99C337D194B2C1000F70094 /* BooleanInstructionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooleanInstructionTests.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 		A90D5EB11A87CB5C00E259E1 /* SearchTests */ = {
 			isa = PBXGroup;
 			children = (
+				A97E32311A8800420002F899 /* SimpleEvaluatorTest.swift */,
 				A90D5EB41A87CB5C00E259E1 /* SearchTests.swift */,
 				A90D5EB21A87CB5C00E259E1 /* Supporting Files */,
 			);
@@ -524,6 +527,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A90D5EB51A87CB5C00E259E1 /* SearchTests.swift in Sources */,
+				A97E32321A8800420002F899 /* SimpleEvaluatorTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

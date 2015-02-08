@@ -8,5 +8,33 @@
 
 import Foundation
 
-public class PushEvaluator {
+
+public class PushScenario {
+    public var uniqueID:NSUUID
+
+    public init() {
+        uniqueID = NSUUID()
+    }
+    
+    public func score(PushAnswer) -> Double {
+        return 0.0
+    }
+}
+
+
+
+public class PushLengthScenario: PushScenario {
+    override public init() {
+        super.init()
+    }
+    
+    override public func score(a:PushAnswer) -> Double {
+        if let possible_score = a.scores[uniqueID]? {
+            return possible_score
+        } else {
+            let score = Double(a.template.count)
+            a.scores[self.uniqueID] = score
+            return score
+        }
+    }
 }
