@@ -19,6 +19,13 @@ class AnswerInitializationTests: XCTestCase {
         XCTAssertTrue(a1.template == ["x", "x", "x"], "didn't expect template to be \(a1.template)")
     }
     
+    func test_answerInitializedWithAuniqueID() {
+        let a1 = PushAnswer(length: 3, commands: ["x"], otherTokens: [], commandRatio: 1.0)
+        XCTAssertNotNil(a1.uniqueID.UUIDString, "uniqueID should not have been nil")
+        let a2 = PushAnswer(length: 3, commands: ["x"], otherTokens: [], commandRatio: 1.0)
+        XCTAssertFalse(a1.uniqueID == a2.uniqueID, "expected uniqueIDs to be different")
+    }
+    
     func test_answerUsesOtherTokensListToo() {
         let a1 = PushAnswer(length: 4, commands: ["a", "b"], otherTokens: ["x"], commandRatio: 0.0)
         XCTAssertTrue(a1.template == ["x", "x", "x", "x"], "didn't expect template to be \(a1.template)")

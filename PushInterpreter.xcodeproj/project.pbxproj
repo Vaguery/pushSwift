@@ -29,6 +29,7 @@
 		A961B509193F9EE9004289EF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A961B508193F9EE9004289EF /* Images.xcassets */; };
 		A961B50C193F9EEA004289EF /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A961B50A193F9EEA004289EF /* MainMenu.xib */; };
 		A961B518193F9EEA004289EF /* PushInterpreterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A961B517193F9EEA004289EF /* PushInterpreterTests.swift */; };
+		A97E32301A87EAE90002F899 /* Evaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97E322F1A87EAE90002F899 /* Evaluator.swift */; };
 		A99A19A61951ACE7003DDBE9 /* Progress.markdown in Resources */ = {isa = PBXBuildFile; fileRef = A99A19A51951ACE7003DDBE9 /* Progress.markdown */; };
 		A99C337E194B2C1000F70094 /* BooleanInstructionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99C337D194B2C1000F70094 /* BooleanInstructionTests.swift */; };
 		A99C3380194B374800F70094 /* RangeInstructionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99C337F194B374800F70094 /* RangeInstructionTests.swift */; };
@@ -110,8 +111,6 @@
 		A947D5C01941EE610009118D /* PushParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushParserTests.swift; sourceTree = "<group>"; };
 		A947D5C2194245F30009118D /* PushCodePointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushCodePointTests.swift; sourceTree = "<group>"; };
 		A94FB229194F030600677E51 /* Answers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answers.swift; sourceTree = "<group>"; };
-		A954F0DE195C3F2400EF5B3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A954F0E6195C408100EF5B3A /* AnswerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerTests.swift; sourceTree = "<group>"; };
 		A95A00051A82FD1F006E275E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A961B4FF193F9EE9004289EF /* PushInterpreter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PushInterpreter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A961B503193F9EE9004289EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -122,6 +121,7 @@
 		A961B511193F9EEA004289EF /* PushInterpreterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PushInterpreterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A961B516193F9EEA004289EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A961B517193F9EEA004289EF /* PushInterpreterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushInterpreterTests.swift; sourceTree = "<group>"; };
+		A97E322F1A87EAE90002F899 /* Evaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Evaluator.swift; sourceTree = "<group>"; };
 		A989247D1943D4AD000C11D6 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
 		A99A19A51951ACE7003DDBE9 /* Progress.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Progress.markdown; sourceTree = "<group>"; };
 		A99C337D194B2C1000F70094 /* BooleanInstructionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooleanInstructionTests.swift; sourceTree = "<group>"; };
@@ -232,23 +232,6 @@
 			name = Instructions;
 			sourceTree = "<group>";
 		};
-		A954F0DC195C3F2400EF5B3A /* PushSearchTests */ = {
-			isa = PBXGroup;
-			children = (
-				A954F0E6195C408100EF5B3A /* AnswerTests.swift */,
-				A954F0DD195C3F2400EF5B3A /* Supporting Files */,
-			);
-			path = PushSearchTests;
-			sourceTree = "<group>";
-		};
-		A954F0DD195C3F2400EF5B3A /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				A954F0DE195C3F2400EF5B3A /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		A961B4F6193F9EE9004289EF = {
 			isa = PBXGroup;
 			children = (
@@ -257,7 +240,6 @@
 				A961B501193F9EE9004289EF /* PushInterpreter */,
 				A961B514193F9EEA004289EF /* PushInterpreterTests */,
 				A9B81E671956F4DC00A6A28D /* IntegrationTests */,
-				A954F0DC195C3F2400EF5B3A /* PushSearchTests */,
 				A90D5EB11A87CB5C00E259E1 /* SearchTests */,
 				A90D5EC01A87CB7F00E259E1 /* AnswerTests */,
 				A961B500193F9EE9004289EF /* Products */,
@@ -297,6 +279,7 @@
 				A9A838D91947E35C004414E3 /* PushPoint.swift */,
 				A9A838DB1947E3A5004414E3 /* PushInterpreter.swift */,
 				A94FB229194F030600677E51 /* Answers.swift */,
+				A97E322F1A87EAE90002F899 /* Evaluator.swift */,
 				A961B504193F9EE9004289EF /* main.swift */,
 				A961B503193F9EE9004289EF /* Info.plist */,
 			);
@@ -570,6 +553,7 @@
 				A94FB22A194F030600677E51 /* Answers.swift in Sources */,
 				A919F02E194B76670097AFBB /* NameInstructions.swift in Sources */,
 				A9A838E01947E54E004414E3 /* PushInstructions.swift in Sources */,
+				A97E32301A87EAE90002F899 /* Evaluator.swift in Sources */,
 				A9B17AC0194B27D0003F2048 /* IntegerInstructions.swift in Sources */,
 				A919F02A194B6B400097AFBB /* FloatInstructions.swift in Sources */,
 			);
@@ -914,6 +898,7 @@
 				A90D5EB91A87CB5C00E259E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A90D5EC71A87CB7F00E259E1 /* Build configuration list for PBXNativeTarget "AnswerTests" */ = {
 			isa = XCConfigurationList;
@@ -922,6 +907,7 @@
 				A90D5EC91A87CB7F00E259E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A961B4FA193F9EE9004289EF /* Build configuration list for PBXProject "PushInterpreter" */ = {
 			isa = XCConfigurationList;
