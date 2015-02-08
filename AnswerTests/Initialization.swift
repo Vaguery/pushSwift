@@ -51,20 +51,21 @@ class AnswerInitializationTests: XCTestCase {
         XCTAssertTrue(a1.template.count == 20, "didn't expect tokens to be \(a1.template)")
     }
     
-    // TODO: These need to be better tests of what's being checked
     func test_defaultTokenListComesFromPushInterpreter() {
         let a1 = PushAnswer(length:10)
-        XCTAssertTrue(a1.template.count == 10, "didn't expect tokens to be \(a1.template)")
+        XCTAssertTrue(a1.myInstructions == a1.myInterpreter.activePushInstructions, "didn't expect instructions to be \(a1.myInstructions)")
     }
     
     func test_defaultTokensCanBeOverridden() {
         let a1 = PushAnswer(length:10,commands:["foo"],otherTokens:["x"])
-        XCTAssertTrue(a1.template.count == 10, "didn't expect tokens to be \(a1.template)")
+        let remainingTokens = a1.template.filter { $0 != "foo" && $0  != "x" }
+        XCTAssertTrue(remainingTokens.count == 0, "didn't expect to find \(remainingTokens)")
     }
     
     func test_defaultRatioBeOverridden() {
         let a1 = PushAnswer(length:10,commands:["foo"],otherTokens:["x"],commandRatio:0.0)
-        XCTAssertTrue(a1.template.count == 10, "didn't expect tokens to be \(a1.template)")
+        let nonXtokens = a1.template.filter { $0  != "x" }
+        XCTAssertTrue(nonXtokens.count == 0, "didn't expect tokens to be \(a1.template)")
     }
     
 }

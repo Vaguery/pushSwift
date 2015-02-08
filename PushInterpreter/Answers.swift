@@ -45,7 +45,7 @@ public class PushAnswer {
     public var literals:Dictionary<String,PushPoint>
     public var myInstructions:[String] = []
     public let uniqueID = NSUUID()
-    var myInterpreter:PushInterpreter
+    public var myInterpreter:PushInterpreter
     
     
     public init(length:Int,
