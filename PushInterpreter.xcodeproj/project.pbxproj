@@ -44,6 +44,7 @@
 		A9B17AC4194B2AB1003F2048 /* BooleanInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B17AC3194B2AB1003F2048 /* BooleanInstructions.swift */; };
 		A9B81E6B1956F4DC00A6A28D /* IntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B81E6A1956F4DC00A6A28D /* IntegrationTests.swift */; };
 		A9CAE67B19432BC0006E5A9B /* InterpreterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CAE67A19432BC0006E5A9B /* InterpreterTests.swift */; };
+		A9D0B4D21A88C7AE00A41B27 /* PushTrainingScenarioTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D0B4D11A88C7AE00A41B27 /* PushTrainingScenarioTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +142,7 @@
 		A9B81E691956F4DC00A6A28D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9B81E6A1956F4DC00A6A28D /* IntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTests.swift; sourceTree = "<group>"; };
 		A9CAE67A19432BC0006E5A9B /* InterpreterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterpreterTests.swift; sourceTree = "<group>"; };
+		A9D0B4D11A88C7AE00A41B27 /* PushTrainingScenarioTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushTrainingScenarioTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +188,7 @@
 		A90D5EB11A87CB5C00E259E1 /* SearchTests */ = {
 			isa = PBXGroup;
 			children = (
+				A9D0B4D11A88C7AE00A41B27 /* PushTrainingScenarioTest.swift */,
 				A97E32311A8800420002F899 /* SimpleEvaluatorTest.swift */,
 				A90D5EB41A87CB5C00E259E1 /* SearchTests.swift */,
 				A90D5EB21A87CB5C00E259E1 /* Supporting Files */,
@@ -528,6 +531,7 @@
 			files = (
 				A90D5EB51A87CB5C00E259E1 /* SearchTests.swift in Sources */,
 				A97E32321A8800420002F899 /* SimpleEvaluatorTest.swift in Sources */,
+				A9D0B4D21A88C7AE00A41B27 /* PushTrainingScenarioTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -102,6 +102,23 @@ public class PushAnswer {
                     script += "\(token) "
             }
         }
-        
+            
+        myInterpreter.resetWithScript(script)
+    }
+    
+    public func reset() {
+        myInterpreter.reset()
+    }
+    
+    public func resetWithBindings(new_bindings:[String:String]) {
+        myInterpreter.reset()
+        for (variable_name,unparsed_pt) in new_bindings {
+            myInterpreter.bindings[variable_name] =
+                PushPoint.Block(myInterpreter.parse(unparsed_pt))
+        }
+    }
+    
+    public func run() {
+        myInterpreter.run()
     }
 }
