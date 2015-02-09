@@ -66,5 +66,4 @@ public class PushStaticTrainingScenario: PushScenario {
             return score
         }
     }
-    
 }

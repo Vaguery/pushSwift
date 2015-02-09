@@ -50,7 +50,7 @@ class PushStaticTrainingScenarioTest: XCTestCase {
     func test_MultipleScenariosCreateMultipleScores() {
         var a1 = PushAnswer(length: 3, commands: ["x"], otherTokens: [], commandRatio: 1.0)
         let what_number = {(a:PushAnswer) -> Double in
-            let num = a1.myInterpreter.intStack.pop()!.value as Int
+            let num = a.myInterpreter.intStack.pop()!.value as Int
             return Double(num)
         }
         let threeScenario = PushStaticTrainingScenario(scenario_bindings:["x":"3"],scorer:what_number)
