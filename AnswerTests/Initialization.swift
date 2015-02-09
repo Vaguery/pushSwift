@@ -53,7 +53,7 @@ class AnswerInitializationTests: XCTestCase {
     
     func test_defaultTokenListComesFromPushInterpreter() {
         let a1 = PushAnswer(length:10)
-        XCTAssertTrue(a1.myInstructions == a1.myInterpreter.activePushInstructions, "didn't expect instructions to be \(a1.myInstructions)")
+        XCTAssertTrue(a1.myInstructions == a1.interpreter.activePushInstructions, "didn't expect instructions to be \(a1.myInstructions)")
     }
     
     func test_defaultTokensCanBeOverridden() {

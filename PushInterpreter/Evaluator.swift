@@ -59,7 +59,7 @@ public class PushStaticTrainingScenario: PushScenario {
             return prior_score
         } else {
             a.resetWithBindings(bindings)
-            a.myInterpreter.run()
+            a.interpreter.run()
             
             let score = score_function(a)
             a.scores[self.uniqueID] = score

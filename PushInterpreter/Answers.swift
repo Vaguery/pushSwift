@@ -45,7 +45,7 @@ public class PushAnswer {
     public var literals:[String:PushPoint]
     public var myInstructions:[String] = []
     public let uniqueID = NSUUID()
-    public var myInterpreter:PushInterpreter
+    public var interpreter:PushInterpreter
     
     
     public init(length:Int,
@@ -53,11 +53,11 @@ public class PushAnswer {
         otherTokens:[String]=["(",")","«int»","«bool»","«float»"],
         commandRatio:Double=0.5) {
         
-        myInterpreter = PushInterpreter()
+        interpreter = PushInterpreter()
         myInstructions = []
             
         if commands.count == 0 {
-            myInstructions = myInterpreter.activePushInstructions
+            myInstructions = interpreter.activePushInstructions
         } else {
             myInstructions = commands
         }
@@ -103,22 +103,22 @@ public class PushAnswer {
             }
         }
             
-        myInterpreter.resetWithScript(script)
+        interpreter.resetWithScript(script)
     }
     
     public func reset() {
-        myInterpreter.reset()
+        interpreter.reset()
     }
     
     public func resetWithBindings(new_bindings:[String:String]) {
-        myInterpreter.reset()
+        interpreter.reset()
         for (variable_name,unparsed_pt) in new_bindings {
-            myInterpreter.bindings[variable_name] =
-                PushPoint.Block(myInterpreter.parse(unparsed_pt))
+            interpreter.bindings[variable_name] =
+                PushPoint.Block(interpreter.parse(unparsed_pt))
         }
     }
     
     public func run() {
-        myInterpreter.run()
+        interpreter.run()
     }
 }

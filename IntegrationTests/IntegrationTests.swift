@@ -17,11 +17,11 @@ class IntegrationTests: XCTestCase {
     func test_manyScripts() {
         for i in 1...50 {
             var guy = PushAnswer(length: 50)
-            guy.myInterpreter = PushInterpreter(script:guy.script,bindings:guy.literals)
+            guy.interpreter = PushInterpreter(script:guy.script,bindings:guy.literals)
             guy.run()
             println("---\n\(guy.script)")
-            println("\n\(i), \(guy.myInterpreter.steps),  \(guy.myInterpreter.codeStack.items), \(guy.myInterpreter.floatStack.items), \(guy.myInterpreter.intStack.items), \(guy.myInterpreter.boolStack.items), \(guy.myInterpreter.rangeStack.items)")
-            if let sortof_returned = guy.myInterpreter.intStack.pop() {
+            println("\n\(i), \(guy.interpreter.steps),  \(guy.interpreter.codeStack.items), \(guy.interpreter.floatStack.items), \(guy.interpreter.intStack.items), \(guy.interpreter.boolStack.items), \(guy.interpreter.rangeStack.items)")
+            if let sortof_returned = guy.interpreter.intStack.pop() {
                 println("\n\(sortof_returned.description)")
             } else {
                 println("\nNo Answer")

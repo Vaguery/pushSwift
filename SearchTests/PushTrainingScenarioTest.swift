@@ -20,9 +20,9 @@ class PushStaticTrainingScenarioTest: XCTestCase {
         let dummy_score = {(a:PushAnswer) -> Double in return 6.0 }
         let ioScenario = PushStaticTrainingScenario(scenario_bindings:["x":"123","y":"F"],scorer:dummy_score)
         ioScenario.score(a1)
-        XCTAssertTrue(a1.myInterpreter.bindings.count == 2,"should be 2 bindings")
-        XCTAssertTrue(a1.myInterpreter.bindings["x"]!.description == "( 123 )", "nope")
-        XCTAssertTrue(a1.myInterpreter.bindings["y"]!.description == "( F )", "nope")
+        XCTAssertTrue(a1.interpreter.bindings.count == 2,"should be 2 bindings")
+        XCTAssertTrue(a1.interpreter.bindings["x"]!.description == "( 123 )", "nope")
+        XCTAssertTrue(a1.interpreter.bindings["y"]!.description == "( F )", "nope")
     }
     
     
@@ -30,9 +30,9 @@ class PushStaticTrainingScenarioTest: XCTestCase {
         var a1 = PushAnswer(length: 3, commands: ["x"], otherTokens: [], commandRatio: 1.0)
         let dummy_score = {(a:PushAnswer) -> Double in return 6.0 }
         let ioScenario = PushStaticTrainingScenario(scenario_bindings:["x":"123","y":"F"],scorer:dummy_score)
-        XCTAssertTrue(a1.myInterpreter.script == "x x x ","script should have been \"\(a1.myInterpreter.script)\"")
+        XCTAssertTrue(a1.interpreter.script == "x x x ","script should have been \"\(a1.interpreter.script)\"")
         ioScenario.score(a1)
-        XCTAssertTrue(a1.myInterpreter.intStack.description == "[ 123 123 123 ]","intStack should be \(a1.myInterpreter.intStack.description)")
+        XCTAssertTrue(a1.interpreter.intStack.description == "[ 123 123 123 ]","intStack should be \(a1.interpreter.intStack.description)")
     }
     
     
@@ -41,7 +41,7 @@ class PushStaticTrainingScenarioTest: XCTestCase {
         let dummy_score = {(a:PushAnswer) -> Double in return 6.0 }
         let ioScenario = PushStaticTrainingScenario(scenario_bindings:["x":"123"],scorer:dummy_score)
         let score = ioScenario.score(a1)
-        XCTAssertTrue(a1.myInterpreter.intStack.description == "[ 123 123 123 ]","intStack should be \(a1.myInterpreter.intStack.description)")
+        XCTAssertTrue(a1.interpreter.intStack.description == "[ 123 123 123 ]","intStack should be \(a1.interpreter.intStack.description)")
         XCTAssertTrue(score == 6.0, "Expected 6.0, got \(score)")
         XCTAssertTrue(a1.scores[ioScenario.uniqueID] == 6.0, "Expected 6.0, got \(score)")
     }
@@ -50,7 +50,7 @@ class PushStaticTrainingScenarioTest: XCTestCase {
     func test_MultipleScenariosCreateMultipleScores() {
         var a1 = PushAnswer(length: 3, commands: ["x"], otherTokens: [], commandRatio: 1.0)
         let what_number = {(a:PushAnswer) -> Double in
-            let num = a.myInterpreter.intStack.pop()!.value as Int
+            let num = a.interpreter.intStack.pop()!.value as Int
             return Double(num)
         }
         let threeScenario = PushStaticTrainingScenario(scenario_bindings:["x":"3"],scorer:what_number)

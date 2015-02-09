@@ -23,13 +23,13 @@ class InterpreterTests: XCTestCase {
     // initialization
 
     func testNewInterpreterHasStandardStacks() {
-        var myInterpreter = PushInterpreter()
-        XCTAssertTrue(myInterpreter.intStack.length()   == 0, "intStack not empty")
-        XCTAssertTrue(myInterpreter.boolStack.length()  == 0, "boolStack not empty")
-        XCTAssertTrue(myInterpreter.floatStack.length() == 0, "floatStack not empty")
-        XCTAssertTrue(myInterpreter.nameStack.length()  == 0, "nameStack not empty")
-        XCTAssertTrue(myInterpreter.codeStack.length()  == 0, "codeStack not empty")
-        XCTAssertTrue(myInterpreter.execStack.length()  == 1, "execStack contains program")
+        var interpreter = PushInterpreter()
+        XCTAssertTrue(interpreter.intStack.length()   == 0, "intStack not empty")
+        XCTAssertTrue(interpreter.boolStack.length()  == 0, "boolStack not empty")
+        XCTAssertTrue(interpreter.floatStack.length() == 0, "floatStack not empty")
+        XCTAssertTrue(interpreter.nameStack.length()  == 0, "nameStack not empty")
+        XCTAssertTrue(interpreter.codeStack.length()  == 0, "codeStack not empty")
+        XCTAssertTrue(interpreter.execStack.length()  == 1, "execStack contains program")
     }
     
     func testNewInterpreterHasEmptyScriptIfNoneProvided() {
