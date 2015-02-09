@@ -45,4 +45,21 @@ class PushStaticTrainingScenarioTest: XCTestCase {
         XCTAssertTrue(score == 6.0, "Expected 6.0, got \(score)")
         XCTAssertTrue(a1.scores[ioScenario.uniqueID] == 6.0, "Expected 6.0, got \(score)")
     }
+    
+    
+    func test_MultipleScenariosCreateMultipleScores() {
+        var a1 = PushAnswer(length: 3, commands: ["x"], otherTokens: [], commandRatio: 1.0)
+        let what_number = {(a:PushAnswer) -> Double in
+            let num = a1.myInterpreter.intStack.pop()!.value as Int
+            return Double(num)
+        }
+        let threeScenario = PushStaticTrainingScenario(scenario_bindings:["x":"3"],scorer:what_number)
+        let minusThreeScenario = PushStaticTrainingScenario(scenario_bindings:["x":"-3"],scorer:what_number)
+        var score = threeScenario.score(a1)
+        XCTAssertTrue(score == 3.0, "Expected 3.0, got \(score)")
+        score = minusThreeScenario.score(a1)
+        XCTAssertTrue(score == -3.0, "Expected -3.0, got \(score)")
+        XCTAssertTrue(a1.scores.count == 2, "expected 2 scores, got \(a1.scores.count)")
+    }
+
 }
