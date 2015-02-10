@@ -102,8 +102,11 @@ public class PushAnswer {
                     script += "\(token) "
             }
         }
-            
+        
         interpreter.resetWithScript(script)
+        for (erc,push_value) in literals {
+            interpreter.bindings[erc] = push_value
+        }
     }
     
     public func reset() {

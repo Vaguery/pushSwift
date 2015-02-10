@@ -15,17 +15,26 @@ class IntegrationTests: XCTestCase {
     // create and run scripts
     
     func test_manyScripts() {
-        for i in 1...50 {
-            var guy = PushAnswer(length: 50)
-            guy.interpreter = PushInterpreter(script:guy.script,bindings:guy.literals)
-            guy.run()
+        for i in 1...100 {
+            var guy = PushAnswer(
+                length: 30,
+                otherTokens:["(",")","«int»","«bool»","«float»","x"])
+            var results = [String]()
+            
             println("---\n\(guy.script)")
-            println("\n\(i), \(guy.interpreter.steps),  \(guy.interpreter.codeStack.items), \(guy.interpreter.floatStack.items), \(guy.interpreter.intStack.items), \(guy.interpreter.boolStack.items), \(guy.interpreter.rangeStack.items)")
-            if let sortof_returned = guy.interpreter.intStack.pop() {
-                println("\n\(sortof_returned.description)")
-            } else {
-                println("\nNo Answer")
+            
+            for x in -5...5 {
+                guy.resetWithBindings(["x":"\(x*4)"])
+                guy.run()
+//                println("\n\(i), \(guy.interpreter.steps)")
+//                println("\n\(guy.interpreter.codeStack.items), \(guy.interpreter.floatStack.items), \(guy.interpreter.intStack.items), \(guy.interpreter.boolStack.items), \(guy.interpreter.rangeStack.items)")
+                if let sortof_returned = guy.interpreter.intStack.pop() {
+                    results.append(sortof_returned.description)
+                } else {
+                    results.append("No Answer")
+                }
             }
+            println("\(results)")
         }
     }
 
