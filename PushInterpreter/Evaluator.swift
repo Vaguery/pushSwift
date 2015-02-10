@@ -10,10 +10,8 @@ import Foundation
 
 
 public class PushScenario {
-    public var uniqueID:NSUUID
 
     public init() {
-        uniqueID = NSUUID()
     }
     
     public func score(PushAnswer) -> Double {
@@ -25,45 +23,51 @@ public class PushScenario {
 
 public class PushOneTimeScenario: PushScenario {
     var score_function:(PushAnswer)->Double
+    public var name:String
 
-    public init(scorer:(PushAnswer)->Double) {
+    public init(name:String,
+            scorer:(PushAnswer)->Double) {
+        self.name = name
         score_function = scorer
-        super.init()
     }
     
     override public func score(a:PushAnswer)-> Double {
-        if let possible_score = a.scores[uniqueID]? {
+        if let possible_score = a.scores[self.name]? {
             return possible_score
         } else {
             let result = score_function(a)
-            a.scores[self.uniqueID] = result
+            a.scores[self.name] = result
             return result
         }
     }
 }
 
 
+
 public class PushStaticTrainingScenario: PushScenario {
+    public var name:String
     public var bindings:[String:String]
     var score_function:(PushAnswer)->Double
 
 
-    public init(scenario_bindings:[String:String],scorer:(PushAnswer)->Double) {
+    public init(name:String,
+            scenario_bindings:[String:String],
+            scorer:(PushAnswer)->Double) {
+        self.name = name + " \(scenario_bindings)"
         score_function = scorer
         bindings = scenario_bindings
-        super.init()
     }
 
     override public func score(a:PushAnswer) -> Double {
-        if let prior_score = a.scores[uniqueID]? {
+        if let prior_score = a.scores[self.name]? {
             return prior_score
         } else {
             a.resetWithBindings(bindings)
             a.interpreter.run()
             
-            let score = score_function(a)
-            a.scores[self.uniqueID] = score
-            return score
+            let result = score_function(a)
+            a.scores[self.name] = result
+            return result
         }
     }
 }

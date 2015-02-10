@@ -39,7 +39,7 @@ public func randomFloatERC() -> Double {
 
 
 public class PushAnswer {
-    public var scores = [NSUUID:Double]()
+    public var scores = [String:Double]()
     public var template = [String]()
     public var script : String = ""
     public var literals:[String:PushPoint]
