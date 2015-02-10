@@ -104,17 +104,24 @@ public class PushAnswer {
         }
         
         interpreter.resetWithScript(script)
+        self.reset()
+    }
+    
+    
+    public func reset() {
+        interpreter.reset()
+        interpreter.bindings.removeAll(keepCapacity: true)
         for (erc,push_value) in literals {
             interpreter.bindings[erc] = push_value
         }
     }
     
-    public func reset() {
-        interpreter.reset()
-    }
-    
     public func resetWithBindings(new_bindings:[String:String]) {
         interpreter.reset()
+        interpreter.bindings.removeAll(keepCapacity: true)
+        for (erc,push_value) in literals {
+            interpreter.bindings[erc] = push_value
+        }
         for (variable_name,unparsed_pt) in new_bindings {
             interpreter.bindings[variable_name] =
                 PushPoint.Block(interpreter.parse(unparsed_pt))

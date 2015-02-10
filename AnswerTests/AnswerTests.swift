@@ -56,6 +56,15 @@ class AnswerTests: XCTestCase {
         var a1 = PushAnswer(length: 100,commandRatio: 0.0)
         let old_bindings_count = a1.interpreter.bindings.count
         a1.resetWithBindings(["x":"22222", "y":"F T F"])
-        XCTAssertTrue(a1.interpreter.bindings.count == old_bindings_count + 2, "expected \(old_bindings_count+2) bindings but only see \(a1.interpreter.bindings.count)")
+        XCTAssertTrue(a1.interpreter.bindings.count == old_bindings_count + 2, "expected \(old_bindings_count+2) bindings but see \(a1.interpreter.bindings.count)")
     }
+    
+    func test_doublyResetAnswerHasTheRightBindings() {
+        var a1 = PushAnswer(length: 100,commandRatio: 0.0)
+        let old_bindings_count = a1.interpreter.bindings.count
+        a1.resetWithBindings(["x":"22222", "y":"F T F"])
+        a1.resetWithBindings([String:String]())
+        XCTAssertTrue(a1.interpreter.bindings.count == old_bindings_count, "expected \(old_bindings_count) bindings but see \(a1.interpreter.bindings.count)")
+    }
+
 }
