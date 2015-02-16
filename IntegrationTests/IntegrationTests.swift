@@ -17,14 +17,14 @@ class IntegrationTests: XCTestCase {
     func test_manyScripts() {
         for i in 1...100 {
             var guy = PushAnswer(
-                length: 30,
+                length: 100,
                 otherTokens:["(",")","«int»","«bool»","«float»","x"])
             var results = [String]()
             
             println("---\n\(guy.script)")
             
-            for x in -5...5 {
-                guy.resetWithBindings(["x":"\(x*4)"])
+            for x in 1...3 {
+                guy.resetWithBindings(["x":"\(x)"])
                 guy.run()
 //                println("\n\(i), \(guy.interpreter.steps)")
 //                println("\n\(guy.interpreter.codeStack.items), \(guy.interpreter.floatStack.items), \(guy.interpreter.intStack.items), \(guy.interpreter.boolStack.items), \(guy.interpreter.rangeStack.items)")

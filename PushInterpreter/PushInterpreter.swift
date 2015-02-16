@@ -16,7 +16,7 @@ public class PushInterpreter {
     public var script:String = ""
     public var program:PushPoint = PushPoint.Block([])
     public var steps = 0
-    public var stepLimit = 5000
+    public var stepLimit = 1000
     public var allPushInstructions:Dictionary<String,Void->Void>
     public var activePushInstructions:[String]
 
