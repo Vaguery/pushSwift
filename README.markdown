@@ -1,5 +1,8 @@
 pushSwift
 =========
+
+## NOTE: This software was written for the Swift 1.0 beta release; it needs to be updated for modern Swift releases.
+
 A Mac desktop genetic programming system using a simple interpreted language based closely on the [PushGP system for genetic programming](http://faculty.hampshire.edu/lspector/push.html) (work by Lee Spector, Maarten Keijzer, Jon Klein, Chris Perry and Tom Helmuth, among others).
 
 With several amendments.
